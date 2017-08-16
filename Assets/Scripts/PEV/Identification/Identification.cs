@@ -1,12 +1,13 @@
+
+[System.Serializable]
 public static class Identification {
 
-
+    [System.Serializable]
     public enum Army { Humans, Orcs, Neutrals };
 
-    public enum UnitType : int {Archer = 0, Swordsman = 1, Horseman = 2,
-        Palace, Barrack};
-
-//    public enum BuildingType {Main = 0, Barrack = 1}
+    [System.Serializable]
+    public enum UnitType {Archer, Swordsman, Horseman,
+        GeneralHouse, Barrack, Farm, Forge, Quarry, Sawmill, SimpleHouse, WatchTower};
 
 
 }

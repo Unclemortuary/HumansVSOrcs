@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class InputChecker : MonoBehaviour {
 
 
+    [SerializeField]
     private float mouseSpeed = 2;
+    [SerializeField]
     private float mouseWheelSpeed = 3;
 
 
@@ -14,8 +16,12 @@ public class InputChecker : MonoBehaviour {
 
     [SerializeField]
     private int currentUnitTypeIndex = 0;
+    private int numOfTypes = 11;
 
 
+
+    [SerializeField]
+    private float borderDelta = 10;
 
 
     [SerializeField]
@@ -29,6 +35,7 @@ public class InputChecker : MonoBehaviour {
     private bool nowIsSun = true;
 
     public void SunMoonChange() {
+        print("change");
         if (nowIsSun) {
             sunMoonImage.overrideSprite = moon;
         } else {
@@ -49,28 +56,31 @@ public class InputChecker : MonoBehaviour {
 
 
 // Update is called once per frame
-	void Update () {
+    void Update () {
 
 //        print("mouse x = " + Input.mousePosition.x + ", screen width = " + Screen.width
 //                            + ", screen height = " + Screen.height);
 
-        if (Input.mousePosition.x >= Screen.width) {
+        if (Input.mousePosition.x >= Screen.width - borderDelta) {
             cameraMover.ShiftX(mouseSpeed);
             HUDscript.HideFloatingPanel();
-        } else if (Input.mousePosition.x <= 0) {
+        } else if (Input.mousePosition.x <= borderDelta) {
             cameraMover.ShiftX(-mouseSpeed);
             HUDscript.HideFloatingPanel();
         }
 
-        if (Input.mousePosition.y >= Screen.height) {
+        if (Input.mousePosition.y >= Screen.height-borderDelta) {
             cameraMover.ShiftZ(mouseSpeed);
             HUDscript.HideFloatingPanel();
-        } else if (Input.mousePosition.y <= 0) {
+        } else if (Input.mousePosition.y <= borderDelta) {
             cameraMover.ShiftZ(-mouseSpeed);
             HUDscript.HideFloatingPanel();
         }
 
 
+        if (Input.GetKey(KeyCode.Escape)) {
+            Application.Quit();
+        }
 
 //        cameraMover.ShiftX( Input.GetAxis( "Mouse X") * mouseSpeed );
 //        cameraMover.ShiftZ( Input.GetAxis( "Mouse Y") * mouseSpeed );
@@ -93,7 +103,7 @@ public class InputChecker : MonoBehaviour {
 
 
         if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            currentUnitTypeIndex = (currentUnitTypeIndex + 1) % 5;
+            currentUnitTypeIndex = (currentUnitTypeIndex + 1) % numOfTypes;
         }
 
     } // Update //
@@ -119,10 +129,10 @@ public class InputChecker : MonoBehaviour {
                 switch(unitId.Army) {
                     case Identification.Army.Humans:
                         clickedUnitArmyManager = GameManager.Instance.HumanArmyManager;
-                    break;
+                        break;
                     case Identification.Army.Orcs:
                         clickedUnitArmyManager = GameManager.Instance.OrcArmyManager;
-                    break;
+                        break;
                 }
 
                 AbstractGameUnit unit = clickedUnitArmyManager.FindGameUnit(unitId.PersonalID);
@@ -133,27 +143,16 @@ public class InputChecker : MonoBehaviour {
 
             } else {
 
-                print("Hitpoint=" + hit.point);
+//                print("Hitpoint=" + hit.point + ", currentTypeIndex=" + currentUnitTypeIndex + ":" + (Identification.UnitType)currentUnitTypeIndex);
 
                 AbstractGameUnit unit = null;
 
-                switch (currentUnitTypeIndex) {
-                    case 0:
-                        unit = armyManager.CreateWarrior(Identification.UnitType.Archer, hit.point);
-                        break;
-                    case 1:
-                        unit = armyManager.CreateWarrior(Identification.UnitType.Swordsman, hit.point);
-                        break;
-                    case 2:
-                        unit = armyManager.CreateWarrior(Identification.UnitType.Horseman, hit.point);
-                        break;
-                    case 3:
-                        unit = armyManager.CreateBuilding(Identification.UnitType.Palace, hit.point);
-                        break;
-                    case 4:
-                        unit = armyManager.CreateBuilding(Identification.UnitType.Barrack, hit.point);
-                        break;
+                if (currentUnitTypeIndex < 3) {
+                    unit = armyManager.CreateWarrior((Identification.UnitType)currentUnitTypeIndex, hit.point);
+                } else {
+                    unit = armyManager.CreateBuilding((Identification.UnitType)currentUnitTypeIndex, hit.point);
                 }
+
 
 
                 HUDscript.Message("Last created: " + unit.Description);
@@ -164,5 +163,6 @@ public class InputChecker : MonoBehaviour {
         } // if raycast //
 
     } // Create current unit //
+
 
 }

@@ -1,25 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMover : MonoBehaviour {
 
-//    private Rect mapRect;
-//    public Rect MapRect {
-//        get {
-//            return mapRect;
-//        }
-//        set {
-//            mapRect = value;
-//        }
-//    }
-//
-//    private float minDistance = 10;
-//    private float maxDistan ;
 
     private Camera thisCamera;
 
-    private float CameraHeight = 50f;
 
     [SerializeField]
     private Vector3 minPoint = new Vector3(7, 35, 5);
@@ -75,22 +60,22 @@ public class CameraMover : MonoBehaviour {
 
 
 
-	// Use this for initialization
-	void Start () {
+// Use this for initialization
+    void Start () {
         thisCamera = gameObject.GetComponent<Camera>();
 
-		moveAtPosition = transform.position;
+        moveAtPosition = transform.position;
         minPoint.y = moveAtPosition.y;
         maxPoint.y = moveAtPosition.y;
 
         moveAtCamSize = thisCamera.orthographicSize;
 
 //        moveAtPosition = new Vector3(100, 100, 100);
-	} // Start() //
+    } // Start() //
 
-	
-	// Update is called once per frame
-	void Update () {
+
+// Update is called once per frame
+    void Update () {
 
         if (transform.position != moveAtPosition) {
 
@@ -112,9 +97,7 @@ public class CameraMover : MonoBehaviour {
             }
         }
 
-	} // Update() //
+    } // Update() //
 
 
-
-} // End Of Class //
-
+}
