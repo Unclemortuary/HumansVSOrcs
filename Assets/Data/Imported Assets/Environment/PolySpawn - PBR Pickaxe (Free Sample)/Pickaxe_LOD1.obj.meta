@@ -1,18 +1,19 @@
 fileFormatVersion: 2
-guid: a433aa90b037e484eb8581a16f5f19f6
-timeCreated: 1471269911
+guid: 647444ac140a9ff458f84e4c5207e4df
+timeCreated: 1431410136
 licenseType: Store
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Cylinder.009
-    4300002: Rock-3
+    100000: Pickaxe_LOD1
+    100002: //RootNode
+    400000: Pickaxe_LOD1
+    400002: //RootNode
+    2300000: Pickaxe_LOD1
+    3300000: Pickaxe_LOD1
+    4300000: Pickaxe_LOD1
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -55,7 +56,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 3
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
