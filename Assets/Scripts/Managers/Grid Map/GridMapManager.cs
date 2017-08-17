@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class GridMapManager : MonoBehaviour {
 
+	public static GridMapManager instance;
+
 	private Cell[,] map;
 
 	[SerializeField]
@@ -23,8 +25,10 @@ public class GridMapManager : MonoBehaviour {
 	public float CellSize { get { return cellSize; } }
 
 
-	void Start()
+	void Awake()
 	{
+		if (instance == null)
+			instance = this;
 		terrain = Terrain.activeTerrain;
 		GenerateMap ();
 	}
