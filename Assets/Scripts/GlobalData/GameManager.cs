@@ -126,6 +126,13 @@ public class GameManager : MonoBehaviour {
 
 
 
+    /////////////////////////////////
+
+    public void HereIAm(RTSMonoBehaviour monobeh) {
+//        monobeh.SetArmyManager();
+//        monobeh.SetDispatcher();
+    }
+
 
 
 } // End of class //

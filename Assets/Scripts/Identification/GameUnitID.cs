@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameUnitID : MonoBehaviour {
+public class GameUnitID : RTSMonoBehaviour {
 
     [SerializeField]
     private int personalID;

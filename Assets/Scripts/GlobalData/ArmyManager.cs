@@ -1,26 +1,19 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ArmyManager {
 
     private CommonGameUnitFactory warriorFactory;
-//    public AbstractWarriorFactory WarriorFactory {
-//        get {
-//            return warriorFactory;
-//        }
-//    }
 
     private CommonGameUnitFactory buildingFactory;
-//    public AbstractBuildingFactory BuildingFactory {
-//        get {
-//            return buildingFactory;
-//        }
-//    }
 
 
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! *************** //
 //    private Controller controller;
+
+
 
     private string description;
     public string ArmyDescription {
@@ -42,6 +35,35 @@ public class ArmyManager {
 
 
 
+    private AbstractGameUnit CreateUnit(CommonGameUnitFactory factory, Identification.UnitType type,
+            Vector3 position, Dictionary<int, AbstractGameUnit> unitsStorage) {
+
+        AbstractGameUnit newUnit = null;
+        newUnit = factory.CreateGameUnit(type, position);
+        newUnit.ID = nextID;
+
+        newUnit.Description = GenerateDescription(type, newUnit);
+
+        GameUnitID unitId = newUnit.Avatar.AddComponent<GameUnitID>();
+        unitId.PersonalID = newUnit.ID;
+        unitId.Army = thisArmy;
+
+        nextID++;
+
+        unitsStorage.Add(newUnit.ID, newUnit);
+
+        return newUnit;
+    }
+
+    private string GenerateDescription(Identification.UnitType type, AbstractGameUnit unit) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.Append("Unit of type ").Append(type.ToString());
+        sb.Append(" in army of " + thisArmy.ToString());
+
+        return sb.ToString();
+    }
+
 ///////////////////////////////////////////////////////////////////////////////
 ///// PUBLIC //////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,32 +71,7 @@ public class ArmyManager {
 
     public AbstractGameUnit CreateWarrior(Identification.UnitType type, Vector3 position) {
 
-        AbstractGameUnit newUnit = null;
-        newUnit = warriorFactory.CreateGameUnit(type, position);
-
-//        switch (type) {
-//            case Identification.UnitType.Archer:
-//                newUnit = warriorFactory.CreateArcher(position);
-//            break;
-//            case Identification.UnitType.Swordsman:
-//                newUnit = warriorFactory.CreateSwordsman(position);
-//            break;
-//            case Identification.UnitType.Horseman:
-//                newUnit = warriorFactory.CreateHorseman(position);
-//            break;
-//        }
-
-        newUnit.ID = nextID;
-        newUnit.Description = "Soldier - " + type.ToString() + " of " + ArmyDescription;
-
-        GameUnitID unitId = newUnit.Avatar.AddComponent<GameUnitID>();
-        unitId.PersonalID = newUnit.ID;
-        unitId.Army = thisArmy;
-
-        warriors.Add(nextID, newUnit);
-
-
-        nextID++;
+        AbstractGameUnit newUnit = CreateUnit(warriorFactory, type, position, warriors);
 
         return newUnit;
     }
@@ -82,22 +79,15 @@ public class ArmyManager {
 
     public AbstractGameUnit CreateBuilding(Identification.UnitType type, Vector3 position) {
 
-        AbstractGameUnit newUnit = null;
-        newUnit = buildingFactory.CreateGameUnit(type, position);
+        AbstractGameUnit newUnit = CreateUnit(buildingFactory, type, position, buildings);
 
-        newUnit.ID = nextID;
-        newUnit.Description = "Building - " + type.ToString() + " of " + ArmyDescription;
-
-        buildings.Add(nextID, newUnit);
-
-        GameUnitID unitId = newUnit.Avatar.AddComponent<GameUnitID>();
-        unitId.PersonalID = newUnit.ID;
-        unitId.Army = thisArmy;
-
-        nextID++;
+        // This is a building //
+        newUnit.Avatar.AddComponent<BuildingComponent>();
 
         return newUnit;
     }
+
+
 
 
     public AbstractGameUnit FindGameUnit(int id) {
@@ -111,6 +101,10 @@ public class ArmyManager {
         return null;
     }
 
+
+    public void JoinGameUnit(AbstractGameUnit unit) {
+
+    }
 
     public ArmyManager(Identification.Army army, int startingID, CommonGameUnitFactory warriorFactory,
             CommonGameUnitFactory buildingFactory /*, Controller ctrlr */) {

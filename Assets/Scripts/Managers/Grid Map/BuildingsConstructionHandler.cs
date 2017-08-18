@@ -15,14 +15,14 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 	private Renderer[] renderers;
 
 	[SerializeField]
-	private Building settableBuilding;
+	private BuildingComponent settableBuilding;
 
 	private bool canBuild;
 
 	void Start()
 	{
 		cellSize = GridMapManager.instance.CellSize;
-		settableBuilding = GetComponent<Building> ();
+		settableBuilding = GetComponent<BuildingComponent> ();
 		settableBuilding.gameObject.GetComponent<Collider> ().enabled = false;
 		renderers = GetComponentsInChildren<Renderer> ();
 		originShader = renderers [0].material.shader;
