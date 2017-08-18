@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class CameraMover : MonoBehaviour {
+public class CameraMoverV1 : MonoBehaviour {
 
 
     private Camera thisCamera;
 
 
     [SerializeField]
-    private Vector3 minPoint = new Vector3(7, 35, 5);
+    private Vector3 minPoint = new Vector3(24, 35, 44);
     [SerializeField]
-    private Vector3 maxPoint = new Vector3(594,  35, 594);
+    private Vector3 maxPoint = new Vector3(576,  35, 624);
 
     private float minCamSize = 5f;
     private float maxCamSize = 20f;

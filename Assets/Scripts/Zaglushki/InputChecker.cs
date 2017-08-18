@@ -12,7 +12,7 @@ public class InputChecker : MonoBehaviour {
 
 
     [SerializeField]
-    private CameraMover cameraMover;
+    private CameraMoverV2 cameraMover;
 
     [SerializeField]
     private int currentUnitTypeIndex = 0;
@@ -91,6 +91,12 @@ public class InputChecker : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (GameManager.Instance == null) {
+                print("instance = null");
+            }
+            if(GameManager.Instance.HumanArmyManager == null) {
+                print("HumanArmyManager == null");
+            }
             CreateCurrentUnit(GameManager.Instance.HumanArmyManager);
         }
 

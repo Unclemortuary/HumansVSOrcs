@@ -6,8 +6,14 @@ public static class Identification {
     public enum Army { Humans, Orcs, Neutrals };
 
     [System.Serializable]
-    public enum UnitType {Archer, Swordsman, Horseman,
-        GeneralHouse, Barrack, Farm, Forge, Quarry, Sawmill, SimpleHouse, WatchTower};
+    public enum UnitType {
+        Archer, Swordsman, Horseman,
+        GeneralHouse, Barrack, Farm, Forge, Quarry, Sawmill, SimpleHouse, WatchTower
+    };
 
+    [System.Serializable]
+    public enum RTSActionType {
+        move, stop, attack, build,
+    }
 
 }
