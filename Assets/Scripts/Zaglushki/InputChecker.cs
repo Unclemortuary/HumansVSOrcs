@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InputChecker : MonoBehaviour {
+public class InputChecker : RTSMonoBehaviour {
 
 
     [SerializeField]
@@ -94,17 +94,17 @@ public class InputChecker : MonoBehaviour {
             if (GameManager.Instance == null) {
                 print("instance = null");
             }
-            if(GameManager.Instance.HumanArmyManager == null) {
+            if(GameManager.Instance.ArmyManagers[Identification.Army.Humans] == null) {
                 print("HumanArmyManager == null");
             }
-            CreateCurrentUnit(GameManager.Instance.HumanArmyManager);
+            CreateCurrentUnit(GameManager.Instance.ArmyManagers[Identification.Army.Humans]);
         }
 
 
 
         if (Input.GetMouseButtonDown(1))
         {
-            CreateCurrentUnit(GameManager.Instance.OrcArmyManager);
+            CreateCurrentUnit(GameManager.Instance.ArmyManagers[Identification.Army.Orcs]);
         }
 
 
@@ -130,16 +130,16 @@ public class InputChecker : MonoBehaviour {
 
             if (unitId != null) {
 
-                ArmyManager clickedUnitArmyManager = null;
+                ArmyManager clickedUnitArmyManager = GameManager.Instance.ArmyManagers[unitId.Army];
 
-                switch(unitId.Army) {
-                    case Identification.Army.Humans:
-                        clickedUnitArmyManager = GameManager.Instance.HumanArmyManager;
-                        break;
-                    case Identification.Army.Orcs:
-                        clickedUnitArmyManager = GameManager.Instance.OrcArmyManager;
-                        break;
-                }
+//                switch(unitId.Army) {
+//                    case Identification.Army.Humans:
+//                        clickedUnitArmyManager = GameManager.Instance.HumanArmyManager;
+//                        break;
+//                    case Identification.Army.Orcs:
+//                        clickedUnitArmyManager = GameManager.Instance.OrcArmyManager;
+//                        break;
+//                }
 
                 AbstractGameUnit unit = clickedUnitArmyManager.FindGameUnit(unitId.PersonalID);
                 if (unit != null) {

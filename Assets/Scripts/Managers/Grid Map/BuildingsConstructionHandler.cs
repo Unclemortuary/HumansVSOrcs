@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingsConstructionHandler : MonoBehaviour {
+public class BuildingsConstructionHandler : RTSMonoBehaviour {
 
 	private float buildingWidth = 3f;
 	private float buildingHeight = 3f;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CameraMoverV2 : MonoBehaviour {
+public class CameraMoverV2 : RTSMonoBehaviour {
 
 
     private Camera thisCamera;

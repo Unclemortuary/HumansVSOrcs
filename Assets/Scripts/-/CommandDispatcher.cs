@@ -1,12 +1,11 @@
-using System;
+﻿
+using UnityEngine.Events;
 using System.Collections.Generic;
-using CommandsDispatcher;
-
-namespace CommandDispatcher {
-
-//    internal class NullParametr { };
-
-
+using System;
+using UnityEngine;
+namespace CommandsDispatcher
+{
+    internal class NullParametr { };
     public class CommandDispatcher<T> where T : struct, IComparable, IConvertible, IFormattable
     {
 
@@ -27,7 +26,6 @@ namespace CommandDispatcher {
             }
         }
 
-
         private void Init()
         {
             if (commandDictionary == null)
@@ -42,7 +40,6 @@ namespace CommandDispatcher {
             simpleCommand.Set(listener);
             AddCommandMessage(commandName, simpleCommand, id);
         }
-
 
         public void StartListening<U>(T commandName, Action<U> listener, int? id = null)
         {
@@ -84,7 +81,6 @@ namespace CommandDispatcher {
         }
 
 
-
         public void StopListening(T commandName, Action listener, int? id = null)
         {
             RemoveMessage(commandName, listener, id);
@@ -123,7 +119,6 @@ namespace CommandDispatcher {
                 }
             }
         }
-
 
         public void TriggerCommand(T commandName)
         {
@@ -165,7 +160,7 @@ namespace CommandDispatcher {
                 {
                     if (commandList[i].CompareParametrType(parametr))
                     {
-//Type p = typeof(P);
+                        //Type p = typeof(P);
                         if (func)
                         {
                             if (commandList[i].CompareCallbackType(typeof(P)))
@@ -192,16 +187,9 @@ namespace CommandDispatcher {
             {
                 foreach (var v in commandDictionary)
                 {
-                    Debug.Log(v.Key);
+                    Debug.Log(v.Key); 
                 }
             }*/
-
-
-
-
-
-
-
-
     } // class CommandDispatcher //
+
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
@@ -32,19 +33,16 @@ public class GameManager : MonoBehaviour {
 // ********************************************************************************** //
 // ********************************************************************************** //
 
-    private ArmyManager orcArmyManager;
-    public ArmyManager OrcArmyManager {
+    private Dictionary<Identification.Army, ArmyManager> armyManagers;
+
+    public Dictionary<Identification.Army, ArmyManager> ArmyManagers {
         get {
-            return orcArmyManager;
+            return armyManagers;
         }
     }
 
-    private ArmyManager humanArmyManager;
-    public ArmyManager HumanArmyManager {
-        get {
-            return humanArmyManager;
-        }
-    }
+
+    private Dictionary<Identification.Army, ArmyDispatcher> armyDispatchers;
 
     /////////////////////////////////////////////////////////////////////////////////////
 
@@ -64,6 +62,7 @@ public class GameManager : MonoBehaviour {
 
     private void InitializeGame() {
 
+        initializeArmyDispatchers();
 
         initializeArmyManagers();
 
@@ -71,6 +70,14 @@ public class GameManager : MonoBehaviour {
     }
 
 
+    private void initializeArmyDispatchers() {
+        armyDispatchers = new Dictionary<Identification.Army, ArmyDispatcher>();
+
+        foreach (Identification.Army armyType in Enum.GetValues(typeof(Identification.Army))) {
+            armyDispatchers.Add(armyType, new ArmyDispatcher());
+        }
+
+    }
 
 
     private void InitAFactory(CommonGameUnitFactory factory, TypeToGameUnitDictionary prototypes)
@@ -97,7 +104,9 @@ public class GameManager : MonoBehaviour {
 
     private void initializeArmyManagers() {
 
-        // Human Warriors //
+        armyManagers = new Dictionary<Identification.Army, ArmyManager>();
+
+        // Human Army Manager //
 
         CommonGameUnitFactory humanWarriorFactory = new CommonGameUnitFactory();
         InitAFactory(humanWarriorFactory, scriptablePrototypesList.HumanWarriorsPrototypes);
@@ -105,9 +114,12 @@ public class GameManager : MonoBehaviour {
         CommonGameUnitFactory humanBuildingFactory = new CommonGameUnitFactory();
         InitAFactory(humanBuildingFactory, scriptablePrototypesList.HumanBuildingsPrototypes);
 
-        humanArmyManager = new ArmyManager(Identification.Army.Humans, humanArmyStartingID, humanWarriorFactory, humanBuildingFactory);
+        armyManagers[Identification.Army.Humans] = new ArmyManager(Identification.Army.Humans,
+                humanArmyStartingID, humanWarriorFactory, humanBuildingFactory,
+                armyDispatchers[Identification.Army.Humans]);
 
 
+        // Orc Army Manager //
 
         CommonGameUnitFactory orcWarriorFactory = new CommonGameUnitFactory();
         InitAFactory(orcWarriorFactory, scriptablePrototypesList.OrcWarriorsPrototypes);
@@ -115,7 +127,9 @@ public class GameManager : MonoBehaviour {
         CommonGameUnitFactory orcBuildingFactory = new CommonGameUnitFactory();
         InitAFactory(orcBuildingFactory, scriptablePrototypesList.OrcBuildingsPrototypes);
 
-        orcArmyManager = new ArmyManager(Identification.Army.Orcs, orcArmyStartingID, orcWarriorFactory, orcBuildingFactory);
+        armyManagers[Identification.Army.Orcs] = new ArmyManager(Identification.Army.Orcs,
+                orcArmyStartingID, orcWarriorFactory, orcBuildingFactory,
+                armyDispatchers[Identification.Army.Orcs]);
 
 
         // initialize controllers ******************************************* //
@@ -129,8 +143,13 @@ public class GameManager : MonoBehaviour {
     /////////////////////////////////
 
     public void HereIAm(RTSMonoBehaviour monobeh) {
-//        monobeh.SetArmyManager();
-//        monobeh.SetDispatcher();
+        GameUnitID uid = monobeh.gameObject.GetComponent<GameUnitID>();
+
+        if (uid != null) {
+            monobeh.SetArmyManager(armyManagers[uid.Army]);
+            monobeh.SetArmyDispatcher(armyDispatchers[uid.Army]);
+        }
+
     }
 
 

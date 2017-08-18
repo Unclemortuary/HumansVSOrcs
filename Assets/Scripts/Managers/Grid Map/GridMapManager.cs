@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GridMapManager : MonoBehaviour {
+public class GridMapManager : RTSMonoBehaviour {
 
 	public static GridMapManager instance;
 

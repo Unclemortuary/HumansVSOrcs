@@ -9,6 +9,8 @@ public class ArmyManager {
     private CommonGameUnitFactory buildingFactory;
 
 
+    private ArmyDispatcher armyDispatcher;
+
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! *************** //
 //    private Controller controller;
@@ -33,16 +35,32 @@ public class ArmyManager {
     private int nextID;
 
 
+    private string GenerateDescription(Identification.UnitType type, AbstractGameUnit unit) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.Append("Unit of type ").Append(type.ToString());
+        sb.Append(" in army of " + thisArmy.ToString());
+
+        return sb.ToString();
+    }
+
 
 
     private AbstractGameUnit CreateUnit(CommonGameUnitFactory factory, Identification.UnitType type,
             Vector3 position, Dictionary<int, AbstractGameUnit> unitsStorage) {
 
-        AbstractGameUnit newUnit = null;
-        newUnit = factory.CreateGameUnit(type, position);
-        newUnit.ID = nextID;
+        AbstractGameUnit newUnit = factory.CreateGameUnit(type, position);
 
         newUnit.Description = GenerateDescription(type, newUnit);
+
+        AssimilateUnit(newUnit, unitsStorage);
+
+        return newUnit;
+    }
+
+    private void AssimilateUnit(AbstractGameUnit newUnit, Dictionary<int, AbstractGameUnit> unitsStorage) {
+
+        newUnit.ID = nextID;
 
         GameUnitID unitId = newUnit.Avatar.AddComponent<GameUnitID>();
         unitId.PersonalID = newUnit.ID;
@@ -51,17 +69,14 @@ public class ArmyManager {
         nextID++;
 
         unitsStorage.Add(newUnit.ID, newUnit);
-
-        return newUnit;
     }
 
-    private string GenerateDescription(Identification.UnitType type, AbstractGameUnit unit) {
-        StringBuilder sb = new StringBuilder();
 
-        sb.Append("Unit of type ").Append(type.ToString());
-        sb.Append(" in army of " + thisArmy.ToString());
-
-        return sb.ToString();
+    private void RemoveOldIDComponent(AbstractGameUnit unit) {
+        GameUnitID oldID = unit.Avatar.GetComponent<GameUnitID>();
+        if (oldID != null) {
+            GameObject.Destroy(oldID);
+        }
     }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -89,6 +104,23 @@ public class ArmyManager {
 
 
 
+    /* Join neutral or enemy warrior to this army */
+    public void JoinWarrior(AbstractGameUnit unit) {
+        RemoveOldIDComponent(unit);
+
+        AssimilateUnit(unit, warriors);
+    }
+
+    public void JoinBuilding(AbstractGameUnit unit) {
+        RemoveOldIDComponent(unit);
+
+        AssimilateUnit(unit, buildings);
+
+        // This is a building //
+        unit.Avatar.AddComponent<BuildingComponent>();
+    }
+
+
 
     public AbstractGameUnit FindGameUnit(int id) {
         if (warriors.ContainsKey(id)) {
@@ -102,12 +134,10 @@ public class ArmyManager {
     }
 
 
-    public void JoinGameUnit(AbstractGameUnit unit) {
 
-    }
 
     public ArmyManager(Identification.Army army, int startingID, CommonGameUnitFactory warriorFactory,
-            CommonGameUnitFactory buildingFactory /*, Controller ctrlr */) {
+            CommonGameUnitFactory buildingFactory /*, Controller ctrlr */, ArmyDispatcher armyDispatcher) {
 
         warriors = new Dictionary<int, AbstractGameUnit>();
         buildings = new Dictionary<int, AbstractGameUnit>();
@@ -118,6 +148,7 @@ public class ArmyManager {
         this.warriorFactory = warriorFactory;
         this.buildingFactory = buildingFactory;
 //        this.controller = ctrlr;
+        this.armyDispatcher = armyDispatcher;
     }
 
 
