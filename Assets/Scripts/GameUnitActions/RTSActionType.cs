@@ -1,7 +1,7 @@
 
 [System.Serializable]
 public enum RTSActionType {
-    move, stop, attack, build,
+    moveTo, stop, attack, build,
     holdPosition, patrol,
     specialHeal, specialFireStorm
 }

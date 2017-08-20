@@ -25,25 +25,40 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
 
     private void  SubscribeOnDispatcherMessages() {
 
-        data.ThisArmyManager.Dispatcher.StartListening(ArmyMessageTypes.unitsSelected,
+        data.ThisArmyManager.Dispatcher.StartListening(ArmyMessageTypes.stopMachine,
+                () => { Stop(); }
+        );
+
+
+        // Zaglushki //
+
+        data.ThisArmyManager.Dispatcher.StartListening(ArmyMessageTypes.unitSelected,
                 () => {
                     Debug.Log("Dispatcher is working: message unitsSelected is sent");
                     if (CurrentState == ArmySMStateType.freeState) {
+
                         Trigger(ArmySMTransitionType.freeToSelected);
+
+                    } else if (CurrentState == ArmySMStateType.unitsSelected) {
+
+                        // Select more units //
+
                     }
                 });
 
-        data.ThisArmyManager.Dispatcher.StartListening<AbstractRTSAction>(ArmyMessageTypes.actionMoveTo,
-                (AbstractRTSAction action) => {
-                    Debug.Log("Dispatcher performing message: Action-MoveTo");
+        data.ThisArmyManager.Dispatcher.StartListening<RTSActionType>(ArmyMessageTypes.invokeRTSAction,
+                (RTSActionType actionType) => {
+                    Debug.Log("Dispatcher is sending message Action-" + actionType.ToString());
+
+                    // Selected To DoAction //
                     if (CurrentState == ArmySMStateType.unitsSelected) {
-                        data.CurrentRtsAction = action;
+                        data.CurrentRtsAction = GameManager.Instance.ActionsLibrary.GetRTSAction(actionType);
                         Trigger(ArmySMTransitionType.selectedToDoAction);
                     }
                 });
 
 
-    }
+    }// SubscribeOnDispatcherMessages() //
 
 
 
@@ -60,6 +75,7 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
     }
 
 
+
     private void InitializeTransitions() {
         AddTransition(ArmySMTransitionType.freeToSelected,
                 new ArmyStateMachineTransition(
@@ -67,11 +83,6 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
         );
 
 
-        AddTransition(ArmySMTransitionType.doActionToSelected,
-                new ArmyStateMachineTransition(
-                        ArmySMStateType.doAction, ArmySMStateType.unitsSelected, SimpleTransition
-                )
-        );
         AddTransition(ArmySMTransitionType.selectedToFree,
                 new ArmyStateMachineTransition(
                         ArmySMStateType.unitsSelected, ArmySMStateType.freeState, SimpleTransition
@@ -85,12 +96,19 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
                 )
         );
 
-        AddTransition(ArmySMTransitionType.doActionTofree,
+        AddTransition(ArmySMTransitionType.doActionToFree,
                 new ArmyStateMachineTransition(
                         ArmySMStateType.doAction, ArmySMStateType.freeState, Action2AnyTransition
                 )
         );
-    }
+
+        AddTransition(ArmySMTransitionType.doActionToSelected,
+                new ArmyStateMachineTransition(
+                        ArmySMStateType.doAction, ArmySMStateType.unitsSelected, Action2AnyTransition
+                )
+        );
+
+    } // InitializeTransitions() //
 
 
 ////////////////////////////////////////////
@@ -102,14 +120,6 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
         }
     }
 
-
-//    public Action<ArmySMStateType, ArmySMStateType> SimpleTransition =
-//        delegate(ArmySMStateType current, ArmySMStateType next) {
-//        if(current != next)
-//        {
-//            CurrentState = next;
-//        }
-//    };
 
 
     public void any2ActionTransition(ArmySMStateType current, ArmySMStateType next) {

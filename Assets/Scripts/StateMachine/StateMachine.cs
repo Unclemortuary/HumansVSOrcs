@@ -27,12 +27,22 @@ public class StateMachine<S,T>  {
         }
     }
 
+    protected void GoToState(S state) {
+        if (nodesActions == null) {
+            nodesActions = new Dictionary<S, IStateMachineState>();
+        }
+
+        CurrentState = state;
+    }
+
+
     private Dictionary<S, IStateMachineState> nodesActions;
     private Dictionary<T, StateMachineTransition<S>> transitions;
 
     public void AddState(S stateType, IStateMachineState action) {
         if (nodesActions == null) {
             nodesActions = new Dictionary<S, IStateMachineState>();
+            CurrentState = stateType;
         }
 
         nodesActions.Add(stateType, action);
@@ -49,7 +59,9 @@ public class StateMachine<S,T>  {
 
 
     public void ExecuteCurrentState() {
-        nodesActions[currentState].Process();
+        if (working) {
+            nodesActions[currentState].Process();
+        }
     }
 
 
@@ -78,10 +90,6 @@ public class StateMachine<S,T>  {
 
 
 
-    protected void GoToState(S state) {
-        CurrentState = state;
-
-    }
 
 
 //    private void SimpleTransition(S current, S next)

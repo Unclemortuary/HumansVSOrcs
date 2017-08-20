@@ -82,18 +82,28 @@ public class InputChecker : RTSMonoBehaviour {
             Application.Quit();
         }
 
-        if (Input.GetKey(KeyCode.Alpha1)) {
-            print("1 is clicked - Is Dsipatcher activated?");
+        if (Input.GetKeyDown(KeyCode.Alpha0)) {
+            print("0 is clicked - StopMachine!");
             GameManager.Instance.ArmyManagers[Identification.Army.Humans]
-                    .Dispatcher.TriggerCommand(ArmyMessageTypes.unitsSelected);
+                    .Dispatcher.TriggerCommand(ArmyMessageTypes.stopMachine);
+            GameManager.Instance.ArmyManagers[Identification.Army.Orcs]
+                    .Dispatcher.TriggerCommand(ArmyMessageTypes.stopMachine);
         }
 
-        if (Input.GetKey(KeyCode.Alpha2)) {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            print("1 is clicked - Is Dsipatcher activated?");
+            GameManager.Instance.ArmyManagers[Identification.Army.Humans]
+                    .Dispatcher.TriggerCommand(ArmyMessageTypes.unitSelected);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
             print("2 is clicked - Trying to go to DoAction state");
             GameManager.Instance.ArmyManagers[Identification.Army.Humans]
-                    .Dispatcher.TriggerCommand<AbstractRTSAction>(ArmyMessageTypes.actionMoveTo,
-                                new MoveToAction(new CommandPanelItem("asdf")));
+                    .Dispatcher.TriggerCommand<RTSActionType>(ArmyMessageTypes.invokeRTSAction,
+                                RTSActionType.moveTo);
         }
+
+
 
 //        cameraMover.ShiftX( Input.GetAxis( "Mouse X") * mouseSpeed );
 //        cameraMover.ShiftZ( Input.GetAxis( "Mouse Y") * mouseSpeed );

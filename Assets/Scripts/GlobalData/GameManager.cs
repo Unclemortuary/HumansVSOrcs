@@ -44,6 +44,14 @@ public class GameManager : MonoBehaviour {
 
     private Dictionary<Identification.Army, ArmyDispatcher> armyDispatchers;
 
+
+    private RTSActionLibrary actionsLibrary;
+    public RTSActionLibrary ActionsLibrary {
+        get {
+            return actionsLibrary;
+        }
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////
 
     [SerializeField]
@@ -62,15 +70,35 @@ public class GameManager : MonoBehaviour {
 
     private void InitializeGame() {
 
-        initializeArmyDispatchers();
+        InitializeArmyDispatchers();
 
-        initializeArmyManagers();
+        InitializeArmyManagers();
 
+        InitializeActionsLibrary();
+
+    }
+
+    private void InitializeActionsLibrary() {
+
+        actionsLibrary = new RTSActionLibrary();
+
+        /// Add here all possible RTSActions //
+        /// And initialize their CommandPanelItems //
+        ///
+
+        actionsLibrary.AddRTSAction(RTSActionType.moveTo, new MoveToAction(
+            new CommandPanelItem("MoveTo")
+        ));
+
+
+//        move, stop, attack, build,
+//        holdPosition, patrol,
+//        specialHeal, specialFireStorm
 
     }
 
 
-    private void initializeArmyDispatchers() {
+    private void InitializeArmyDispatchers() {
         armyDispatchers = new Dictionary<Identification.Army, ArmyDispatcher>();
 
         foreach (Identification.Army armyType in Enum.GetValues(typeof(Identification.Army))) {
@@ -102,7 +130,7 @@ public class GameManager : MonoBehaviour {
     } // InitAFactory() //
 
 
-    private void initializeArmyManagers() {
+    private void InitializeArmyManagers() {
 
         armyManagers = new Dictionary<Identification.Army, ArmyManager>();
 

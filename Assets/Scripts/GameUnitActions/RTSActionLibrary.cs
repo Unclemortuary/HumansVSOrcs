@@ -4,6 +4,10 @@ public class RTSActionLibrary {
 
     private Dictionary<RTSActionType, AbstractRTSAction> actions;
 
+    public RTSActionLibrary() {
+        actions = new Dictionary<RTSActionType, AbstractRTSAction>();
+    }
+
     public void AddRTSAction(RTSActionType type, AbstractRTSAction action) {
         actions.Add(type, action);
     }

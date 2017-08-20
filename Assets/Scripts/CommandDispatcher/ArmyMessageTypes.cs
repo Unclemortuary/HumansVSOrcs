@@ -1,9 +1,13 @@
 public enum ArmyMessageTypes {
-        iAmClicked,
+        unitClicked,
+        unitSelected,
+        unitIsDead,
 
-        unitsSelected,
+        stopMachine,
+
+//        unitsSelected,
         unitsDeselected,
 
-        actionMoveTo,
-        actionStop,
+        invokeRTSAction,
+        //actionStop,
 }
