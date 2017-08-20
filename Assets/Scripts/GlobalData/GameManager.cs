@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour {
 
         if (uid != null) {
             monobeh.SetArmyManager(armyManagers[uid.Army]);
-            monobeh.SetArmyDispatcher(armyDispatchers[uid.Army]);
+//            monobeh.SetArmyDispatcher(armyDispatchers[uid.Army]);
         }
 
     }

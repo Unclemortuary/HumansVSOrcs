@@ -1,3 +1,3 @@
-public enum SMStateID {
+public enum ArmySMStateType {
     freeState, unitsSelected, doAction,
 }

@@ -8,9 +8,14 @@ public class ArmyManager {
 
     private CommonGameUnitFactory buildingFactory;
 
+    private ArmyDispatcher dispatcher;
+    public ArmyDispatcher Dispatcher {
+        get {
+            return dispatcher;
+        }
+    }
 
-    private ArmyDispatcher armyDispatcher;
-
+    private ArmyStateMachine stateMachine;
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! *************** //
 //    private Controller controller;
@@ -28,11 +33,10 @@ public class ArmyManager {
     }
 
     private Identification.Army thisArmy;
+    private int nextID;
 
     private Dictionary<int, AbstractGameUnit> warriors;
     private Dictionary<int, AbstractGameUnit> buildings;
-
-    private int nextID;
 
 
     private string GenerateDescription(Identification.UnitType type, AbstractGameUnit unit) {
@@ -111,6 +115,7 @@ public class ArmyManager {
         AssimilateUnit(unit, warriors);
     }
 
+
     public void JoinBuilding(AbstractGameUnit unit) {
         RemoveOldIDComponent(unit);
 
@@ -139,8 +144,6 @@ public class ArmyManager {
     public ArmyManager(Identification.Army army, int startingID, CommonGameUnitFactory warriorFactory,
             CommonGameUnitFactory buildingFactory /*, Controller ctrlr */, ArmyDispatcher armyDispatcher) {
 
-        warriors = new Dictionary<int, AbstractGameUnit>();
-        buildings = new Dictionary<int, AbstractGameUnit>();
 
         this.thisArmy = army;
         this.description = army.ToString() + " army";
@@ -148,7 +151,20 @@ public class ArmyManager {
         this.warriorFactory = warriorFactory;
         this.buildingFactory = buildingFactory;
 //        this.controller = ctrlr;
-        this.armyDispatcher = armyDispatcher;
+        this.dispatcher = armyDispatcher;
+
+        ///////////
+        // Lists of created (or joined) warriors and buildings in the army //
+        /////////////////////////////////////////////////////////////////////
+        warriors = new Dictionary<int, AbstractGameUnit>();
+        buildings = new Dictionary<int, AbstractGameUnit>();
+
+        // State Machine, controlling all army actions //
+        this.stateMachine = new ArmyStateMachine(new ArmyStateData(this));
+
+        ArmySMExecutorComponent executor = GameManager.Instance.gameObject.AddComponent<ArmySMExecutorComponent>();
+        executor.SetStateMachine(stateMachine);
+
     }
 
 

@@ -82,6 +82,19 @@ public class InputChecker : RTSMonoBehaviour {
             Application.Quit();
         }
 
+        if (Input.GetKey(KeyCode.Alpha1)) {
+            print("1 is clicked - Is Dsipatcher activated?");
+            GameManager.Instance.ArmyManagers[Identification.Army.Humans]
+                    .Dispatcher.TriggerCommand(ArmyMessageTypes.unitsSelected);
+        }
+
+        if (Input.GetKey(KeyCode.Alpha2)) {
+            print("2 is clicked - Trying to go to DoAction state");
+            GameManager.Instance.ArmyManagers[Identification.Army.Humans]
+                    .Dispatcher.TriggerCommand<AbstractRTSAction>(ArmyMessageTypes.actionMoveTo,
+                                new MoveToAction(new CommandPanelItem("asdf")));
+        }
+
 //        cameraMover.ShiftX( Input.GetAxis( "Mouse X") * mouseSpeed );
 //        cameraMover.ShiftZ( Input.GetAxis( "Mouse Y") * mouseSpeed );
 
@@ -132,14 +145,6 @@ public class InputChecker : RTSMonoBehaviour {
 
                 ArmyManager clickedUnitArmyManager = GameManager.Instance.ArmyManagers[unitId.Army];
 
-//                switch(unitId.Army) {
-//                    case Identification.Army.Humans:
-//                        clickedUnitArmyManager = GameManager.Instance.HumanArmyManager;
-//                        break;
-//                    case Identification.Army.Orcs:
-//                        clickedUnitArmyManager = GameManager.Instance.OrcArmyManager;
-//                        break;
-//                }
 
                 AbstractGameUnit unit = clickedUnitArmyManager.FindGameUnit(unitId.PersonalID);
                 if (unit != null) {

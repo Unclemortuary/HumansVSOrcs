@@ -1,4 +1,4 @@
-public enum TransitionID {
+public enum ArmySMTransitionType {
     freeToSelected, selectedToDoAction, doActionToSelected,
     selectedToFree, doActionTofree
 }

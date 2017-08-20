@@ -12,19 +12,24 @@ namespace CommandDispatcher {
 
         private Dictionary<string, List<ICommandMessage>> commandDictionary;
 
-        private static CommandDispatcher<T> commandManager;
+//        private static CommandDispatcher<T> commandManager;
+//
+//        public static CommandDispatcher<T> Instance
+//        {
+//            get
+//            {
+//                if (commandManager == null)
+//                {
+//                    commandManager = new CommandDispatcher<T>();
+//                    commandManager.Init();
+//                }
+//                return commandManager;
+//            }
+//        }
 
-        public static CommandDispatcher<T> Instance
-        {
-            get
-            {
-                if (commandManager == null)
-                {
-                    commandManager = new CommandDispatcher<T>();
-                    commandManager.Init();
-                }
-                return commandManager;
-            }
+
+        public CommandDispatcher() {
+            Init();
         }
 
 
@@ -71,7 +76,8 @@ namespace CommandDispatcher {
             List<ICommandMessage> commandList = null;
             string value = commandName.ToString();
             value = id != null ? value + id.ToString() : value;
-            if (Instance.commandDictionary.TryGetValue(value, out commandList))
+            if (commandDictionary.TryGetValue(value, out commandList))
+//            if (Instance.commandDictionary.TryGetValue(value, out commandList))
             {
                 commandList.Add(parametrCommand);
             }
@@ -79,7 +85,8 @@ namespace CommandDispatcher {
             {
                 commandList = new List<ICommandMessage>();
                 commandList.Add(parametrCommand);
-                Instance.commandDictionary.Add(value, commandList);
+                commandDictionary.Add(value, commandList);
+//                Instance.commandDictionary.Add(value, commandList);
             }
         }
 
@@ -108,12 +115,13 @@ namespace CommandDispatcher {
 
         private void RemoveMessage(T commandName, object listener, int? id = null)
         {
-            if (commandManager == null)
-                return;
+//            if (commandManager == null)
+//                return;
             List<ICommandMessage> commandList = null;
             string value = commandName.ToString();
             value = id != null ? value + id.ToString() : value;
-            if (Instance.commandDictionary.TryGetValue(value, out commandList))
+            if (commandDictionary.TryGetValue(value, out commandList))
+//            if (Instance.commandDictionary.TryGetValue(value, out commandList))
             {
                 for (int i = commandList.Count - 1; i >= 0; i--)
                 {
@@ -159,7 +167,8 @@ namespace CommandDispatcher {
             string value = commandName.ToString();
             value = id != null ? value + id.ToString() : value;
 
-            if (Instance.commandDictionary.TryGetValue(value, out commandList))
+            if (commandDictionary.TryGetValue(value, out commandList))
+//            if (Instance.commandDictionary.TryGetValue(value, out commandList))
             {
                 for (int i = commandList.Count - 1; i >= 0; i--)
                 {

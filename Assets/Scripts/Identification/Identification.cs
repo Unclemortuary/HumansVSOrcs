@@ -11,9 +11,6 @@ public static class Identification {
         GeneralHouse, Barrack, Farm, Forge, Quarry, Sawmill, SimpleHouse, WatchTower
     };
 
-    [System.Serializable]
-    public enum RTSActionType {
-        move, stop, attack, build,
-    }
+
 
 }
