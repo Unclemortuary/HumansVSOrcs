@@ -70,6 +70,9 @@ public class ArmyManager {
         unitId.PersonalID = newUnit.ID;
         unitId.Army = thisArmy;
 
+        UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
+        reactionsComponent.SetGameUnit(newUnit);
+
         nextID++;
 
         unitsStorage.Add(newUnit.ID, newUnit);
