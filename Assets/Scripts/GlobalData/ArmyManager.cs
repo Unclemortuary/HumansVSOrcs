@@ -33,6 +33,12 @@ public class ArmyManager {
     }
 
     private Identification.Army thisArmy;
+    public Identification.Army ThisArmy {
+        get {
+            return thisArmy;
+        }
+    }
+
     private int nextID;
 
     private Dictionary<int, AbstractGameUnit> warriors;
@@ -143,6 +149,49 @@ public class ArmyManager {
 
 
 
+    public AbstractGameUnitsList FindWarriorsWithinViewportBounds(Bounds bounds) {
+        return FindGameUnitsWithinViewportBounds(warriors.Values, bounds);
+    }
+
+    public AbstractGameUnitsList FindBuildingsWithinViewportBounds(Bounds bounds) {
+        return FindGameUnitsWithinViewportBounds(warriors.Values, bounds);
+    }
+
+    public AbstractGameUnitsList FindGameUnitsWithinViewportBounds(IEnumerable<AbstractGameUnit> enumerable, Bounds bounds) {
+        AbstractGameUnitsList selectedUnits = new AbstractGameUnitsList();
+
+        foreach (AbstractGameUnit unit in enumerable) {
+            if (IsWithinSelectionBounds(unit.Avatar, bounds)) {
+                selectedUnits.Add(unit);
+            }
+        }
+
+        return selectedUnits;
+    }
+
+//    public List<AbstractGameUnit> FindGameUnitsWithinViewportBounds(Dictionary<int, AbstractGameUnit> dict, Bounds bounds) {
+//        List<AbstractGameUnit> selectedUnits = new List<AbstractGameUnit>();
+//
+//        foreach (AbstractGameUnit unit in dict.Values) {
+//            if (IsWithinSelectionBounds(unit.Avatar, bounds)) {
+//                selectedUnits.Add(unit);
+//            }
+//        }
+//
+//        return selectedUnits;
+//    }
+
+    public bool IsWithinSelectionBounds(GameObject gameObject, Bounds bounds)
+    {
+        // !!! Camera.main !!! // Dependence to be removed //
+        return bounds.Contains(Camera.main.WorldToViewportPoint( gameObject.transform.position ));
+    }
+
+
+
+////////////////////////////////////////////////////////////////////////
+    /// Constructor ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
 
     public ArmyManager(Identification.Army army, int startingID, CommonGameUnitFactory warriorFactory,
             CommonGameUnitFactory buildingFactory /*, Controller ctrlr */, ArmyDispatcher armyDispatcher) {

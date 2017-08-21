@@ -52,6 +52,13 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    private PlayerController playerController;
+    public PlayerController PlayerController {
+        get {
+            return playerController;
+        }
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////
 
     [SerializeField]
@@ -76,6 +83,8 @@ public class GameManager : MonoBehaviour {
 
         InitializeActionsLibrary();
 
+        InitializeControllers();
+
     }
 
     private void InitializeActionsLibrary() {
@@ -90,7 +99,9 @@ public class GameManager : MonoBehaviour {
             new CommandPanelItem("MoveTo")
         ));
 
-
+// ################################################################################################################################
+// ################################################################################################################################
+// ################################################################################################################################
 //        move, stop, attack, build,
 //        holdPosition, patrol,
 //        specialHeal, specialFireStorm
@@ -165,7 +176,14 @@ public class GameManager : MonoBehaviour {
 
 
 
-    /////////////////////////////////
+    private void InitializeControllers() {
+
+        playerController = new PlayerController(armyManagers[Identification.Army.Humans]);
+
+    }
+
+
+/////////////////////////////////
 
     public void HereIAm(RTSMonoBehaviour monobeh) {
         GameUnitID uid = monobeh.gameObject.GetComponent<GameUnitID>();
@@ -175,6 +193,14 @@ public class GameManager : MonoBehaviour {
 //            monobeh.SetArmyDispatcher(armyDispatchers[uid.Army]);
         }
 
+    }
+
+
+    public void HereIsTerrain(TerrainReactionsComponent reactionsScript) {
+
+        if (reactionsScript != null) {
+            reactionsScript.SetDispatcher(playerController.PlayerArmyDispatcher);
+        }
     }
 
 

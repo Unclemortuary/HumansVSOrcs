@@ -1,14 +1,28 @@
 public enum ArmyMessageTypes {
-        unitRightClicked,
-        unitLeftClicked,
-        unitSelected,
-        unitIsDead,
+        unitCryRightClicked,
+        unitCryLeftClicked,
+        unitCryIsDead,
+
+        terrainIsLeftClicked,
+        terrainIsRightClicked,
+
+        addUnitsToSelection,
+        deselectUnits,
+        invokeRTSAction,
+
+        addBuildingToSelection,
+
+        testWaitingForTarget,
+        setTargetPoint,
+        setTargetUnit,
 
         stopMachine,
 
-//        unitsSelected,
-        unitsDeselected,
 
-        invokeRTSAction,
-        //actionStop,
+        unitCommanTurnSelection,
+        unitCommandGoToPosition,
+        unitCommandFollowUnit,
+        unitCommandStop,
+
+        testUnitInSelection,
 }

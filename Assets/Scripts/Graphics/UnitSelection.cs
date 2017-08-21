@@ -47,4 +47,5 @@ public class UnitSelection : MonoBehaviour {
 				MouseRect.DrawScreenRectBorder( rect, 2, new Color( 0.8f, 0.8f, 0.95f ) );
 		}
 	}
+
 }

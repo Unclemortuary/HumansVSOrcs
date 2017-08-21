@@ -1,18 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InputChecker : RTSMonoBehaviour {
-
-
-    [SerializeField]
-    private float mouseSpeed = 2;
-    [SerializeField]
-    private float mouseWheelSpeed = 3;
+public class InputChecker : MonoBehaviour {
 
 
 
-    [SerializeField]
-    private CameraMoverV2 cameraMover;
 
     [SerializeField]
     private int currentUnitTypeIndex = 0;
@@ -20,38 +12,35 @@ public class InputChecker : RTSMonoBehaviour {
 
 
 
-    [SerializeField]
-    private float borderDelta = 10;
 
-
-    [SerializeField]
-    private Sprite sun;
-    [SerializeField]
-    private Sprite moon;
-    [SerializeField]
-    private GameObject sunMoonButton;
-
-    private Image sunMoonImage;
-    private bool nowIsSun = true;
-
-    public void SunMoonChange() {
-        print("change");
-        if (nowIsSun) {
-            sunMoonImage.overrideSprite = moon;
-        } else {
-            sunMoonImage.overrideSprite = sun;
-        }
-
-        nowIsSun = !nowIsSun;
-    }
-
+//    [SerializeField]
+//    private Sprite sun;
+//    [SerializeField]
+//    private Sprite moon;
+//    [SerializeField]
+//    private GameObject sunMoonButton;
+//
+//    private Image sunMoonImage;
+//    private bool nowIsSun = true;
+//
+//    public void SunMoonChange() {
+//        print("change");
+//        if (nowIsSun) {
+//            sunMoonImage.overrideSprite = moon;
+//        } else {
+//            sunMoonImage.overrideSprite = sun;
+//        }
+//
+//        nowIsSun = !nowIsSun;
+//    }
+//
 
 // Use this for initialization
     void Start () {
 
-        sunMoonImage = sunMoonButton.GetComponent<Image>();
+//        sunMoonImage = sunMoonButton.GetComponent<Image>();
 
-        HUDscript.HideFloatingPanel();
+//        HUDscript.HideFloatingPanel();
     }
 
 
@@ -61,27 +50,9 @@ public class InputChecker : RTSMonoBehaviour {
 //        print("mouse x = " + Input.mousePosition.x + ", screen width = " + Screen.width
 //                            + ", screen height = " + Screen.height);
 
-        if (Input.mousePosition.x >= Screen.width - borderDelta) {
-            cameraMover.ShiftX(mouseSpeed);
-            HUDscript.HideFloatingPanel();
-        } else if (Input.mousePosition.x <= borderDelta) {
-            cameraMover.ShiftX(-mouseSpeed);
-            HUDscript.HideFloatingPanel();
-        }
-
-        if (Input.mousePosition.y >= Screen.height-borderDelta) {
-            cameraMover.ShiftZ(mouseSpeed);
-            HUDscript.HideFloatingPanel();
-        } else if (Input.mousePosition.y <= borderDelta) {
-            cameraMover.ShiftZ(-mouseSpeed);
-            HUDscript.HideFloatingPanel();
-        }
 
 
-        if (Input.GetKey(KeyCode.Escape)) {
-            Application.Quit();
-        }
-
+/*
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
             print("0 is clicked - StopMachine!");
             GameManager.Instance.ArmyManagers[Identification.Army.Humans]
@@ -93,7 +64,7 @@ public class InputChecker : RTSMonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             print("1 is clicked - Is Dsipatcher activated?");
             GameManager.Instance.ArmyManagers[Identification.Army.Humans]
-                    .Dispatcher.TriggerCommand(ArmyMessageTypes.unitSelected);
+                    .Dispatcher.TriggerCommand(ArmyMessageTypes.addUnitsToSelection);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2)) {
@@ -102,32 +73,46 @@ public class InputChecker : RTSMonoBehaviour {
                     .Dispatcher.TriggerCommand<RTSActionType>(ArmyMessageTypes.invokeRTSAction,
                                 RTSActionType.moveTo);
         }
+*/
+        if (Input.GetKeyDown(KeyCode.Alpha0)) {
+            print("0 is clicked - StopMachine!");
+            GameManager.Instance.ArmyManagers[Identification.Army.Humans]
+            .Dispatcher.TriggerCommand(ArmyMessageTypes.stopMachine);
+            GameManager.Instance.ArmyManagers[Identification.Army.Orcs]
+            .Dispatcher.TriggerCommand(ArmyMessageTypes.stopMachine);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.M)) {
+            print("M is clicked - Trying to go to DoAction state");
+            GameManager.Instance.ArmyManagers[Identification.Army.Humans]
+            .Dispatcher.TriggerCommand<RTSActionType>(ArmyMessageTypes.invokeRTSAction,
+                    RTSActionType.moveTo);
+        }
 
 
 
 //        cameraMover.ShiftX( Input.GetAxis( "Mouse X") * mouseSpeed );
 //        cameraMover.ShiftZ( Input.GetAxis( "Mouse Y") * mouseSpeed );
 
-        cameraMover.ShiftY( -Input.GetAxis("Mouse ScrollWheel") * mouseWheelSpeed );
 
 
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (GameManager.Instance == null) {
-                print("instance = null");
-            }
-            if(GameManager.Instance.ArmyManagers[Identification.Army.Humans] == null) {
-                print("HumanArmyManager == null");
-            }
-            CreateCurrentUnit(GameManager.Instance.ArmyManagers[Identification.Army.Humans]);
-        }
-
+//        if (Input.GetMouseButtonDown(0))
+//        {
+//            if (GameManager.Instance == null) {
+//                print("instance = null");
+//            }
+//            if(GameManager.Instance.ArmyManagers[Identification.Army.Humans] == null) {
+//                print("HumanArmyManager == null");
+//            }
+////            CreateCurrentUnit(GameManager.Instance.ArmyManagers[Identification.Army.Humans]);
+//        }
+//
 
 
         if (Input.GetMouseButtonDown(1))
         {
-            CreateCurrentUnit(GameManager.Instance.ArmyManagers[Identification.Army.Orcs]);
+            CreateCurrentUnit(GameManager.Instance.ArmyManagers[Identification.Army.Humans]);
         }
 
 

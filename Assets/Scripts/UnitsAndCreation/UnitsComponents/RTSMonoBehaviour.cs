@@ -11,9 +11,8 @@ public class RTSMonoBehaviour : MonoBehaviour {
     }
 
 
-    void Start() {
+    void Awake() {
+//        print("rtsmonobeh Awake called");
         GameManager.Instance.HereIAm(this);
     }
-
-
 }

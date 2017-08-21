@@ -15,11 +15,14 @@ public class ArmyStateData {
 
     public List<RTSActionType> AvailableActions { get; set; }
 
+    public bool WaitingForTarget { get; set; }
+
     public Vector3 TargetPoint { get; set; }
 
     public AbstractGameUnit TargetUnit { get; set; }
 
     public AbstractRTSAction CurrentRtsAction { get; set; }
+
 
     // ------------------------
 
@@ -36,10 +39,11 @@ public class ArmyStateData {
         SelectedUnits.Clear();
         AvailableActions.Clear();
 
-        ClearTargetAndAction();
+        ClearTargetAndCurrentAction();
     }
 
-    public void ClearTargetAndAction() {
+    public void ClearTargetAndCurrentAction() {
+        WaitingForTarget = true;
         TargetPoint = noWherePoint;
         TargetUnit = null;
         CurrentRtsAction = null;
