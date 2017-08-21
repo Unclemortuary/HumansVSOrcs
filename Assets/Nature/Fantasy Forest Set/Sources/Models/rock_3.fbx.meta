@@ -1,7 +1,5 @@
 fileFormatVersion: 2
-guid: a433aa90b037e484eb8581a16f5f19f6
-timeCreated: 1471269911
-licenseType: Store
+guid: 48e1075b28942ae41b8534619b89dd0c
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -9,8 +7,8 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cylinder.009
-    4300002: Rock-3
+    4300000: Rock-3
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -37,7 +35,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -73,9 +71,9 @@ ModelImporter:
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
-    skeletonHasParents: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

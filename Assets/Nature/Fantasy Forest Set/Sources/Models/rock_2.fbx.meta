@@ -1,7 +1,5 @@
 fileFormatVersion: 2
-guid: 59a10b2468d6fce4baf4eb4965cff5e0
-timeCreated: 1471269911
-licenseType: Store
+guid: 75789165ff196bd48a1179a9217b6c8d
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -9,8 +7,8 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: enviro.004
-    4300002: Rock-2
+    4300000: Rock-2
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -37,7 +35,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -73,9 +71,9 @@ ModelImporter:
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
-    skeletonHasParents: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

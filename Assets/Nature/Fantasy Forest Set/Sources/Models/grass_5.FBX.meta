@@ -1,7 +1,5 @@
 fileFormatVersion: 2
-guid: 14d815ebf9c801544ba2dabcac5206ab
-timeCreated: 1471905639
-licenseType: Store
+guid: 508cfe9df3fdf7747ac29a1eb672b435
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -10,6 +8,7 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Grass-5
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -36,7 +35,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -72,9 +71,9 @@ ModelImporter:
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
-    skeletonHasParents: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

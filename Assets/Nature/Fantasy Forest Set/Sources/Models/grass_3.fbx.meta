@@ -1,7 +1,5 @@
 fileFormatVersion: 2
-guid: 5bc3151d02f8c96479d877a1598bb881
-timeCreated: 1471269911
-licenseType: Store
+guid: 37c810a8fe517364889e8ceb21e1d403
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -9,8 +7,8 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cylinder.011
-    4300002: Grass-3
+    4300000: Grass-3
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -37,7 +35,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -73,9 +71,9 @@ ModelImporter:
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
-    skeletonHasParents: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
