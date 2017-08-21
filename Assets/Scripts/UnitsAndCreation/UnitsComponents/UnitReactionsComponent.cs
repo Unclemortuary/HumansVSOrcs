@@ -18,25 +18,25 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
 
 
     private void InitializeEventTrigger() {
-        gameObject.AddComponent<EventTriggerTest>();
+//        gameObject.AddComponent<EventTriggerTest>();
 
-//        EventTrigger eventTrigger = GetComponent<EventTrigger>( );
-//
-//        if (eventTrigger == null) {
-//            eventTrigger = gameObject.AddComponent<EventTrigger>();
-//        }
-//
-//        EventTrigger.Entry entry = new EventTrigger.Entry( );
-//
-//        entry.eventID = EventTriggerType.PointerDown;
-//
+        EventTrigger eventTrigger = GetComponent<EventTrigger>( );
+
+        if (eventTrigger == null) {
+            eventTrigger = gameObject.AddComponent<EventTrigger>();
+        }
+
+        EventTrigger.Entry entry = new EventTrigger.Entry( );
+
+        entry.eventID = EventTriggerType.PointerDown;
+
 //        entry.callback.AddListener( ( data ) => { OnPointerDown( (PointerEventData)data ); } );
-//        entry.callback.AddListener( ( data ) => { OnPointerDownDelegate( (PointerEventData)data ); } );
-//
-//        eventTrigger.triggers.Add( entry );
-//
+        entry.callback.AddListener( ( data ) => { IAmClicked( (PointerEventData)data ); } );
 
-    }
+        eventTrigger.triggers.Add( entry );
+
+
+    } // InitializeEventTrigger() //
 
 
 
@@ -48,10 +48,20 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-    public void IAmClicked() {
+    public void IAmClicked(PointerEventData data) {
         // Отправка сообщения
         // unit -- в качестве аргумента?
         // или все-таки unitID?
+
+        if (data.button == PointerEventData.InputButton.Left)
+        {
+            armyManager.Dispatcher.TriggerCommand<AbstractGameUnit>(ArmyMessageTypes.unitLeftClicked, thisUnit);
+        }
+        else if (data.button == PointerEventData.InputButton.Right)
+        {
+            armyManager.Dispatcher.TriggerCommand<AbstractGameUnit>(ArmyMessageTypes.unitRightClicked, thisUnit);
+        }
+
     }
 
     public void IAmDead() {
@@ -63,10 +73,6 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
         print( "OnPointerDown called." );
     }
 
-    public void OnPointerDownDelegate( PointerEventData data )
-    {
-        Debug.Log( "OnPointerDownDelegate called." );
-    }
 
 ////////////////////////////////////////////////////////////////////////////////////
 

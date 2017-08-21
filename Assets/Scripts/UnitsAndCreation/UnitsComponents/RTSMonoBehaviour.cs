@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RTSMonoBehaviour : MonoBehaviour {
 
-    ArmyManager armyManager;
+    protected ArmyManager armyManager;
 
     public void SetArmyManager(ArmyManager armyManager) {
         this.armyManager = armyManager;

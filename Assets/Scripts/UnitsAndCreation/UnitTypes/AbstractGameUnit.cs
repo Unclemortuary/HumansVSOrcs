@@ -15,12 +15,6 @@ public abstract class AbstractGameUnit {
 
     public abstract GameUnitCharacteristics Characteristics { get; }
 
-
-    /*    public float MaxAttackDistance { get; }
-        public float MaxSpeed { get; }
-        public float MaxHP { get; }
-        public float MaxMP { get; }
-        public float Defence { get; }
-    */
+    public abstract List<RTSActionType> ActionsList { get; }
 
 }

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class ClonnableGameUnit : AbstractGameUnit {
+
 
     [SerializeField]
     private int id;
@@ -63,7 +64,17 @@ public class ClonnableGameUnit : AbstractGameUnit {
 		}
 	}
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    [SerializeField]
+    private List<RTSActionType> actionsList;
+    public override List<RTSActionType> ActionsList {
+        get {
+            return null;
+        }
+    }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private ClonnableGameUnit(int id, string descr, GameUnitCharacteristics characteristics, GameObject avatar) {
 

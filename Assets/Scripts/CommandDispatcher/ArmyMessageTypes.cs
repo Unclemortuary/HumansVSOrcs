@@ -1,5 +1,6 @@
 public enum ArmyMessageTypes {
-        unitClicked,
+        unitRightClicked,
+        unitLeftClicked,
         unitSelected,
         unitIsDead,
 

@@ -160,9 +160,6 @@ public class GameManager : MonoBehaviour {
                 armyDispatchers[Identification.Army.Orcs]);
 
 
-        // initialize controllers ******************************************* //
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! //
-
 
     } // initialize army managers //
 
