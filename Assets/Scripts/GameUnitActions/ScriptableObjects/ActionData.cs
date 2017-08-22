@@ -1,38 +1,34 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Project.Commands
-{
-	[System.Serializable]
-	public class ActionData : ScriptableObject {
 
-		[System.Serializable]
-		public class SomeAction
-		{
-			[SerializeField]
-			string name;
+[System.Serializable]
+public class ActionData : ScriptableObject {
 
-			[SerializeField]
-			RTSActionType action;
+    [System.Serializable]
+    public class SomeAction
+    {
+        [SerializeField]
+        string name;
 
-			[SerializeField]
-			Sprite icon;
+        [SerializeField]
+        RTSActionType action;
 
-			public RTSActionType Action { get { return action; } }
+        [SerializeField]
+        Sprite icon;
 
-			public Sprite Icon { get { return icon; } }
+        public RTSActionType Action { get { return action; } }
 
-			SomeAction(string name, RTSActionType action, Sprite icon)
-			{
-				this.name = name;
-				this.action = action;
-				this.icon = icon;
-			}
-		}
+        public Sprite Icon { get { return icon; } }
 
-		[SerializeField]
-		private List<SomeAction> actionsData;
-	}
+        public SomeAction(string name, RTSActionType action, Sprite icon)
+        {
+            this.name = name;
+            this.action = action;
+            this.icon = icon;
+        }
+    }
+
+    [SerializeField]
+    private List<SomeAction> actionsData;
 }
-

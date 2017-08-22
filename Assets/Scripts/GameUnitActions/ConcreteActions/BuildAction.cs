@@ -1,5 +1,3 @@
-namespace GameUnitActions.ConcreteActions {
-    public class BuildAction {
+public class BuildAction {
 
-    }
 }

@@ -25,6 +25,10 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
     void Start() {
 //        base.Start();
 
+        if (gameObject.transform.Find("Projector") == null) {
+            print("Can't find a Projector");
+        }
+
         projector = gameObject.transform.Find("Projector").gameObject;
 
         InitializeEventTrigger();

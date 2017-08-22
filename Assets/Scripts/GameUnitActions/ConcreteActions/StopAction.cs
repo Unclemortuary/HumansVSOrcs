@@ -2,14 +2,9 @@ public class StopAction : AbstractRTSAction {
 
 
 
-    CommandPanelItem panelItem;
 
-    public StopAction(CommandPanelItem panelItem) {
-        this.panelItem = panelItem;
-    }
-
-    public override CommandPanelItem GetCommandPanelItem(ArmyStateData data) {
-        return panelItem;
+    public StopAction(ActionData.SomeAction actionData) {
+        this.actionData = actionData;
     }
 
     //////////////////

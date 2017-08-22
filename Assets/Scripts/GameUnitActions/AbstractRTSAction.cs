@@ -1,6 +1,16 @@
 public abstract class AbstractRTSAction {
 
-    public abstract CommandPanelItem GetCommandPanelItem(ArmyStateData data);
+    protected ActionData.SomeAction actionData;
+
+    public ActionData.SomeAction GetActionDataItem() {
+        return actionData;
+    }
+
+    public void SetActionDataItem(ActionData.SomeAction adata) {
+        actionData = adata;
+    }
+
+    /////////////////////////////
 
     public abstract void Starting(ArmyStateData data);
 

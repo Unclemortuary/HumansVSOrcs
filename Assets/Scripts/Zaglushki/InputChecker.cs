@@ -98,6 +98,13 @@ public class InputChecker : MonoBehaviour {
                     RTSActionType.stop);
         }
 
+        if (Input.GetKeyDown(KeyCode.U)) {
+            print("U is clicked - It means Create a unit");
+            GameManager.Instance.ArmyManagers[Identification.Army.Humans]
+            .Dispatcher.TriggerCommand<RTSActionType>(ArmyMessageTypes.invokeRTSAction,
+                    RTSActionType.createArcher);
+        }
+
 
 
 //        cameraMover.ShiftX( Input.GetAxis( "Mouse X") * mouseSpeed );

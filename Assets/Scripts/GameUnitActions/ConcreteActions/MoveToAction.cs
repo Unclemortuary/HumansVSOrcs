@@ -3,18 +3,12 @@ using UnityEngine;
 public class MoveToAction : AbstractRTSAction {
 
 
-    CommandPanelItem panelItem;
-
-    public MoveToAction(CommandPanelItem panelItem) {
-        this.panelItem = panelItem;
+    public MoveToAction(ActionData.SomeAction actionData) {
+        this.actionData = actionData;
     }
 
 
-    /////////////////////////////////////////////////////////////
-
-    public override CommandPanelItem GetCommandPanelItem(ArmyStateData data) {
-        return panelItem;
-    }
+/////////////////////////////////////////////////////////////
 
 
     public override void Doing(ArmyStateData data) {
@@ -53,4 +47,5 @@ public class MoveToAction : AbstractRTSAction {
         data.WaitingForTarget = true;
         Debug.Log("starting move");
     }
+
 }

@@ -94,14 +94,19 @@ public class GameManager : MonoBehaviour {
         /// Add here all possible RTSActions //
         /// And initialize their information for Panel of Commands //
         ///
+        ///
+        ActionData.SomeAction dummyData = new ActionData.SomeAction("", RTSActionType.NULL, null);
 
-        actionsLibrary.AddRTSAction(RTSActionType.moveTo, new MoveToAction(
-            new CommandPanelItem("MoveTo")
-        ));
+        actionsLibrary.AddRTSAction(RTSActionType.moveTo, new MoveToAction(  dummyData  ));
 
-        actionsLibrary.AddRTSAction(RTSActionType.stop, new StopAction(
-            new CommandPanelItem("Stop")
-        ));
+
+
+        actionsLibrary.AddRTSAction(RTSActionType.stop, new StopAction(  dummyData  ));
+
+        actionsLibrary.AddRTSAction(RTSActionType.createArcher, new CreateUnitAction(Identification.UnitType.Archer,  dummyData  ));
+        actionsLibrary.AddRTSAction(RTSActionType.createSwordsman, new CreateUnitAction(Identification.UnitType.Swordsman,  dummyData  ));
+        actionsLibrary.AddRTSAction(RTSActionType.createHorseman, new CreateUnitAction(Identification.UnitType.Horseman,  dummyData  ));
+
 
 // ################################################################################################################################
 // ################################################################################################################################

@@ -4,10 +4,15 @@ using UnityEngine;
 public class ArmyStateData {
 
     private static Vector3 noWherePoint = new Vector3(-100,-100,-100);
-    public bool IsNoWhere(Vector3 pos) {
+    public static bool IsNoWhere(Vector3 pos) {
         return pos == noWherePoint;
     }
 
+    public bool TargetPointIsNowhere() {
+        return IsNoWhere(this.TargetPoint);
+    }
+
+    //---------------------------
 
     public ArmyManager ThisArmyManager { get; set; }
 
