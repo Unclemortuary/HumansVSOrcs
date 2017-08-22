@@ -18,10 +18,12 @@ namespace Project.Commands
 		[SerializeField]
 		private RTSActionType currentAction;
 
+		public RTSActionType CurrentAction { get { return currentAction; } }
+
 		void Start ()
 		{
 			InitCommandsList ();
-			currentAction = defaultAction;
+			currentAction = RTSActionType.NULL;
 		}
 
 		void InitCommandsList ()
@@ -57,16 +59,20 @@ namespace Project.Commands
 
 
 		// Changing icons set here
-		void UpdatePanel (List<ActionData.SomeAction> actions)
+		public void UpdatePanel (List<ActionData.SomeAction> list)
 		{
-			for (int i = 0; i < actions.Count; i++)
-				commands [i].SetCommand (actions [i].Action, actions [i].Icon);
+			for (int i = 0; i < commandsCount; i++)
+			{
+				commands [i].SetCommand (list [i].Action, list [i].Icon);
+			}
 		}
 
-		void ClearPanel ()
+		public void ClearPanel ()
 		{
 			for (int i = 0; i < commands.Count; i++)
 				commands [i].UnsetCommand ();
+
+			currentAction = RTSActionType.NULL;
 		}
 	}
 }

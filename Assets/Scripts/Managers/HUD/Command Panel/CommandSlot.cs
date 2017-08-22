@@ -21,6 +21,8 @@ public class CommandSlot : MonoBehaviour, IClickable, IPointerClickHandler {
 
 	private Color empty = new Color (0f, 0f, 0f, 0f);
 
+	public RTSActionType Command { get { return command; } }
+
 	void Start()
 	{
 		commandImage = GetComponentInChildren<Image> ();
