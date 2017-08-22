@@ -68,17 +68,28 @@ public class PlayerController {
                 }
         );
 
+        PlayerArmyDispatcher.StartListening<Vector3>(ArmyMessageTypes.terrainIsLeftClicked,
+                (Vector3 pos) => {
+                    bool test = false;
+                    PlayerArmyDispatcher.TriggerFunc<bool>(ArmyMessageTypes.testWaitingForTarget, (bool v)=> { test = v; });
+                    if (test) {
+                        PlayerArmyDispatcher.TriggerCommand<Vector3>(ArmyMessageTypes.setTargetPoint, pos);
+
+                        Debug.Log("Setting target point: " + pos);
+                    } else {
+                        Debug.Log("Click on terrain means deselect");
+
+                        PlayerArmyDispatcher.TriggerCommand(ArmyMessageTypes.deselectUnits);
+                    }
+                }
+        );
+
+
         ////////////////////////////////////////////////
 
         PlayerArmyDispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCryRightClicked,
                 (AbstractGameUnit unit) => {
                     Debug.Log("Unit is right clicked: " + unit.Description);
-                }
-        );
-
-        PlayerArmyDispatcher.StartListening<Vector2>(ArmyMessageTypes.terrainIsLeftClicked,
-                (Vector2 pos) => {
-                    Debug.Log("Terrain is left clicked: " + pos);
                 }
         );
 

@@ -80,7 +80,21 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
                     }
                 });
 
-        // Zaglushki // #######################################################
+
+        data.ThisArmyManager.Dispatcher.StartListeningFunc<bool>(ArmyMessageTypes.testWaitingForTarget, () => {
+            return data.WaitingForTarget;
+        });
+
+        data.ThisArmyManager.Dispatcher.StartListening<Vector3>(ArmyMessageTypes.setTargetPoint,
+                (Vector3 point) => {
+                    Debug.Log("StateMachine: Setting Target Point" + point);
+
+                    data.TargetPoint = point;
+                    data.WaitingForTarget = false;
+                });
+
+
+// Zaglushki // #######################################################
 
         data.ThisArmyManager.Dispatcher.StartListening<RTSActionType>(ArmyMessageTypes.invokeRTSAction,
                 (RTSActionType actionType) => {
@@ -168,7 +182,7 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
     private void TurnAllSelections(bool on) {
         foreach (AbstractGameUnit unit in data.SelectedUnits) {
             data.ThisArmyManager.Dispatcher.TriggerCommand<bool>(
-                    ArmyMessageTypes.unitCommanTurnSelection,
+                    ArmyMessageTypes.unitCommandTurnSelection,
                     on, unit.ID);
         }
     }

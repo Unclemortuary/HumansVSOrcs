@@ -91,6 +91,14 @@ public class InputChecker : MonoBehaviour {
         }
 
 
+        if (Input.GetKeyDown(KeyCode.S)) {
+            print("M is clicked - It means Stop selected units");
+            GameManager.Instance.ArmyManagers[Identification.Army.Humans]
+            .Dispatcher.TriggerCommand<RTSActionType>(ArmyMessageTypes.invokeRTSAction,
+                    RTSActionType.stop);
+        }
+
+
 
 //        cameraMover.ShiftX( Input.GetAxis( "Mouse X") * mouseSpeed );
 //        cameraMover.ShiftZ( Input.GetAxis( "Mouse Y") * mouseSpeed );

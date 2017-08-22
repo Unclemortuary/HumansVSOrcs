@@ -17,12 +17,12 @@ public class InputReader : MonoBehaviour{
     private Camera gameCamera;
 
     // Units selection using mouse //
-    bool isSelecting = false;
-    Vector3 mousePosition1;
-    Vector3 mousePosition2;
+    private bool isSelecting = false;
+    private Vector3 mousePosition1;
+    private float minSelectionDiam = 30;
     private Color screenRectColor = new Color( 0.8f, 0.8f, 0.95f, 0.25f );
     private Color screenRectBorder = new Color( 0.8f, 0.8f, 0.95f );
-
+    // + + + + + + + + + + + + + + //
 
     void Start() {
         gameCamera = cameraMover.gameObject.GetComponent<Camera>();
@@ -35,8 +35,6 @@ public class InputReader : MonoBehaviour{
         MoveCamera();
 
         MouseSelectionCheck();
-
-
 
 
     }
@@ -86,9 +84,12 @@ public class InputReader : MonoBehaviour{
             isSelecting = false;
 
             // Check if units were selected //
-//            mousePosition2 = Input.mousePosition;
-            Bounds viewportBounds = MouseRectTools.GetViewportBounds(gameCamera, mousePosition1, Input.mousePosition);
-            GameManager.Instance.PlayerController.NewUnitsSelection(viewportBounds);
+            Vector3 mouseposition2 = Input.mousePosition;
+            if (Vector3.Distance(mousePosition1, mouseposition2) > minSelectionDiam) {
+                Debug.Log("selectiondiam = " + Vector3.Distance(mousePosition1, mouseposition2));
+                Bounds viewportBounds = MouseRectTools.GetViewportBounds(gameCamera, mousePosition1, mouseposition2);
+                GameManager.Instance.PlayerController.NewUnitsSelection(viewportBounds);
+            }
 
         }
 

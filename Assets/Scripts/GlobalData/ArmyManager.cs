@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ArmyManager {
 
@@ -16,10 +17,11 @@ public class ArmyManager {
     }
 
     private ArmyStateMachine stateMachine;
-
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! *************** //
-//    private Controller controller;
-
+    public ArmyStateMachine StateMachine {
+        get {
+            return stateMachine;
+        }
+    }
 
 
     private string description;
@@ -78,6 +80,9 @@ public class ArmyManager {
 
         UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
         reactionsComponent.SetGameUnit(newUnit);
+
+        NavMeshAgent agent = newUnit.Avatar.AddComponent<NavMeshAgent>();
+        reactionsComponent.SetNavmeshAgent(agent);
 
         nextID++;
 

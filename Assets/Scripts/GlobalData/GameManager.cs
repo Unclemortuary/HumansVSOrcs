@@ -92,17 +92,21 @@ public class GameManager : MonoBehaviour {
         actionsLibrary = new RTSActionLibrary();
 
         /// Add here all possible RTSActions //
-        /// And initialize their CommandPanelItems //
+        /// And initialize their information for Panel of Commands //
         ///
 
         actionsLibrary.AddRTSAction(RTSActionType.moveTo, new MoveToAction(
             new CommandPanelItem("MoveTo")
         ));
 
+        actionsLibrary.AddRTSAction(RTSActionType.stop, new StopAction(
+            new CommandPanelItem("Stop")
+        ));
+
 // ################################################################################################################################
 // ################################################################################################################################
 // ################################################################################################################################
-//        move, stop, attack, build,
+//        attack, build,
 //        holdPosition, patrol,
 //        specialHeal, specialFireStorm
 

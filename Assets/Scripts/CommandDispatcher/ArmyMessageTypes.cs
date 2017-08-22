@@ -19,7 +19,7 @@ public enum ArmyMessageTypes {
         stopMachine,
 
 
-        unitCommanTurnSelection,
+        unitCommandTurnSelection,
         unitCommandGoToPosition,
         unitCommandFollowUnit,
         unitCommandStop,
