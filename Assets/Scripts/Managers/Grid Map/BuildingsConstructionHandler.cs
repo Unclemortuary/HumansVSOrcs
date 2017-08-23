@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingsConstructionHandler : RTSMonoBehaviour {
+public class BuildingsConstructionHandler : MonoBehaviour {
 
 	private float buildingWidth = 3f;
 	private float buildingHeight = 3f;
 	private float cellSize;
 
-	private Shader originShader;
-	private Color originColor;
 	private Color greenTransparentColor = new Color (0f, 0.8f, 0f, 0.3f);
 	private Color redTransparentColor = new Color (0.8f, 0f, 0f, 0.3f);
 	private Renderer[] renderers;
@@ -28,10 +26,10 @@ public class BuildingsConstructionHandler : RTSMonoBehaviour {
 	{
 		cellSize = GridMapManager.instance.CellSize;
 		settableBuilding = GetComponent<BuildingComponent> ();
-		settableBuilding.gameObject.GetComponent<Collider> ().enabled = false;
+		Collider[] colliders = settableBuilding.gameObject.GetComponents<Collider> ();
+		foreach (Collider collider in colliders)
+			collider.enabled = false;
 		renderers = GetComponentsInChildren<Renderer> ();
-		originShader = renderers [0].material.shader;
-		originColor = renderers [0].material.color;
 	}
 
 	void Update()
@@ -71,11 +69,14 @@ public class BuildingsConstructionHandler : RTSMonoBehaviour {
 		{
 			settableBuilding.transform.position = position;
 			foreach (Renderer renderer in renderers) 
-			{
-				renderer.material.shader = originShader;
-				renderer.material.color = originColor;
-			}
-			settableBuilding.gameObject.GetComponent<Collider> ().enabled = true;
+				renderer.material.color = new Color (settableBuilding.OriginColor.r, settableBuilding.OriginColor.g, settableBuilding.OriginColor.b, 0.5f);
+
+			Collider[] colliders = settableBuilding.gameObject.GetComponents<Collider> ();
+			foreach (Collider collider in colliders)
+				collider.enabled = true;
+
+			//***Animations of building and Timer class start must invoke here***
+
 			Destroy (this);
 		}
 		else 

@@ -76,6 +76,8 @@ public class GridMapManager : RTSMonoBehaviour {
 
 					Vector3 worldPoint = new Vector3 (cell.points [numberOfPoint].x, yValue, cell.points [numberOfPoint].y);
 
+
+
 					if (NavMesh.SamplePosition (worldPoint, out mHit, cellSize/4f, NavMesh.AllAreas) &&
 						( (mHit.position.x <= worldPoint.x + float.Epsilon) && (mHit.position.x >= worldPoint.x - float.Epsilon) )
 						&& ( (mHit.position.z <= worldPoint.z + float.Epsilon) && (mHit.position.z >= worldPoint.z - float.Epsilon) ))
@@ -83,7 +85,6 @@ public class GridMapManager : RTSMonoBehaviour {
 						if (numberOfPoint == cellPointsCount - 1) 
 						{
 							cell.Status = CellStatus.Idle;
-							//BuildGridElement(cell.FirstPoint);
 						}
 					}
 					else 
