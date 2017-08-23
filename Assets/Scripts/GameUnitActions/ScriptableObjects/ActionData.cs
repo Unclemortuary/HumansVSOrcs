@@ -36,4 +36,17 @@ public class ActionData : ScriptableObject {
             return actionsData;
         }
     }
+
+	/*
+	public SomeAction getSomeAction(RTSActionType type)
+	{
+		for (int i = 0; i < actionsData.Count; i++) 
+		{
+			if (actionsData [i].Action == type)
+				return actionsData [i];	
+		}
+		return null;
+	}
+	*/
 }
+
