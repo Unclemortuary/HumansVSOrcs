@@ -9,6 +9,8 @@ public enum RTSActionType {
     patrol,
 
 	build,
+
+
     createArcher,
     createSwordsman,
     createHorseman,

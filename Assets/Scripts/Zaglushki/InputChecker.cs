@@ -106,6 +106,14 @@ public class InputChecker : MonoBehaviour {
         }
 
 
+        if (Input.GetKeyDown(KeyCode.B)) {
+            print("B is clicked - It means Build a construction");
+            GameManager.Instance.ArmyManagers[Identification.Army.Humans]
+            .Dispatcher.TriggerCommand<RTSActionType>(ArmyMessageTypes.invokeRTSAction,
+                    RTSActionType.build);
+        }
+
+
 
 //        cameraMover.ShiftX( Input.GetAxis( "Mouse X") * mouseSpeed );
 //        cameraMover.ShiftZ( Input.GetAxis( "Mouse Y") * mouseSpeed );

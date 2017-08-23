@@ -4,9 +4,8 @@ public class CreateUnitAction : AbstractRTSAction {
 
     private Identification.UnitType unitType;
 
-    public CreateUnitAction(Identification.UnitType unitType, ActionData.SomeAction actionData) {
+    public CreateUnitAction(Identification.UnitType unitType) {
         this.unitType = unitType;
-        this.actionData = actionData;
     }
 
 

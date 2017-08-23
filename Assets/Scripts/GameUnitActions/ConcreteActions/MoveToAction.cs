@@ -3,11 +3,6 @@ using UnityEngine;
 public class MoveToAction : AbstractRTSAction {
 
 
-    public MoveToAction(ActionData.SomeAction actionData) {
-        this.actionData = actionData;
-    }
-
-
 /////////////////////////////////////////////////////////////
 
 

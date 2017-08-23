@@ -1,6 +1,6 @@
 public abstract class AbstractRTSAction {
 
-    protected ActionData.SomeAction actionData;
+    protected ActionData.SomeAction actionData = null;
 
     public ActionData.SomeAction GetActionDataItem() {
         return actionData;

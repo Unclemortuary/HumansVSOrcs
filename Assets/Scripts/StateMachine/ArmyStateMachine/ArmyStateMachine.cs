@@ -104,6 +104,14 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
                     if (CurrentState == ArmySMStateType.unitsSelected) {
                         data.CurrentRtsAction = GameManager.Instance.ActionsLibrary.GetRTSAction(actionType);
                         Trigger(ArmySMTransitionType.selectedToDoAction);
+                    } else if (CurrentState == ArmySMStateType.doAction) {
+                        Trigger(ArmySMTransitionType.doActionToSelected);
+                        data.CurrentRtsAction = GameManager.Instance.ActionsLibrary.GetRTSAction(actionType);
+                        Trigger(ArmySMTransitionType.selectedToDoAction);
+                    } else if (CurrentState == ArmySMStateType.freeState) {
+
+                        // Actions whith no performer??? //
+
                     }
                 });
 
@@ -150,9 +158,15 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
 
         AddTransition(ArmySMTransitionType.selectedToDoAction,
                 new ArmyStateMachineTransition(
-                        ArmySMStateType.unitsSelected, ArmySMStateType.doAction, Any2ActionTransition
+                        ArmySMStateType.unitsSelected, ArmySMStateType.doAction, Selected2ActionTransition
                 )
         );
+
+//        AddTransition(ArmySMTransitionType.doActionToDoAction,
+//                new ArmyStateMachineTransition(
+//                        ArmySMStateType.doAction, ArmySMStateType.doAction, Action2ActionTransition
+//                )
+//        );
 
         AddTransition(ArmySMTransitionType.doActionToFree,
                 new ArmyStateMachineTransition(
@@ -212,7 +226,7 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
 
 
 
-    public void Any2ActionTransition(ArmySMStateType current, ArmySMStateType next) {
+    public void Selected2ActionTransition(ArmySMStateType current, ArmySMStateType next) {
         if(current != next)
         {
             this.data.CurrentRtsAction.Starting(data);
@@ -220,6 +234,14 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
             CurrentState = next;
         }
     }
+
+
+//    public void Action2ActionTransition(ArmySMStateType current, ArmySMStateType next) {
+//
+//        this.data.CurrentRtsAction.Starting(data);
+//
+//        CurrentState = next;
+//    }
 
 
     public void Action2FreeTransition(ArmySMStateType current, ArmySMStateType next) {

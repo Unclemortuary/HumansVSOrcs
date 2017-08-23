@@ -15,4 +15,9 @@ public class RTSActionLibrary {
     public AbstractRTSAction GetRTSAction(RTSActionType type) {
         return actions[type];
     }
+
+    public bool Contains(RTSActionType type) {
+        return actions.ContainsKey(type);
+    }
+
 }

@@ -18,6 +18,11 @@ public class BuildingsConstructionHandler : RTSMonoBehaviour {
 	private BuildingComponent settableBuilding;
 
 	private bool canBuild;
+    public bool CanBuild {
+        get {
+            return CanBuild;
+        }
+    }
 
 	void Start()
 	{

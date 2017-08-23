@@ -31,4 +31,9 @@ public class ActionData : ScriptableObject {
 
     [SerializeField]
     private List<SomeAction> actionsData;
+    public List<SomeAction> ActionsData {
+        get {
+            return actionsData;
+        }
+    }
 }

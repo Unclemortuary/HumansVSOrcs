@@ -78,12 +78,6 @@ public class ArmyManager {
         unitId.PersonalID = newUnit.ID;
         unitId.Army = thisArmy;
 
-        UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
-        reactionsComponent.SetGameUnit(newUnit);
-
-        NavMeshAgent agent = newUnit.Avatar.AddComponent<NavMeshAgent>();
-        reactionsComponent.SetNavmeshAgent(agent);
-
         nextID++;
 
         unitsStorage.Add(newUnit.ID, newUnit);
@@ -106,6 +100,12 @@ public class ArmyManager {
 
         AbstractGameUnit newUnit = CreateUnit(warriorFactory, type, position, warriors);
 
+        UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
+        reactionsComponent.SetGameUnit(newUnit);
+
+        NavMeshAgent agent = newUnit.Avatar.AddComponent<NavMeshAgent>();
+        reactionsComponent.SetNavmeshAgent(agent);
+
         return newUnit;
     }
 
@@ -114,7 +114,15 @@ public class ArmyManager {
 
         AbstractGameUnit newUnit = CreateUnit(buildingFactory, type, position, buildings);
 
-        // This is a building //
+        UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
+        reactionsComponent.SetGameUnit(newUnit);
+
+        NavMeshObstacle obstacle = newUnit.Avatar.AddComponent<NavMeshObstacle>();
+//        reactionsComponent.SetNavmeshAgent(agent);
+
+
+
+// This is a building //
         newUnit.Avatar.AddComponent<BuildingComponent>();
 
         return newUnit;

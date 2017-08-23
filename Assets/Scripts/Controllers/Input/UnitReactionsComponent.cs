@@ -25,10 +25,10 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
     void Start() {
 //        base.Start();
 
-        if (gameObject.transform.Find("Projector") == null) {
-            print("Can't find a Projector");
-        }
-
+//        if (gameObject.transform.Find("Projector") == null) {
+//            print("Can't find a Projector");
+//        }
+//
         projector = gameObject.transform.Find("Projector").gameObject;
 
         InitializeEventTrigger();
@@ -101,21 +101,6 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
 
 
     public void IAmClicked(PointerEventData data) {
-
-//        if (data == null) {
-//            print("pointer event data is null");
-//        }
-//        if (thisUnit == null) {
-//            print("thisUnit is null");
-//        }
-//        if (armyManager == null) {
-//            print("Armymanager is null");
-//        }
-//        if (armyManager.Dispatcher == null) {
-//            print("army dispatcher is null");
-//        }
-//
-//        print("Sending message IAmClicked");
 
         if (data.button == PointerEventData.InputButton.Left)
         {

@@ -2,11 +2,6 @@ public class StopAction : AbstractRTSAction {
 
 
 
-
-    public StopAction(ActionData.SomeAction actionData) {
-        this.actionData = actionData;
-    }
-
     //////////////////
 
     public override void Doing(ArmyStateData data) {

@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private ScriptablePrototypesDictionaries scriptablePrototypesList;
 
+    [SerializeField]
+    private ActionData scriptableActionDataList;
 
     //////////////////////////////////////////////////////////////////////////////////////
 
@@ -95,17 +97,27 @@ public class GameManager : MonoBehaviour {
         /// And initialize their information for Panel of Commands //
         ///
         ///
-        ActionData.SomeAction dummyData = new ActionData.SomeAction("", RTSActionType.NULL, null);
+//        ActionData.SomeAction dummyData = new ActionData.SomeAction("", RTSActionType.NULL, null);
 
-        actionsLibrary.AddRTSAction(RTSActionType.moveTo, new MoveToAction(  dummyData  ));
+        actionsLibrary.AddRTSAction(RTSActionType.moveTo, new MoveToAction());
+
+        actionsLibrary.AddRTSAction(RTSActionType.stop, new StopAction());
+
+        actionsLibrary.AddRTSAction(RTSActionType.createArcher, new CreateUnitAction(Identification.UnitType.Archer));
+        actionsLibrary.AddRTSAction(RTSActionType.createSwordsman, new CreateUnitAction(Identification.UnitType.Swordsman));
+        actionsLibrary.AddRTSAction(RTSActionType.createHorseman, new CreateUnitAction(Identification.UnitType.Horseman));
 
 
+        actionsLibrary.AddRTSAction(RTSActionType.build, new BuildAction(Identification.UnitType.GeneralHouse));
 
-        actionsLibrary.AddRTSAction(RTSActionType.stop, new StopAction(  dummyData  ));
 
-        actionsLibrary.AddRTSAction(RTSActionType.createArcher, new CreateUnitAction(Identification.UnitType.Archer,  dummyData  ));
-        actionsLibrary.AddRTSAction(RTSActionType.createSwordsman, new CreateUnitAction(Identification.UnitType.Swordsman,  dummyData  ));
-        actionsLibrary.AddRTSAction(RTSActionType.createHorseman, new CreateUnitAction(Identification.UnitType.Horseman,  dummyData  ));
+        // Initialize ActionData form scriptableObject //
+        foreach (ActionData.SomeAction actionDataItem in scriptableActionDataList.ActionsData) {
+            if (actionsLibrary.Contains(actionDataItem.Action)) {
+                actionsLibrary.GetRTSAction(actionDataItem.Action).SetActionDataItem(actionDataItem);
+            }
+        }
+
 
 
 // ################################################################################################################################
