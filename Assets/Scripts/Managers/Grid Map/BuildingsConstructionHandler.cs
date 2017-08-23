@@ -20,7 +20,7 @@ public class BuildingsConstructionHandler : RTSMonoBehaviour {
 	private bool canBuild;
     public bool CanBuild {
         get {
-            return CanBuild;
+            return canBuild;
         }
     }
 

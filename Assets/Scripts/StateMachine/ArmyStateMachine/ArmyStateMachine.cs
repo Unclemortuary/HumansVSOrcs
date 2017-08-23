@@ -102,13 +102,20 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
 
                     // Selected To DoAction //
                     if (CurrentState == ArmySMStateType.unitsSelected) {
+                        Debug.Log("Previous state was selected");
                         data.CurrentRtsAction = GameManager.Instance.ActionsLibrary.GetRTSAction(actionType);
                         Trigger(ArmySMTransitionType.selectedToDoAction);
+
                     } else if (CurrentState == ArmySMStateType.doAction) {
+                        Debug.Log("Previous state was doAction");
+
                         Trigger(ArmySMTransitionType.doActionToSelected);
                         data.CurrentRtsAction = GameManager.Instance.ActionsLibrary.GetRTSAction(actionType);
                         Trigger(ArmySMTransitionType.selectedToDoAction);
+
                     } else if (CurrentState == ArmySMStateType.freeState) {
+
+                        Debug.Log("Previous state was freestate");
 
                         // Actions whith no performer??? //
 
@@ -204,6 +211,7 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
     /// *** ///
 
     public void Free2SelectedTransition(ArmySMStateType current, ArmySMStateType next) {
+        Debug.Log(">>>  free2selected");
         if(current != next)
         {
             TurnAllSelections(true);
@@ -212,10 +220,12 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
     }
 
     public void Selected2SelectedTransition(ArmySMStateType current, ArmySMStateType next) {
+        Debug.Log(">>>  selected2selected");
         TurnAllSelections(true);
     }
 
     public void Selected2FreeTransition(ArmySMStateType current, ArmySMStateType next) {
+        Debug.Log(">>>  selected2free");
         if(current != next)
         {
             TurnAllSelections(false);
@@ -227,6 +237,7 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
 
 
     public void Selected2ActionTransition(ArmySMStateType current, ArmySMStateType next) {
+        Debug.Log(">>>  selected2action");
         if(current != next)
         {
             this.data.CurrentRtsAction.Starting(data);
@@ -245,6 +256,7 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
 
 
     public void Action2FreeTransition(ArmySMStateType current, ArmySMStateType next) {
+        Debug.Log(">>>  action2free");
         if(current != next)
         {
             this.data.CurrentRtsAction.Stopping(data);
@@ -258,6 +270,7 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
 
 
     public void Action2SelectedTransition(ArmySMStateType current, ArmySMStateType next) {
+        Debug.Log(">>>  action2selected");
         if(current != next)
         {
             this.data.CurrentRtsAction.Stopping(data);

@@ -10,6 +10,8 @@ public class BuildAction : AbstractRTSAction {
 
     public BuildAction(Identification.UnitType type) {
         this.unitType = type;
+
+        Debug.Log("BuildAction created");
     }
 
     ////////////////////////////
@@ -21,7 +23,7 @@ public class BuildAction : AbstractRTSAction {
 
         } else {
 
-            if (constructionHandler.CanBuild) {
+            if (true /*constructionHandler.CanBuild*/) {
 
                 if (data.TargetPointIsNowhere() && data.TargetUnit == null) {
 
@@ -32,14 +34,21 @@ public class BuildAction : AbstractRTSAction {
                         data.TargetPoint = data.TargetUnit.Avatar.transform.position;
                     }
 
-                    GameObject.Destroy(constructionHandler);
-                    GameObject scaffold = building.Avatar.transform.Find("BuildingBuild").gameObject;
+//                    GameObject.Destroy(constructionHandler);
 
+                    AbstractGameUnit newBuilding = data.ThisArmyManager.CreateBuilding(unitType, data.TargetPoint);
+                    GameObject scaffold = newBuilding.Avatar.transform.Find("BuildingBuild").gameObject;
+
+                    if (scaffold != null) {
+                        Debug.Log("scaffold is found");
+                    }
+
+                    Debug.Log("Setting scaffold active");
                     scaffold.SetActive(true);
 
                     new Timer(building.Avatar, delegate  {
                         scaffold.SetActive(false);
-                    }, 5f);
+                    }, 500f);
 
                 }
 
@@ -61,6 +70,8 @@ public class BuildAction : AbstractRTSAction {
 
 
     public override void Starting(ArmyStateData data) {
+        Debug.Log("Starting BuildAction");
+
         building = data.ThisArmyManager.CreateBuilding(unitType, Vector3.zero);
         constructionHandler = building.Avatar.AddComponent<BuildingsConstructionHandler>();
 
@@ -68,6 +79,8 @@ public class BuildAction : AbstractRTSAction {
     }
 
     public override void Stopping(ArmyStateData data) {
+
+        data.ThisArmyManager.DestroyGameUnit(building.ID);
 
     }
 

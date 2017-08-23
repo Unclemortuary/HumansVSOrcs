@@ -8,8 +8,15 @@ public enum RTSActionType {
     holdPosition,
     patrol,
 
-	build,
 
+    buildFarm,
+	buildGeneralHouse,
+    buildBarrack,
+    buildForge,
+    buildQuarry,
+    buildSawmill,
+    buildSimpleHouse,
+    buildWatchTower,
 
     createArcher,
     createSwordsman,

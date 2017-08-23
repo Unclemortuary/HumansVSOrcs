@@ -160,6 +160,23 @@ public class ArmyManager {
         return null;
     }
 
+    public void DestroyGameUnit(int id) {
+        AbstractGameUnit unit = null;
+        if (warriors.ContainsKey(id)) {
+            unit =  warriors[id];
+            warriors.Remove(id);
+        }
+        if (buildings.ContainsKey(id)) {
+            unit =  buildings[id];
+            buildings.Remove(id);
+        }
+
+        if (unit != null) {
+//            GameObject.Destroy(unit.Avatar);
+        }
+    }
+
+
 
 
     public AbstractGameUnitsList FindWarriorsWithinViewportBounds(Bounds bounds) {

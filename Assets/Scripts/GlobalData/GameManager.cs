@@ -108,15 +108,21 @@ public class GameManager : MonoBehaviour {
         actionsLibrary.AddRTSAction(RTSActionType.createHorseman, new CreateUnitAction(Identification.UnitType.Horseman));
 
 
-        actionsLibrary.AddRTSAction(RTSActionType.build, new BuildAction(Identification.UnitType.GeneralHouse));
-
+        actionsLibrary.AddRTSAction(RTSActionType.buildFarm, new BuildAction(Identification.UnitType.Farm));
+        actionsLibrary.AddRTSAction(RTSActionType.buildGeneralHouse, new BuildAction(Identification.UnitType.GeneralHouse));
+        actionsLibrary.AddRTSAction(RTSActionType.buildBarrack, new BuildAction(Identification.UnitType.Barrack));
+        actionsLibrary.AddRTSAction(RTSActionType.buildForge, new BuildAction(Identification.UnitType.Forge));
+        actionsLibrary.AddRTSAction(RTSActionType.buildQuarry, new BuildAction(Identification.UnitType.Quarry));
+        actionsLibrary.AddRTSAction(RTSActionType.buildSawmill, new BuildAction(Identification.UnitType.Sawmill));
+        actionsLibrary.AddRTSAction(RTSActionType.buildSimpleHouse, new BuildAction(Identification.UnitType.SimpleHouse));
+        actionsLibrary.AddRTSAction(RTSActionType.buildWatchTower, new BuildAction(Identification.UnitType.WatchTower));
 
         // Initialize ActionData form scriptableObject //
-        foreach (ActionData.SomeAction actionDataItem in scriptableActionDataList.ActionsData) {
-            if (actionsLibrary.Contains(actionDataItem.Action)) {
-                actionsLibrary.GetRTSAction(actionDataItem.Action).SetActionDataItem(actionDataItem);
-            }
-        }
+//        foreach (ActionData.SomeAction actionDataItem in scriptableActionDataList.ActionsData) {
+//            if (actionsLibrary.Contains(actionDataItem.Action)) {
+//                actionsLibrary.GetRTSAction(actionDataItem.Action).SetActionDataItem(actionDataItem);
+//            }
+//        }
 
 
 
