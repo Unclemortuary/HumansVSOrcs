@@ -5,7 +5,7 @@ public class BuildAction : AbstractRTSAction {
     private Identification.UnitType unitType;
 
 
-    private AbstractGameUnit building = null;
+    private GameObject buildingGhost = null;
     private BuildingsConstructionHandler constructionHandler = null;
 
     public BuildAction(Identification.UnitType type) {
@@ -20,10 +20,16 @@ public class BuildAction : AbstractRTSAction {
         if (data.WaitingForTarget) {
 
             Debug.Log("BuildingAction: Waiting for target");
+            if (buildingGhost == null) {
+                Debug.Log("Ghost is null");
+            }
+            if (constructionHandler == null) {
+                Debug.Log("handler is null");
+            }
 
         } else {
 
-            if (true /*constructionHandler.CanBuild*/) {
+            if (constructionHandler.CanBuild) {
 
                 if (data.TargetPointIsNowhere() && data.TargetUnit == null) {
 
@@ -46,7 +52,7 @@ public class BuildAction : AbstractRTSAction {
                     Debug.Log("Setting scaffold active");
                     scaffold.SetActive(true);
 
-                    new Timer(building.Avatar, delegate  {
+                    new Timer(newBuilding.Avatar, delegate  {
                         scaffold.SetActive(false);
                     }, 500f);
 
@@ -54,7 +60,7 @@ public class BuildAction : AbstractRTSAction {
 
                 data.ThisArmyManager.StateMachine.Trigger(ArmySMTransitionType.doActionToSelected);
 
-            } else {
+            } else { // If Can Build //
 
                 data.WaitingForTarget = true;
 
@@ -72,15 +78,20 @@ public class BuildAction : AbstractRTSAction {
     public override void Starting(ArmyStateData data) {
         Debug.Log("Starting BuildAction");
 
-        building = data.ThisArmyManager.CreateBuilding(unitType, Vector3.zero);
-        constructionHandler = building.Avatar.AddComponent<BuildingsConstructionHandler>();
+        buildingGhost = data.ThisArmyManager.CreateBuildingGhost(unitType, Vector3.zero);
+        constructionHandler = buildingGhost.AddComponent<BuildingsConstructionHandler>();
 
         data.WaitingForTarget = true;
     }
 
     public override void Stopping(ArmyStateData data) {
 
-        data.ThisArmyManager.DestroyGameUnit(building.ID);
+        Debug.Log("Quitting building action");
+
+        if (buildingGhost != null) {
+            GameObject.Destroy(buildingGhost);
+        }
+//        data.ThisArmyManager.DestroyGameUnit(buildingGhost.ID);
 
     }
 
