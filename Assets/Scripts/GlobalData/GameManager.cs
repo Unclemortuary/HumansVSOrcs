@@ -118,11 +118,11 @@ public class GameManager : MonoBehaviour {
         actionsLibrary.AddRTSAction(RTSActionType.buildWatchTower, new BuildAction(Identification.UnitType.WatchTower));
 
         // Initialize ActionData form scriptableObject //
-//        foreach (ActionData.SomeAction actionDataItem in scriptableActionDataList.ActionsData) {
-//            if (actionsLibrary.Contains(actionDataItem.Action)) {
-//                actionsLibrary.GetRTSAction(actionDataItem.Action).SetActionDataItem(actionDataItem);
-//            }
-//        }
+        foreach (ActionData.SomeAction actionDataItem in scriptableActionDataList.ActionsData) {
+            if (actionsLibrary.Contains(actionDataItem.Action)) {
+                actionsLibrary.GetRTSAction(actionDataItem.Action).SetActionDataItem(actionDataItem);
+            }
+        }
 
 
 

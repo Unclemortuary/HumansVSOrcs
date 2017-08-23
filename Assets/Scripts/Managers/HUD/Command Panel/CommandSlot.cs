@@ -23,23 +23,23 @@ public class CommandSlot : MonoBehaviour, IClickable, IPointerClickHandler {
 
 	public RTSActionType Command { get { return command; } }
 
-	void Start()
+	void Awake()
 	{
-		commandImage = GetComponentInChildren<Image> ();
+		//commandImage = GetComponentInChildren<Image> ();
+		commandImage = transform.GetChild(0).GetComponent<Image>();
 		UnsetCommand ();
 	}
 
-	public void SetCommand(RTSActionType command ,Sprite sprite)
+	public void SetCommand(RTSActionType command, Sprite sprite)
 	{
 		this.command = command;
-		Color color = commandImage.color;
-		color.a = 1f;
+		commandImage.color = new Color(commandImage.color.r, commandImage.color.g, commandImage.color.b, 1f);
 		commandImage.sprite = sprite;
 	}
 
 	public void UnsetCommand()
 	{
-		commandImage.color = empty;
+		commandImage.color = new Color (commandImage.color.r, commandImage.color.g, commandImage.color.b, 0f);
 		commandImage.sprite = null;
 		command = RTSActionType.NULL;
 	}
