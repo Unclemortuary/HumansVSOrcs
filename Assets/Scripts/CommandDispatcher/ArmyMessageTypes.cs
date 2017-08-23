@@ -7,6 +7,7 @@ public enum ArmyMessageTypes {
         terrainIsRightClicked,
 
         addUnitsToSelection,
+        excludeUnitsFromSelection,
         deselectUnits,
         invokeRTSAction,
 
@@ -23,6 +24,7 @@ public enum ArmyMessageTypes {
         unitCommandGoToPosition,
         unitCommandFollowUnit,
         unitCommandStop,
+
 
         testUnitInSelection,
 }

@@ -56,7 +56,11 @@ public class ArmyManager {
         return sb.ToString();
     }
 
-
+    public GameObject CreateBuildingGhost(Identification.UnitType type, Vector3 position) {
+        GameObject go = buildingFactory.CreateGameUnit(type, position).Avatar;
+        go.AddComponent<BuildingComponent>();
+        return go;
+    }
 
     private AbstractGameUnit CreateUnit(CommonGameUnitFactory factory, Identification.UnitType type,
             Vector3 position, Dictionary<int, AbstractGameUnit> unitsStorage) {
@@ -122,7 +126,7 @@ public class ArmyManager {
 
 
 
-// This is a building //
+        // This is a building //
         newUnit.Avatar.AddComponent<BuildingComponent>();
 
         return newUnit;
