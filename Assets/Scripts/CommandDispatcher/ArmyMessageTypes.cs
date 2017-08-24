@@ -1,30 +1,40 @@
 public enum ArmyMessageTypes {
+
+        // Unit -> Controller //
         unitCryRightClicked,
         unitCryLeftClicked,
         unitCryIsDead,
 
+        // Terrain -> Controller //
         terrainIsLeftClicked,
         terrainIsRightClicked,
 
+        // Controller -> StateMachine //
         addUnitsToSelection,
-        excludeUnitsFromSelection,
+        excludeUnitFromSelection,
         deselectUnits,
         invokeRTSAction,
 
         addBuildingToSelection,
 
+        // Controller -> StateMachine
         testWaitingForTarget,
         setTargetPoint,
         setTargetUnit,
 
+        // Controller -> StateMachine
         stopMachine,
 
 
+        // StateMachine or Controller -> unit
         unitCommandTurnSelection,
         unitCommandGoToPosition,
         unitCommandFollowUnit,
         unitCommandStop,
 
+        // StateMachine -> HUD
+        selectionChanged,
 
+    ////////////
         testUnitInSelection,
 }

@@ -52,6 +52,13 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    private Identification.Army playerArmy = Identification.Army.Humans;
+    public Identification.Army PlayerArmy {
+        get {
+            return playerArmy;
+        }
+    }
+
     private PlayerController playerController;
     public PlayerController PlayerController {
         get {
@@ -205,7 +212,7 @@ public class GameManager : MonoBehaviour {
 
     private void InitializeControllers() {
 
-        playerController = new PlayerController(armyManagers[Identification.Army.Humans]);
+        playerController = new PlayerController(armyManagers[playerArmy]);
 
     }
 

@@ -30,6 +30,16 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
         );
 
 
+        data.ThisArmyManager.Dispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.excludeUnitFromSelection,
+                (AbstractGameUnit unit) => {
+                    if (data.SelectedUnits.Contains(unit)) {
+                        data.SelectedUnits.Remove(unit);
+                        updateSelected();
+                    }
+                }
+        );
+
+
         data.ThisArmyManager.Dispatcher.StartListening(ArmyMessageTypes.deselectUnits,
                 () => {
                     Debug.Log("StateMachine: deselect all");
@@ -43,6 +53,9 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
                         Trigger(ArmySMTransitionType.doActionToFree);
 
                     }
+
+                    updateSelected();
+
                 });
 
 
@@ -78,6 +91,41 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
 
                         Trigger(ArmySMTransitionType.doActionToSelected);
                     }
+
+                    updateSelected();
+
+                });
+
+        data.ThisArmyManager.Dispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.addBuildingToSelection,
+                (AbstractGameUnit unit) => {
+                    Debug.Log("StateMachine: selecting a building");
+
+                    if (CurrentState == ArmySMStateType.freeState) {
+
+                        data.SelectedUnits = new AbstractGameUnitsList();
+                        data.SelectedUnits.Add(unit);
+                        TurnAllSelections(true);
+
+                        Trigger(ArmySMTransitionType.freeToSelected);
+
+
+                    } else if (CurrentState == ArmySMStateType.unitsSelected) {
+
+                        data.SelectedUnits = new AbstractGameUnitsList();
+                        data.SelectedUnits.Add(unit);
+                        TurnAllSelections(true);
+
+                    } else if (CurrentState == ArmySMStateType.doAction) {
+
+                        data.SelectedUnits = new AbstractGameUnitsList();
+                        data.SelectedUnits.Add(unit);
+                        TurnAllSelections(true);
+
+                        Trigger(ArmySMTransitionType.doActionToSelected);
+                    }
+
+                    updateSelected();
+
                 });
 
 
@@ -199,6 +247,11 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
         }
     }
 
+    private void updateSelected() {
+        data.ThisArmyManager.Dispatcher.TriggerCommand<AbstractGameUnitsList>(
+                        ArmyMessageTypes.selectionChanged, data.SelectedUnits
+        );
+    }
 
     private void TurnAllSelections(bool on) {
         foreach (AbstractGameUnit unit in data.SelectedUnits) {
@@ -208,7 +261,7 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
         }
     }
 
-    /// *** ///
+    /// *** /// ************************************************************************************ ///
 
     public void Free2SelectedTransition(ArmySMStateType current, ArmySMStateType next) {
         Debug.Log(">>>  free2selected");

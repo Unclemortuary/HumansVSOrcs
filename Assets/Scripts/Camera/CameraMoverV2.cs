@@ -1,11 +1,18 @@
 using UnityEngine;
 
-public class CameraMoverV2 : RTSMonoBehaviour {
+public class CameraMoverV2 : MonoBehaviour {
 
 
     private Camera thisCamera;
 
     private GameObject cameraHolder;
+
+
+
+    [SerializeField]
+    private float mouseSpeed = 3;
+    [SerializeField]
+    private float mouseWheelSpeed = 4;
 
 
     /**
@@ -34,7 +41,9 @@ public class CameraMoverV2 : RTSMonoBehaviour {
     [SerializeField]
     private float minCamSize = 5f;
     [SerializeField]
-    private float maxCamSize = 20f;
+    private float maxCamSize = 50f;
+
+    private float standardSize = 20f;
 
     [SerializeField]
     private float moveAtCamSize;
@@ -55,20 +64,20 @@ public class CameraMoverV2 : RTSMonoBehaviour {
 
 
     public void ShiftX(float shift) {
-        moveAtPosition.x += shift;
+        moveAtPosition.x += shift * mouseSpeed * thisCamera.orthographicSize/standardSize;
 
         CorrectLimits();
     }
 
     public void ShiftY(float shift) {
-        moveAtCamSize += shift;
+        moveAtCamSize += shift * mouseWheelSpeed;
 
         CorrectLimits();
     }
 
 
     public void ShiftZ(float shift) {
-        moveAtPosition.z += shift;
+        moveAtPosition.z += shift * mouseSpeed * thisCamera.orthographicSize/standardSize;
 
         CorrectLimits();
     }

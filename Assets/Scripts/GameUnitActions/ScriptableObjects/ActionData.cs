@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,15 @@ public class ActionData : ScriptableObject {
 
         [SerializeField]
         Sprite icon;
+
+        [SerializeField]
+        private float timeToComplete;
+
+        public float TimeToComplete {
+            get {
+                return timeToComplete;
+            }
+        }
 
         public RTSActionType Action { get { return action; } }
 

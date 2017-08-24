@@ -69,14 +69,14 @@ public class ClonnableGameUnit : AbstractGameUnit {
     private List<RTSActionType> actionsList;
     public override List<RTSActionType> ActionsList {
         get {
-            return null;
+            return actionsList;
         }
     }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private ClonnableGameUnit(int id, string descr, GameUnitCharacteristics characteristics, GameObject avatar) {
+    private ClonnableGameUnit(int id, string descr, GameUnitCharacteristics characteristics, GameObject avatar, List<RTSActionType> list) {
 
         this.id = id;
         this.description = descr;
@@ -86,6 +86,8 @@ public class ClonnableGameUnit : AbstractGameUnit {
 
         this.currentHP = this.characteristics.MaxHP;
         this.currentMP = this.characteristics.MaxMP;
+
+        this.actionsList = list;
     }
 
 
@@ -97,7 +99,7 @@ public class ClonnableGameUnit : AbstractGameUnit {
 
         GameObject newAvatar = GameObject.Instantiate(this.Avatar, position, this.Avatar.transform.rotation);
 
-        return new ClonnableGameUnit(id, descr, characteristics, newAvatar);
+        return new ClonnableGameUnit(id, descr, characteristics, newAvatar, actionsList);
 
     }
 
@@ -109,7 +111,13 @@ public class ClonnableGameUnit : AbstractGameUnit {
 
         GameUnitCharacteristics characteristicsCopy = characteristics.CreateCopy();
 
-        return new ClonnableGameUnit(id, description, characteristicsCopy, avatar);
+        List<RTSActionType> newActionsList = new List<RTSActionType>();
+
+        foreach(RTSActionType type in this.actionsList) {
+            newActionsList.Add(type);
+        }
+
+        return new ClonnableGameUnit(id, description, characteristicsCopy, avatar, newActionsList);
     }
 
 

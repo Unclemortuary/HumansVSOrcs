@@ -1,4 +1,3 @@
-﻿public interface IClickable
-{
-	void Clicked();
+public interface IClickable {
+    void Clicked();
 }

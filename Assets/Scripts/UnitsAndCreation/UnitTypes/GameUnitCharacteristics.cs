@@ -49,17 +49,26 @@ public class GameUnitCharacteristics {
         }
     }
 
+//    [SerializeField]
+//    private float timeToCreate;
+//    public float TimeToCreate {
+//        get {
+//            return timeToCreate;
+//        }
+//    }
 
-    public GameUnitCharacteristics(float attackDistance, float hp, float mp, float speed, float defence) {
+    public GameUnitCharacteristics(float attackDistance, float hp, float mp,
+                float speed, float defence/*, float time*/) {
         this.maxAttackDistance = attackDistance;
         this.maxHP = hp;
         this.maxMP = mp;
         this.maxSpeed = speed;
         this.defence = defence;
+//        this.timeToCreate = time;
     }
 
     public GameUnitCharacteristics CreateCopy() {
-        return new GameUnitCharacteristics(maxAttackDistance, maxHP, maxMP, maxSpeed, defence);
+        return new GameUnitCharacteristics(maxAttackDistance, maxHP, maxMP, maxSpeed, defence/*, timeToCreate*/);
     }
 
 

@@ -122,6 +122,7 @@ public class ArmyManager {
         reactionsComponent.SetGameUnit(newUnit);
 
         NavMeshObstacle obstacle = newUnit.Avatar.AddComponent<NavMeshObstacle>();
+        obstacle.carving = true;
 //        reactionsComponent.SetNavmeshAgent(agent);
 
 
@@ -188,7 +189,7 @@ public class ArmyManager {
     }
 
     public AbstractGameUnitsList FindBuildingsWithinViewportBounds(Bounds bounds) {
-        return FindGameUnitsWithinViewportBounds(warriors.Values, bounds);
+        return FindGameUnitsWithinViewportBounds(buildings.Values, bounds);
     }
 
     public AbstractGameUnitsList FindGameUnitsWithinViewportBounds(IEnumerable<AbstractGameUnit> enumerable, Bounds bounds) {

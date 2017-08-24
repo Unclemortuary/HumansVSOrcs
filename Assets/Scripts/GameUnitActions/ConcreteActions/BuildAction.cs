@@ -4,6 +4,7 @@ public class BuildAction : AbstractRTSAction {
 
     private Identification.UnitType unitType;
 
+//    private float timeToWait = 5f;
 
     private GameObject buildingGhost = null;
     private BuildingsConstructionHandler constructionHandler = null;
@@ -54,7 +55,7 @@ public class BuildAction : AbstractRTSAction {
 
                     new Timer(newBuilding.Avatar, delegate  {
                         scaffold.SetActive(false);
-                    }, 500f);
+                    }, data.CurrentRtsAction.GetActionDataItem().TimeToComplete);
 
                 }
 

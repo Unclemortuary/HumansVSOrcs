@@ -10,6 +10,8 @@ public class BuildingComponent : RTSMonoBehaviour{
 
 	void Awake()
 	{
+        base.Awake();
+
 		originShader = GetComponentsInChildren<Renderer> ()[0].material.shader;
 		originColor = GetComponentsInChildren<Renderer> ()[0].material.color;
 	}

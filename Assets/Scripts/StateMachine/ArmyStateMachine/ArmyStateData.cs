@@ -16,7 +16,7 @@ public class ArmyStateData {
 
     public ArmyManager ThisArmyManager { get; set; }
 
-    public List<AbstractGameUnit> SelectedUnits { get; set; }
+    public AbstractGameUnitsList SelectedUnits { get; set; }
 
     public List<RTSActionType> AvailableActions { get; set; }
 
@@ -34,7 +34,7 @@ public class ArmyStateData {
     public ArmyStateData(ArmyManager armyManager) {
         this.ThisArmyManager = armyManager;
 
-        SelectedUnits = new List<AbstractGameUnit>();
+        SelectedUnits = new AbstractGameUnitsList();
         AvailableActions = new List<RTSActionType>();
 
         ClearAll();

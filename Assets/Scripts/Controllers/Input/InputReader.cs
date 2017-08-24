@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class InputReader : MonoBehaviour{
 
-
-    [SerializeField]
-    private float mouseSpeed = 3;
-    [SerializeField]
-    private float mouseWheelSpeed = 4;
+//
+//    [SerializeField]
+//    private float mouseSpeed = 3;
+//    [SerializeField]
+//    private float mouseWheelSpeed = 4;
 
     [SerializeField]
     private float borderDelta = 10;
@@ -53,23 +53,23 @@ public class InputReader : MonoBehaviour{
 
     private void MoveCamera() {
         if (Input.mousePosition.x >= Screen.width - borderDelta) {
-            cameraMover.ShiftX(mouseSpeed);
+            cameraMover.ShiftX(1);
             HUDscript.HideFloatingPanel();
         } else if (Input.mousePosition.x <= borderDelta) {
-            cameraMover.ShiftX(-mouseSpeed);
+            cameraMover.ShiftX(-1);
             HUDscript.HideFloatingPanel();
         }
 
         if (Input.mousePosition.y >= Screen.height - borderDelta) {
-            cameraMover.ShiftZ(mouseSpeed);
+            cameraMover.ShiftZ(1);
             HUDscript.HideFloatingPanel();
         } else if (Input.mousePosition.y <= borderDelta) {
-            cameraMover.ShiftZ(-mouseSpeed);
+            cameraMover.ShiftZ(-1);
             HUDscript.HideFloatingPanel();
         }
 
 
-        cameraMover.ShiftY(-Input.GetAxis("Mouse ScrollWheel") * mouseWheelSpeed);
+        cameraMover.ShiftY(-Input.GetAxis("Mouse ScrollWheel"));
     }
 
 

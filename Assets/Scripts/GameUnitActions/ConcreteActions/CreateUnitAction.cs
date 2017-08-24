@@ -49,7 +49,17 @@ public class CreateUnitAction : AbstractRTSAction {
                     data.TargetPoint = data.TargetUnit.Avatar.transform.position;
                 }
 
-                data.ThisArmyManager.CreateWarrior(unitType, data.TargetPoint);
+                AbstractGameUnit warrior = data.ThisArmyManager.CreateWarrior(unitType, data.TargetPoint);
+
+                Vector3 targetPoint = data.TargetPoint + (warrior.Avatar.transform.position-data.SelectedUnits[0].Avatar.transform.position);
+
+//                targetPoint = warrior.Avatar.transform.position + new Vector3 (5, 0, 5);
+
+                data.ThisArmyManager.Dispatcher.TriggerCommand<Vector3>(
+                        ArmyMessageTypes.unitCommandGoToPosition, targetPoint,
+                        warrior.ID
+                );
+
             }
 
             data.ThisArmyManager.StateMachine.Trigger(ArmySMTransitionType.doActionToSelected);
