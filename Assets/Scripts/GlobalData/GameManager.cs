@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Project.TimeManager;
+
 public class GameManager : MonoBehaviour {
 
 
@@ -81,7 +83,8 @@ public class GameManager : MonoBehaviour {
     private int humanArmyStartingID = 20000000;
     private int goblinArmyStartingID = 300000000;
 
-
+	[SerializeField]
+	private Transform _sun;
 
 
     private void InitializeGame() {
@@ -94,6 +97,8 @@ public class GameManager : MonoBehaviour {
 
         InitializeControllers();
 
+		gameObject.AddComponent<TimeManager> ();
+		TimeManager.GetInstance.Init (_sun);
     }
 
     private void InitializeActionsLibrary() {

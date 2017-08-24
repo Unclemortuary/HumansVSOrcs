@@ -11,7 +11,7 @@ namespace Project.TimeManager
         private float _currentTime;
 
         private Transform _sun;
-        private float _fullDay = 12f; // duration of the day, in seconds
+        private float _fullDay = 300f; // duration of the day, in seconds
 
         private IClock _clockView;
         private SunControler _sunController;
