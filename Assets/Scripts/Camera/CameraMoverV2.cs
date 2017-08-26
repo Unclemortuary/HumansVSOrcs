@@ -7,13 +7,13 @@ public class CameraMoverV2 : MonoBehaviour {
 
     private GameObject cameraHolder;
 
-
+	Vector3 startPosition;
+	Vector3 endZoomPosition;
 
     [SerializeField]
     private float mouseSpeed = 3;
     [SerializeField]
     private float mouseWheelSpeed = 4;
-
 
     /**
     Angle in degrees.
@@ -114,37 +114,59 @@ public class CameraMoverV2 : MonoBehaviour {
 
         moveAtPosition = cameraHolder.transform.position;
         moveAtCamSize = thisCamera.orthographicSize;
+
+		startPosition = new Vector3 (transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+		endZoomPosition = new Vector3 (0, -10.0f, 7.1f);
+
     } // Start() //
 
 
+	void Zoom()
+	{
+		
+		float movement = Input.GetAxis("Mouse ScrollWheel");
+		if(movement == 0) 
+		{
+			return;
+		}
+		if (Mathf.Abs (thisCamera.transform.localPosition.y) <= maxCamSize && Mathf.Abs (thisCamera.transform.position.y) >= minCamSize)
+		{
+			Transform camTransform = Camera.main.transform;
+			float distance = Vector3.Distance (camTransform.position, endZoomPosition) + 1;
+			camTransform.Translate (camTransform.forward * distance * movement * Time.deltaTime * mouseWheelSpeed);
+			thisCamera.transform.localPosition = new Vector3(thisCamera.transform.localPosition.x, Mathf.Clamp (thisCamera.transform.localPosition.y, minCamSize, maxCamSize),Mathf.Clamp (thisCamera.transform.localPosition.z, startPosition.z, startPosition.z));
+		}
+		mouseSpeed = Mathf.Abs(3.5f * thisCamera.transform.localPosition.y / startPosition.y);
+	}
 
 
 
 
-    void Update () {
-
+    void Update () 
+	{
+		
         if (cameraHolder.transform.position != moveAtPosition) {
 
             if ((cameraHolder.transform.position - moveAtPosition).sqrMagnitude < epsilon) {
                 cameraHolder.transform.position = moveAtPosition;
             } else {
 
-                cameraHolder.transform.position =
-                        Vector3.Lerp(cameraHolder.transform.position, moveAtPosition, step);
+                cameraHolder.transform.position = Vector3.Lerp(cameraHolder.transform.position, moveAtPosition, step);
             }
 
         }
-
+		/*
         if (thisCamera.orthographicSize != moveAtCamSize) {
-            if (thisCamera.orthographicSize - moveAtCamSize < epsilon) {
+            if (thisCamera.orthographicSize - moveAtCamSize < epsilon) 
+			{
                 thisCamera.orthographicSize = moveAtCamSize;
-            } else {
-
-                thisCamera.orthographicSize =
-                        Mathf.Lerp(thisCamera.orthographicSize, moveAtCamSize, step);
             }
-        }
-
+			else 
+			{
+                thisCamera.orthographicSize = Mathf.Lerp(thisCamera.orthographicSize, moveAtCamSize, step);
+            }
+        }*/
+		Zoom ();
     } // Update() //
 
 
