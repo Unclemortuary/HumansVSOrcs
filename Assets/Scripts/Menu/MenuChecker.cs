@@ -11,6 +11,7 @@ public class MenuChecker : MonoBehaviour {
 
 	public GameObject hud;
 	public GameObject menuInterface;
+	public GameObject cameraMain;
 
 	void Awake () {
 		Time.timeScale = 1.0f;
@@ -23,10 +24,12 @@ public class MenuChecker : MonoBehaviour {
 			hud.SetActive (true);
 			menuInterface.SetActive (false);
 			Time.timeScale = 1.0f;
+			cameraMain.GetComponent<CameraMoverV2> ().enabled = true;
 		} else {
 			hud.SetActive (false);
 			menuInterface.SetActive (true);
 			Time.timeScale = 0.0f;
+			cameraMain.GetComponent<CameraMoverV2> ().enabled = false;
 		}
 	}
 }
