@@ -13,8 +13,7 @@ namespace Project.TimeManager
             _sun = sun;
         }
 
-        public void MoveSun(float currentTime)
-        {
+        public void MoveSun(float currentTime) {
             _sun.localRotation = Quaternion.Euler((currentTime * 360f) - 90, 170, 0);
         }
     }
