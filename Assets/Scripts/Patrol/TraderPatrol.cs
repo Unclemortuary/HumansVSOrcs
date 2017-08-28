@@ -11,8 +11,6 @@ public class TraderPatrol : MonoBehaviour {
 	private int destPoint = 0;
 	private NavMeshAgent agent;
 
-
-
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();
 
