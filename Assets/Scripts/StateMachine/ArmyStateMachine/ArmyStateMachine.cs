@@ -293,9 +293,16 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
         Debug.Log(">>>  selected2action");
         if(current != next)
         {
-            this.data.CurrentRtsAction.Starting(data);
+            GameResources price = this.data.CurrentRtsAction.GetActionDataItem().PriceToUse;
 
-            CurrentState = next;
+            if (this.data.ThisArmyManager.AvailableResources.HaveEnoughResources(price)) {
+                this.data.CurrentRtsAction.Starting(data);
+
+                CurrentState = next;
+            } else {
+                Debug.Log("Not enough game resources");
+            }
+
         }
     }
 

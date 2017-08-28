@@ -8,7 +8,8 @@ public static class Identification {
     [System.Serializable]
     public enum UnitType {
         Archer, Swordsman, Horseman,
-        GeneralHouse, Barrack, Farm, Forge, Quarry, Sawmill, SimpleHouse, WatchTower
+        GeneralHouse, Barrack, Farm, Forge, Quarry, Sawmill, SimpleHouse, WatchTower,
+        Worker,
     };
 
 

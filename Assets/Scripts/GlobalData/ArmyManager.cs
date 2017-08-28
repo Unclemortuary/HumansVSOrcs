@@ -41,6 +41,19 @@ public class ArmyManager {
         }
     }
 
+
+    private GameResources availableResources;
+    public  GameResources AvailableResources {
+        get {
+            return availableResources;
+        }
+    }
+    public void SetResources(GameResources resources) {
+        availableResources = resources;
+    }
+
+
+
     private int nextID;
 
     private Dictionary<int, AbstractGameUnit> warriors;
@@ -113,6 +126,22 @@ public class ArmyManager {
         return newUnit;
     }
 
+    public AbstractGameUnit CreateWorker(Identification.UnitType type, Vector3 position) {
+
+        AbstractGameUnit newUnit = CreateUnit(warriorFactory, type, position, warriors);
+
+        UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
+        reactionsComponent.SetGameUnit(newUnit);
+
+        BuilderReactionsComponent builderReactions = newUnit.Avatar.AddComponent<BuilderReactionsComponent>();
+        builderReactions.Initialize(reactionsComponent);
+
+        NavMeshAgent agent = newUnit.Avatar.AddComponent<NavMeshAgent>();
+        reactionsComponent.SetNavmeshAgent(agent);
+
+        return newUnit;
+    }
+
 
     public AbstractGameUnit CreateBuilding(Identification.UnitType type, Vector3 position) {
 
@@ -121,9 +150,8 @@ public class ArmyManager {
         UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
         reactionsComponent.SetGameUnit(newUnit);
 
-        //NavMeshObstacle obstacle = newUnit.Avatar.AddComponent<NavMeshObstacle>();
-        //obstacle.carving = true;
-
+//        NavMeshObstacle obstacle = newUnit.Avatar.AddComponent<NavMeshObstacle>();
+//        obstacle.carving = true;
 //        reactionsComponent.SetNavmeshAgent(agent);
 
 

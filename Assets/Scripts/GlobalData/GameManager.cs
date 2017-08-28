@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
+    // Fields to be defined via Inspector ///////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
 
     [SerializeField]
     private ScriptablePrototypesDictionaries scriptablePrototypesList;
@@ -76,16 +78,43 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private ActionData scriptableActionDataList;
 
-    //////////////////////////////////////////////////////////////////////////////////////
+    [SerializeField]
+    private StartingGameUnitsPositions scriptableStartingPositions;
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
 
 
     private int orcArmyStartingID = 100000000;
     private int humanArmyStartingID = 20000000;
-    private int goblinArmyStartingID = 300000000;
+    private int neutralArmyStartingID = 300000000;
 
 	[SerializeField]
 	private Transform _sun;
 
+
+
+    private void Start() {
+        LoadStartingGameUnits();
+    }
+
+    private void LoadStartingGameUnits() {
+        List<StartingGameUnitsPositions.GameUnitSpawnPoint> units = scriptableStartingPositions.GetUnitsPositions();
+        List<StartingGameUnitsPositions.GameUnitSpawnPoint> buildings = scriptableStartingPositions.GetBuildingsPositions();
+
+        foreach (StartingGameUnitsPositions.GameUnitSpawnPoint item in units) {
+            armyManagers[item.ArmyType].CreateWarrior(item.UnitType, item.Position);
+        }
+        foreach (StartingGameUnitsPositions.GameUnitSpawnPoint item in buildings) {
+            armyManagers[item.ArmyType].CreateBuilding(item.UnitType, item.Position);
+        }
+
+        foreach(StartingGameUnitsPositions.ArmyResourcesPair resPair in scriptableStartingPositions.StartingResources) {
+            armyManagers[resPair.ArmyType].SetResources(resPair.ResourcesAmount.CreateCopy());
+        }
+    }
 
     private void InitializeGame() {
 
@@ -118,6 +147,7 @@ public class GameManager : MonoBehaviour {
         actionsLibrary.AddRTSAction(RTSActionType.createArcher, new CreateUnitAction(Identification.UnitType.Archer));
         actionsLibrary.AddRTSAction(RTSActionType.createSwordsman, new CreateUnitAction(Identification.UnitType.Swordsman));
         actionsLibrary.AddRTSAction(RTSActionType.createHorseman, new CreateUnitAction(Identification.UnitType.Horseman));
+        actionsLibrary.AddRTSAction(RTSActionType.createWorker, new CreateUnitAction(Identification.UnitType.Worker));
 
 
         actionsLibrary.AddRTSAction(RTSActionType.buildFarm, new BuildAction(Identification.UnitType.Farm));
@@ -129,19 +159,31 @@ public class GameManager : MonoBehaviour {
         actionsLibrary.AddRTSAction(RTSActionType.buildSimpleHouse, new BuildAction(Identification.UnitType.SimpleHouse));
         actionsLibrary.AddRTSAction(RTSActionType.buildWatchTower, new BuildAction(Identification.UnitType.WatchTower));
 
+        actionsLibrary.AddRTSAction(RTSActionType.workersBuildFarm, new WorkerBuildAction(Identification.UnitType.Farm));
+        actionsLibrary.AddRTSAction(RTSActionType.workersBuildGeneralHouse, new WorkerBuildAction(Identification.UnitType.GeneralHouse));
+        actionsLibrary.AddRTSAction(RTSActionType.workersBuildBarrack, new WorkerBuildAction(Identification.UnitType.Barrack));
+        actionsLibrary.AddRTSAction(RTSActionType.workersBuildForge, new WorkerBuildAction(Identification.UnitType.Forge));
+        actionsLibrary.AddRTSAction(RTSActionType.workersBuildQuarry, new WorkerBuildAction(Identification.UnitType.Quarry));
+        actionsLibrary.AddRTSAction(RTSActionType.workersBuildSawmill, new WorkerBuildAction(Identification.UnitType.Sawmill));
+        actionsLibrary.AddRTSAction(RTSActionType.workersBuildSimpleHouse, new WorkerBuildAction(Identification.UnitType.SimpleHouse));
+        actionsLibrary.AddRTSAction(RTSActionType.workersBuildWatchTower, new WorkerBuildAction(Identification.UnitType.WatchTower));
+
+//        Debug.Log ("GameManager: Reading ActionData");
         // Initialize ActionData form scriptableObject //
-        foreach (ActionData.SomeAction actionDataItem in scriptableActionDataList.ActionsData) {
+        foreach (ActionData.ActionDataItem actionDataItem in scriptableActionDataList.ActionsData) {
             if (actionsLibrary.Contains(actionDataItem.Action)) {
+//                Debug.Log("GM: action=" + actionDataItem.Action.ToString());
                 actionsLibrary.GetRTSAction(actionDataItem.Action).SetActionDataItem(actionDataItem);
             }
         }
 
+//        Debug.Log ("GameManager: Finish reading ActionData");
 
 
 // ################################################################################################################################
 // ################################################################################################################################
 // ################################################################################################################################
-//        attack, build,
+//        attack,
 //        holdPosition, patrol,
 //        specialHeal, specialFireStorm
 
@@ -163,6 +205,8 @@ public class GameManager : MonoBehaviour {
         foreach (Identification.UnitType unitType in Enum.GetValues(typeof(Identification.UnitType))) {
 
             if (prototypes.ContainsKey(unitType)) {
+
+//                Debug.Log("init factory type=" + unitType.ToString());
 
                 ClonnableGameUnit unitPrototype = prototypes[unitType];
 
@@ -210,6 +254,19 @@ public class GameManager : MonoBehaviour {
                 armyDispatchers[Identification.Army.Orcs]);
 
 
+        // Neutrals Army Manager //
+
+        CommonGameUnitFactory neutralWarriorFactory = new CommonGameUnitFactory();
+        InitAFactory(neutralWarriorFactory, scriptablePrototypesList.OrcWarriorsPrototypes);
+
+        CommonGameUnitFactory neutralBuildingFactory = new CommonGameUnitFactory();
+        InitAFactory(neutralBuildingFactory, scriptablePrototypesList.OrcBuildingsPrototypes);
+
+        armyManagers[Identification.Army.Neutrals] = new ArmyManager(Identification.Army.Neutrals,
+                neutralArmyStartingID, neutralWarriorFactory, neutralBuildingFactory,
+                armyDispatchers[Identification.Army.Neutrals]);
+
+
 
     } // initialize army managers //
 
@@ -218,6 +275,9 @@ public class GameManager : MonoBehaviour {
     private void InitializeControllers() {
 
         playerController = new PlayerController(armyManagers[playerArmy]);
+
+        // AI controllers //
+
 
     }
 

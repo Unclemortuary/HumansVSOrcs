@@ -18,9 +18,19 @@ public enum RTSActionType {
     buildSimpleHouse,
     buildWatchTower,
 
+    workersBuildFarm,
+    workersBuildGeneralHouse,
+    workersBuildBarrack,
+    workersBuildForge,
+    workersBuildQuarry,
+    workersBuildSawmill,
+    workersBuildSimpleHouse,
+    workersBuildWatchTower,
+
     createArcher,
     createSwordsman,
     createHorseman,
+    createWorker,
 
 	sell,
     specialHeal,
