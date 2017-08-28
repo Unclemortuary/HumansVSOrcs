@@ -10,6 +10,7 @@ public static class Identification {
         Archer, Swordsman, Horseman,
         GeneralHouse, Barrack, Farm, Forge, Quarry, Sawmill, SimpleHouse, WatchTower,
         Worker,
+        FlyingWarrior,
     };
 
 

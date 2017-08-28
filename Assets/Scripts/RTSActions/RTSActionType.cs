@@ -34,5 +34,7 @@ public enum RTSActionType {
 
 	sell,
     specialHeal,
-	specialFireStorm
+	specialFireStorm,
+
+    createFlyingWarrior,
 }

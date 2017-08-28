@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CreateUnitAction : AbstractRTSAction {
 
@@ -21,9 +22,13 @@ public class CreateUnitAction : AbstractRTSAction {
     }
 
     private void CreateUnitNearSelectedUnit(ArmyStateData data) {
-        Vector3 shiftVector = new Vector3(0f, -0.7f, 19.5f);
+        Vector3 shiftVector = new Vector3(0f, 0, 19.5f);
         Vector3 targetPoint = data.SelectedUnits[0].Avatar.transform.position - shiftVector;
 
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(targetPoint, out hit, 15.0f, NavMesh.AllAreas)) {
+            targetPoint = hit.position;
+        }
 
         AbstractGameUnit warrior = null;
         if (unitType == Identification.UnitType.Worker) {
@@ -33,6 +38,9 @@ public class CreateUnitAction : AbstractRTSAction {
         }
 
         targetPoint = targetPoint - shiftVector;
+        if (NavMesh.SamplePosition(targetPoint, out hit, 5.0f, NavMesh.AllAreas)) {
+            targetPoint = hit.position;
+        }
 
         data.ThisArmyManager.Dispatcher.TriggerCommand<Vector3>(
                 ArmyMessageTypes.unitCommandGoToPosition, targetPoint,

@@ -148,6 +148,7 @@ public class GameManager : MonoBehaviour {
         actionsLibrary.AddRTSAction(RTSActionType.createSwordsman, new CreateUnitAction(Identification.UnitType.Swordsman));
         actionsLibrary.AddRTSAction(RTSActionType.createHorseman, new CreateUnitAction(Identification.UnitType.Horseman));
         actionsLibrary.AddRTSAction(RTSActionType.createWorker, new CreateUnitAction(Identification.UnitType.Worker));
+        actionsLibrary.AddRTSAction(RTSActionType.createFlyingWarrior, new CreateUnitAction(Identification.UnitType.FlyingWarrior));
 
 
         actionsLibrary.AddRTSAction(RTSActionType.buildFarm, new BuildAction(Identification.UnitType.Farm));
