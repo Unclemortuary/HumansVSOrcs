@@ -33,14 +33,21 @@ public class CreateUnitAction : AbstractRTSAction {
         AbstractGameUnit warrior = null;
         if (unitType == Identification.UnitType.Worker) {
             warrior = data.ThisArmyManager.CreateWorker(unitType, targetPoint);
+        } if (unitType == Identification.UnitType.FlyingWarrior) {
+            warrior = data.ThisArmyManager.CreateFlyingWarrior(unitType, targetPoint);
         } else {
             warrior = data.ThisArmyManager.CreateWarrior(unitType, targetPoint);
         }
 
-        targetPoint = targetPoint - shiftVector;
+        targetPoint = targetPoint + shiftVector;
         if (NavMesh.SamplePosition(targetPoint, out hit, 5.0f, NavMesh.AllAreas)) {
             targetPoint = hit.position;
         }
+
+
+//        targetPoint = new Vector3(0,0,0);
+//        warrior.Avatar.GetComponent<NavMeshAgent>().destination = targetPoint;
+
 
         data.ThisArmyManager.Dispatcher.TriggerCommand<Vector3>(
                 ArmyMessageTypes.unitCommandGoToPosition, targetPoint,

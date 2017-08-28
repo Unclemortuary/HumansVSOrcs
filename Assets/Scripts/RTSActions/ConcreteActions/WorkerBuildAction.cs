@@ -59,7 +59,13 @@ public class WorkerBuildAction : AbstractRTSAction {
 //                    GameObject.Destroy(constructionHandler);
 
                     AbstractGameUnit newBuilding = data.ThisArmyManager.CreateBuilding(unitType, data.TargetPoint);
+
+
+                    newBuilding.Avatar.GetComponent<BuildingComponent>().SetTransparent(true);
+
+
                     GameObject scaffold = newBuilding.Avatar.transform.Find("BuildingBuild").gameObject;
+
 
                     if (scaffold != null) {
                         Debug.Log("scaffold is found");
@@ -70,6 +76,7 @@ public class WorkerBuildAction : AbstractRTSAction {
 
                     new Timer(newBuilding.Avatar, delegate  {
                         scaffold.SetActive(false);
+
                     }, data.CurrentRtsAction.GetActionDataItem().TimeToComplete);
 
                 }

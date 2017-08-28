@@ -142,6 +142,17 @@ public class ArmyManager {
         return newUnit;
     }
 
+    public AbstractGameUnit CreateFlyingWarrior(Identification.UnitType type, Vector3 position) {
+
+        AbstractGameUnit newUnit = CreateUnit(warriorFactory, type, position, warriors);
+
+        FlyingUnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<FlyingUnitReactionsComponent>();
+        reactionsComponent.SetGameUnit(newUnit);
+
+
+        return newUnit;
+    }
+
 
     public AbstractGameUnit CreateBuilding(Identification.UnitType type, Vector3 position) {
 
