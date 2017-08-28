@@ -64,7 +64,7 @@ public class CameraMoverV2 : MonoBehaviour {
 
 
     public void ShiftX(float shift) {
-        moveAtPosition.x += shift * mouseSpeed * thisCamera.orthographicSize/standardSize;
+		moveAtPosition.x += shift * mouseSpeed; //* thisCamera.orthographicSize/standardSize;
 
         CorrectLimits();
     }
@@ -77,20 +77,23 @@ public class CameraMoverV2 : MonoBehaviour {
 
 
     public void ShiftZ(float shift) {
-        moveAtPosition.z += shift * mouseSpeed * thisCamera.orthographicSize/standardSize;
+		moveAtPosition.z += shift * mouseSpeed; // * thisCamera.orthographicSize/standardSize;
 
         CorrectLimits();
     }
 
 
     private void CorrectLimits() {
-        moveAtPosition.x = limitedValue(moveAtPosition.x,
-                minPoint.x + thisCamera.orthographicSize,
-                maxPoint.x - thisCamera.orthographicSize);
+        //moveAtPosition.x = limitedValue(moveAtPosition.x,
+               // minPoint.x + thisCamera.orthographicSize,
+              //  maxPoint.x - thisCamera.orthographicSize);
 
-        moveAtPosition.z = limitedValue(moveAtPosition.z,
-                minPoint.z + thisCamera.orthographicSize,
-                maxPoint.z - thisCamera.orthographicSize);
+        //moveAtPosition.z = limitedValue(moveAtPosition.z,
+               // minPoint.z + thisCamera.orthographicSize,
+              //  maxPoint.z - thisCamera.orthographicSize);
+
+		moveAtPosition.x = limitedValue(moveAtPosition.x,minPoint.x ,maxPoint.x);
+		moveAtPosition.z = limitedValue(moveAtPosition.z,minPoint.z ,maxPoint.z );
 
         moveAtPosition.y = limitedValue(moveAtPosition.y, minPoint.y, maxPoint.y);
 

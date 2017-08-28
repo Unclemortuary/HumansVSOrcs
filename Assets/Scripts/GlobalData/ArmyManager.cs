@@ -121,8 +121,9 @@ public class ArmyManager {
         UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
         reactionsComponent.SetGameUnit(newUnit);
 
-        NavMeshObstacle obstacle = newUnit.Avatar.AddComponent<NavMeshObstacle>();
-        obstacle.carving = true;
+        //NavMeshObstacle obstacle = newUnit.Avatar.AddComponent<NavMeshObstacle>();
+        //obstacle.carving = true;
+
 //        reactionsComponent.SetNavmeshAgent(agent);
 
 
