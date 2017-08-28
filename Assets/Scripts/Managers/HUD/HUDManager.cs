@@ -44,9 +44,9 @@ public class HUDManager : MonoBehaviour {
 		commandPanelManager.ClearPanel (false);
 	}
 
-	private List<ActionData.SomeAction> ConvertActionsToData(List<RTSActionType> actions)
+	private List<ActionData.ActionDataItem> ConvertActionsToData(List<RTSActionType> actions)
 	{
-		List<ActionData.SomeAction> result = new List<ActionData.SomeAction> ();
+		List<ActionData.ActionDataItem> result = new List<ActionData.ActionDataItem> ();
 
 		for (int i = 0; i < actions.Count; i++) 
 		{

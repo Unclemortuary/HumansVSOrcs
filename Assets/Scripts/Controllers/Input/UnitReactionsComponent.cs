@@ -7,13 +7,24 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
     // Selection light circle //
     private GameObject projector;
 
+
     private AbstractGameUnit thisUnit;
+    public AbstractGameUnit ThisUnit {
+        get {
+            return thisUnit;
+        }
+    }
 
     public void SetGameUnit(AbstractGameUnit unit) {
         thisUnit = unit;
     }
 
     private NavMeshAgent agent;
+    public NavMeshAgent Agent {
+        get {
+            return agent;
+        }
+    }
     private float stoppingDistance  = 3;
 
     public void SetNavmeshAgent(NavMeshAgent agent) {
@@ -34,7 +45,17 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
         InitializeEventTrigger();
 
         SubscribeOnDispatcherMessages();
+
+//        InitializeBuilderComponent();
     }
+
+//    private void InitializeBuilderComponent() {
+//        BuilderReactionsComponent builder = GetComponent<BuilderReactionsComponent>();
+//
+//        if (builder != null) {
+//            builder.Initialize(thisUnit);
+//        }
+//    }
 
 
     private void InitializeEventTrigger() {

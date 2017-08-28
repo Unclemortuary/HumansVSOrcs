@@ -28,6 +28,7 @@ public class ArmyStateData {
 
     public AbstractRTSAction CurrentRtsAction { get; set; }
 
+//    public AbstractGameUnit PerformerUnit { get; set; }
 
     // ------------------------
 

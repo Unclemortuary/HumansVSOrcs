@@ -54,18 +54,18 @@ public class InputReader : MonoBehaviour{
     private void MoveCamera() {
         if (Input.mousePosition.x >= Screen.width - borderDelta) {
             cameraMover.ShiftX(1);
-            HUDscript.HideFloatingPanel();
+//            HUDscript.HideFloatingPanel();
         } else if (Input.mousePosition.x <= borderDelta) {
             cameraMover.ShiftX(-1);
-            HUDscript.HideFloatingPanel();
+//            HUDscript.HideFloatingPanel();
         }
 
         if (Input.mousePosition.y >= Screen.height - borderDelta) {
             cameraMover.ShiftZ(1);
-            HUDscript.HideFloatingPanel();
+//            HUDscript.HideFloatingPanel();
         } else if (Input.mousePosition.y <= borderDelta) {
             cameraMover.ShiftZ(-1);
-            HUDscript.HideFloatingPanel();
+//            HUDscript.HideFloatingPanel();
         }
 
 

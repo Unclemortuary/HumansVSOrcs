@@ -74,7 +74,7 @@ public class CommandPanelManager : MonoBehaviour {
 
 
 // Changing icons set here
-    public void UpdatePanel (List<ActionData.SomeAction> list)
+    public void UpdatePanel (List<ActionData.ActionDataItem> list)
     {
         ClearPanel (true);
 

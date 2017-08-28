@@ -7,7 +7,7 @@ using UnityEngine;
 public class ActionData : ScriptableObject {
 
     [System.Serializable]
-    public class SomeAction
+    public class ActionDataItem
     {
         [SerializeField]
         string name;
@@ -27,21 +27,30 @@ public class ActionData : ScriptableObject {
             }
         }
 
+        [SerializeField]
+        private GameResources priceToUse;
+        public GameResources PriceToUse {
+            get {
+                return priceToUse;
+            }
+        }
+
         public RTSActionType Action { get { return action; } }
 
         public Sprite Icon { get { return icon; } }
 
-        public SomeAction(string name, RTSActionType action, Sprite icon)
+        public ActionDataItem(string name, RTSActionType action, Sprite icon)
         {
             this.name = name;
             this.action = action;
             this.icon = icon;
         }
-    }
+    } // End of SomeAction //
+
 
     [SerializeField]
-    private List<SomeAction> actionsData;
-    public List<SomeAction> ActionsData {
+    private List<ActionDataItem> actionsData;
+    public List<ActionDataItem> ActionsData {
         get {
             return actionsData;
         }
@@ -58,5 +67,7 @@ public class ActionData : ScriptableObject {
 		return null;
 	}
 	*/
-}
+
+} // End of class //
+
 

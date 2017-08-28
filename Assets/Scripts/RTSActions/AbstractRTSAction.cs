@@ -1,12 +1,12 @@
 public abstract class AbstractRTSAction {
 
-    protected ActionData.SomeAction actionData = null;
+    protected ActionData.ActionDataItem actionData = null;
 
-    public ActionData.SomeAction GetActionDataItem() {
+    public ActionData.ActionDataItem GetActionDataItem() {
         return actionData;
     }
 
-    public void SetActionDataItem(ActionData.SomeAction adata) {
+    public void SetActionDataItem(ActionData.ActionDataItem adata) {
         actionData = adata;
     }
 
