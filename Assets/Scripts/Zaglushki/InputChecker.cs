@@ -166,6 +166,7 @@ public class InputChecker : MonoBehaviour {
 
                 AbstractGameUnit unit = clickedUnitArmyManager.FindGameUnit(unitId.PersonalID);
                 if (unit != null) {
+
 //                    HUDscript.Message("[You clicked]:: " + unit.Description);
                 }
 

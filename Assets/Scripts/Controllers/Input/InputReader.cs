@@ -62,10 +62,12 @@ public class InputReader : MonoBehaviour{
 
         if (Input.mousePosition.y >= Screen.height - borderDelta) {
             cameraMover.ShiftZ(1);
-            //HUDscript.HideFloatingPanel();
+
+//            HUDscript.HideFloatingPanel();
         } else if (Input.mousePosition.y <= borderDelta) {
             cameraMover.ShiftZ(-1);
-            //HUDscript.HideFloatingPanel();
+//            HUDscript.HideFloatingPanel();
+
         }
 
 
