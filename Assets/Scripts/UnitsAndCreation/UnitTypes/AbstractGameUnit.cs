@@ -12,6 +12,8 @@ public abstract class AbstractGameUnit {
 
     public abstract GameObject Avatar { get; }
 
+    public bool IsActive { get; set; }
+
 
     public abstract GameUnitCharacteristics Characteristics { get; }
 

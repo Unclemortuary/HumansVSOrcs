@@ -33,7 +33,7 @@ public class CreateUnitAction : AbstractRTSAction {
         AbstractGameUnit warrior = null;
         if (unitType == Identification.UnitType.Worker) {
             warrior = data.ThisArmyManager.CreateWorker(unitType, targetPoint);
-        } if (unitType == Identification.UnitType.FlyingWarrior) {
+        } else if (unitType == Identification.UnitType.FlyingWarrior) {
             warrior = data.ThisArmyManager.CreateFlyingWarrior(unitType, targetPoint);
         } else {
             warrior = data.ThisArmyManager.CreateWarrior(unitType, targetPoint);

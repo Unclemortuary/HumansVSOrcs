@@ -63,21 +63,27 @@ public class WorkerBuildAction : AbstractRTSAction {
 
                     newBuilding.Avatar.GetComponent<BuildingComponent>().SetTransparent(true);
 
+                    newBuilding.IsActive = false;
 
-                    GameObject scaffold = newBuilding.Avatar.transform.Find("BuildingBuild").gameObject;
-
-
-                    if (scaffold != null) {
-                        Debug.Log("scaffold is found");
+                    if(data == null) {
+                        Debug.Log("data is null");
+                    } else if (data.ThisArmyManager == null) {
+                        Debug.Log("thisArmyManager is null");
+                    } else if (data.ThisArmyManager.Dispatcher == null) {
+                        Debug.Log("Dispatcher is null");
+                    } else if (newBuilding == null) {
+                        Debug.Log("newBuilding is null");
+                    } else if (performer == null) {
+                        Debug.Log("performer is null");
                     }
 
-                    Debug.Log("Setting scaffold active");
-                    scaffold.SetActive(true);
+                    data.ThisArmyManager.Dispatcher.TriggerCommand<AbstractGameUnit>(
+                            ArmyMessageTypes.unitCommandBuild, newBuilding, performer.ID);
 
-                    new Timer(newBuilding.Avatar, delegate  {
-                        scaffold.SetActive(false);
-
-                    }, data.CurrentRtsAction.GetActionDataItem().TimeToComplete);
+                    data.ThisArmyManager.Dispatcher.TriggerCommand<float>(
+                            ArmyMessageTypes.unitCommandSetWorkDuration,
+                            data.CurrentRtsAction.GetActionDataItem().TimeToComplete,
+                            performer.ID);
 
                 }
 

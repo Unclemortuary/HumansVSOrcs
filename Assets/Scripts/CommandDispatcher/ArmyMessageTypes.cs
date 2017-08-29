@@ -31,10 +31,14 @@ public enum ArmyMessageTypes {
         unitCommandGoToPosition,
         unitCommandFollowUnit,
         unitCommandStop,
+        unitCommandBuild,
+        unitCommandSetWorkDuration,
 
         // StateMachine -> HUD
         selectionChanged,
 
     ////////////
         testUnitInSelection,
+
+
 }

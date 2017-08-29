@@ -7,6 +7,14 @@ public class FlyingUnitReactionsComponent : RTSMonoBehaviour {
 // Selection light circle //
     private GameObject projector;
 
+    private float fiyingHeight = 15f;
+    private float epsilon = 0.001f;
+    [SerializeField]
+    private float moveChank = 2f;
+
+    private Vector3 destinationPoint;
+
+    private Rigidbody rigidbody;
 
     private AbstractGameUnit thisUnit;
     public AbstractGameUnit ThisUnit {
@@ -17,6 +25,8 @@ public class FlyingUnitReactionsComponent : RTSMonoBehaviour {
 
     public void SetGameUnit(AbstractGameUnit unit) {
         thisUnit = unit;
+
+        rigidbody = GetComponent<Rigidbody>();
     }
 
 //    private NavMeshAgent agent;
@@ -33,8 +43,15 @@ public class FlyingUnitReactionsComponent : RTSMonoBehaviour {
 //    }
 
 
+    private Vector3 Pos2PosInTheAir(Vector3 position) {
+        float terrainHeight = Terrain.activeTerrain.SampleHeight(position);
+
+        return new Vector3(position.x, terrainHeight + fiyingHeight, position.z);
+    }
+
     void Start() {
 
+        destinationPoint = Pos2PosInTheAir(transform.position);
 
         projector = gameObject.transform.Find("Projector").gameObject;
 
@@ -82,6 +99,7 @@ public class FlyingUnitReactionsComponent : RTSMonoBehaviour {
 
         armyManager.Dispatcher.StartListening<Vector3>(ArmyMessageTypes.unitCommandGoToPosition,
                 (Vector3 pos) => {
+                    destinationPoint = Pos2PosInTheAir(pos);
 //                    agent.destination = pos;
                 },
                 thisUnit.ID
@@ -89,6 +107,7 @@ public class FlyingUnitReactionsComponent : RTSMonoBehaviour {
 
         armyManager.Dispatcher.StartListening(ArmyMessageTypes.unitCommandStop,
                 () => {
+                    destinationPoint = transform.position;
 //                    agent.ResetPath();
                 },
                 thisUnit.ID
@@ -136,6 +155,8 @@ public class FlyingUnitReactionsComponent : RTSMonoBehaviour {
 
     void Update() {
 
+
+
 // Update Healthbar //
 
 
@@ -145,7 +166,14 @@ public class FlyingUnitReactionsComponent : RTSMonoBehaviour {
 
 // Set target for NavMesh //
 // If following a unit, destination redefinition is needed //
-
+        if ((transform.position - destinationPoint).sqrMagnitude < epsilon ) {
+//            transform.position = destinationPoint;
+            rigidbody.MovePosition(destinationPoint);
+        } else {
+            // move //
+            rigidbody.MovePosition(Vector3.Slerp(transform.position, destinationPoint, moveChank * Time.deltaTime));
+//            transform.position = Vector3.Slerp(transform.position, destinationPoint, moveChank * Time.deltaTime);
+        }
 
 
 

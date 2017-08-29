@@ -146,6 +146,10 @@ public class ArmyManager {
 
         AbstractGameUnit newUnit = CreateUnit(warriorFactory, type, position, warriors);
 
+        Rigidbody rb = newUnit.Avatar.AddComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.freezeRotation = true;
+
         FlyingUnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<FlyingUnitReactionsComponent>();
         reactionsComponent.SetGameUnit(newUnit);
 

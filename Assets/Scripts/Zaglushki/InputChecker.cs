@@ -166,11 +166,6 @@ public class InputChecker : MonoBehaviour {
 
                 AbstractGameUnit unit = clickedUnitArmyManager.FindGameUnit(unitId.PersonalID);
                 if (unit != null) {
-<<<<<<< HEAD
-                    //HUDscript.ShowFloatingPanelAt(Input.mousePosition.x, Input.mousePosition.y, "[You clicked]:: " + unit.Description);
-=======
-//                    HUDscript.ShowFloatingPanelAt(Input.mousePosition.x, Input.mousePosition.y, "[You clicked]:: " + unit.Description);
->>>>>>> 1d37667a7557a5746c2ecf31b4f24e2ac847faad
 //                    HUDscript.Message("[You clicked]:: " + unit.Description);
                 }
 
@@ -188,11 +183,6 @@ public class InputChecker : MonoBehaviour {
 
 
 
-<<<<<<< HEAD
-               // HUDscript.Message("Last created: " + unit.Description);
-=======
-//                HUDscript.Message("Last created: " + unit.Description);
->>>>>>> 1d37667a7557a5746c2ecf31b4f24e2ac847faad
             }
 
 
