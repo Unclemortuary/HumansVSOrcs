@@ -16,9 +16,9 @@ public class GridMapManager : RTSMonoBehaviour {
 	private float cellSize = 1f;
 
 	[SerializeField]
-	private float firstFloorHeightLvl = 0f;
+	private float firstFloorHeightLvl = 5f;
 	[SerializeField]
-	private float secondFloorHeightLvl = 5f;
+	private float secondFloorHeightLvl = 15f;
 
 	private Terrain terrain;
 
