@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         ////////////////////////////
-        InitializeGame();
+
     }
 
 // ********************************************************************************** //
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour {
     private ActionData scriptableActionDataList;
 
     [SerializeField]
-    private StartingGameUnitsPositions scriptableStartingPositions;
+    private StartingGamePositions scriptableStartingPositions;
 
 
 
@@ -94,25 +94,53 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]
 	private Transform _sun;
 
+    [SerializeField]
+    private CameraHolderComponent cameraHolder;
 
 
-    private void Start() {
+    void Start() {
+        StartGameWithPlayerArmyThe(Identification.Army.Orcs);
+//        StartGameWithPlayerArmyThe(Identification.Army.Humans);
+    }
+
+
+    public void StartGameWithPlayerArmyThe(Identification.Army armyId) {
+
+        Debug.Log("Start playing as " + armyId.ToString());
+
+        playerArmy = armyId;
+
+        InitializeGame();
+
         LoadStartingGameUnits();
     }
 
-    private void LoadStartingGameUnits() {
-        List<StartingGameUnitsPositions.GameUnitSpawnPoint> units = scriptableStartingPositions.GetUnitsPositions();
-        List<StartingGameUnitsPositions.GameUnitSpawnPoint> buildings = scriptableStartingPositions.GetBuildingsPositions();
 
-        foreach (StartingGameUnitsPositions.GameUnitSpawnPoint item in units) {
+//    private void Start() {
+//        LoadStartingGameUnits();
+//    }
+
+    private void LoadStartingGameUnits() {
+        List<StartingGamePositions.GameUnitSpawnPoint> units = scriptableStartingPositions.GetUnitsPositions();
+        List<StartingGamePositions.GameUnitSpawnPoint> buildings = scriptableStartingPositions.GetBuildingsPositions();
+
+        foreach (StartingGamePositions.GameUnitSpawnPoint item in units) {
             armyManagers[item.ArmyType].CreateWarrior(item.UnitType, item.Position);
         }
-        foreach (StartingGameUnitsPositions.GameUnitSpawnPoint item in buildings) {
+        foreach (StartingGamePositions.GameUnitSpawnPoint item in buildings) {
             armyManagers[item.ArmyType].CreateBuilding(item.UnitType, item.Position);
         }
 
-        foreach(StartingGameUnitsPositions.ArmyResourcesPair resPair in scriptableStartingPositions.StartingResources) {
+        foreach(StartingGamePositions.ArmyResourcesPair resPair in scriptableStartingPositions.StartingResources) {
             armyManagers[resPair.ArmyType].SetResources(resPair.ResourcesAmount.CreateCopy());
+        }
+
+        foreach(StartingGamePositions.CameraPosition cameraPosition in scriptableStartingPositions.CameraHolderPositions) {
+            Debug.Log("Checking camera position for " + cameraPosition.Army.ToString());
+            if (cameraPosition.Army == playerArmy) {
+                Debug.Log("Set starting position for camera");
+                cameraHolder.gameObject.transform.position = cameraPosition.Position;
+            }
         }
     }
 
@@ -129,6 +157,17 @@ public class GameManager : MonoBehaviour {
 		gameObject.AddComponent<TimeManager> ();
 		TimeManager.GetInstance.Init (_sun);
     }
+
+
+    private void InitializeArmyDispatchers() {
+        armyDispatchers = new Dictionary<Identification.Army, ArmyDispatcher>();
+
+        foreach (Identification.Army armyType in Enum.GetValues(typeof(Identification.Army))) {
+            armyDispatchers.Add(armyType, new ArmyDispatcher());
+        }
+
+    }
+
 
     private void InitializeActionsLibrary() {
 
@@ -190,15 +229,6 @@ public class GameManager : MonoBehaviour {
 
     }
 
-
-    private void InitializeArmyDispatchers() {
-        armyDispatchers = new Dictionary<Identification.Army, ArmyDispatcher>();
-
-        foreach (Identification.Army armyType in Enum.GetValues(typeof(Identification.Army))) {
-            armyDispatchers.Add(armyType, new ArmyDispatcher());
-        }
-
-    }
 
 
     private void InitAFactory(CommonGameUnitFactory factory, TypeToGameUnitDictionary prototypes)
@@ -283,7 +313,12 @@ public class GameManager : MonoBehaviour {
     }
 
 
-/////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// ######################################################################################## //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
     public void HereIAm(RTSMonoBehaviour monobeh) {
         GameUnitID uid = monobeh.gameObject.GetComponent<GameUnitID>();
@@ -301,6 +336,10 @@ public class GameManager : MonoBehaviour {
         if (reactionsScript != null) {
             reactionsScript.SetDispatcher(playerController.PlayerArmyDispatcher);
         }
+    }
+
+    public void HereIsCameraHolder(CameraHolderComponent holder) {
+        cameraHolder = holder;
     }
 
 

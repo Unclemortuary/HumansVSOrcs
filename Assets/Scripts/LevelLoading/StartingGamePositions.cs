@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class StartingGameUnitsPositions : ScriptableObject{
+public class StartingGamePositions : ScriptableObject{
 
     [System.Serializable]
     public class GameUnitSpawnPoint {
@@ -29,7 +30,11 @@ public class StartingGameUnitsPositions : ScriptableObject{
                 return position;
             }
         }
-    }
+    } // class GameUnitSpawnPoint //
+
+
+
+
 
     [SerializeField]
     private List<GameUnitSpawnPoint> units;
@@ -63,7 +68,7 @@ public class StartingGameUnitsPositions : ScriptableObject{
                 return resourcesAmount;
             }
         }
-    }
+    } // class ArmyResourcePair //
 
     [SerializeField]
     private List<ArmyResourcesPair> startingResources;
@@ -72,5 +77,35 @@ public class StartingGameUnitsPositions : ScriptableObject{
             return startingResources;
         }
     }
-}
+
+
+    [System.Serializable]
+    public class CameraPosition {
+        [SerializeField]
+        private Identification.Army army;
+        public Identification.Army Army {
+            get {
+                return army;
+            }
+        }
+        [SerializeField]
+        private Vector3 position;
+        public Vector3 Position {
+            get {
+                return position;
+            }
+        }
+    } // class CameraPosition //
+
+
+    [SerializeField]
+    private List<CameraPosition> cameraHolderPositioins;
+    public List<CameraPosition> CameraHolderPositions {
+        get {
+            return cameraHolderPositioins;
+        }
+    }
+
+} // End Of Class //
+
 
