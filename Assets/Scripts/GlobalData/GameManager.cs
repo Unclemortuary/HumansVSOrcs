@@ -180,6 +180,9 @@ public class GameManager : MonoBehaviour {
 //        ActionData.SomeAction dummyData = new ActionData.SomeAction("", RTSActionType.NULL, null);
 
         actionsLibrary.AddRTSAction(RTSActionType.moveTo, new MoveToAction());
+        actionsLibrary.AddRTSAction(RTSActionType.moveFormationTo5, new MoveFormationToAction(5));
+        actionsLibrary.AddRTSAction(RTSActionType.moveFormationTo10, new MoveFormationToAction(10));
+        actionsLibrary.AddRTSAction(RTSActionType.moveFormationTo15, new MoveFormationToAction(15));
 
         actionsLibrary.AddRTSAction(RTSActionType.stop, new StopAction());
 

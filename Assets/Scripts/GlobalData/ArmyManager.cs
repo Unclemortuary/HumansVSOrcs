@@ -120,24 +120,30 @@ public class ArmyManager {
         UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
         reactionsComponent.SetGameUnit(newUnit);
 
+        // Add navmesh //
         NavMeshAgent agent = newUnit.Avatar.AddComponent<NavMeshAgent>();
         reactionsComponent.SetNavmeshAgent(agent);
+
+        // Set navmeshAgent size the same as collider //
+//        Debug.Log("Collider extents = " + newUnit.Avatar.GetComponent<Collider>().bounds.extents);
+//        Debug.Log("xxx=" + newUnit.Avatar.GetComponent<Collider>().bounds.extents / newUnit.Avatar.transform.localScale.x);
+        // Shamanizm //
+        Vector3 boundsExtents = newUnit.Avatar.GetComponent<Collider>().bounds.extents;
+        agent.radius = boundsExtents.x / newUnit.Avatar.transform.localScale.x;
+        agent.height = boundsExtents.y / newUnit.Avatar.transform.localScale.y;
+
 
         return newUnit;
     }
 
     public AbstractGameUnit CreateWorker(Identification.UnitType type, Vector3 position) {
 
-        AbstractGameUnit newUnit = CreateUnit(warriorFactory, type, position, warriors);
+        AbstractGameUnit newUnit = CreateWarrior(type, position);
 
-        UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
-        reactionsComponent.SetGameUnit(newUnit);
+        UnitReactionsComponent reactionsComponent = newUnit.Avatar.GetComponent<UnitReactionsComponent>();
 
         BuilderReactionsComponent builderReactions = newUnit.Avatar.AddComponent<BuilderReactionsComponent>();
         builderReactions.Initialize(reactionsComponent);
-
-        NavMeshAgent agent = newUnit.Avatar.AddComponent<NavMeshAgent>();
-        reactionsComponent.SetNavmeshAgent(agent);
 
         return newUnit;
     }

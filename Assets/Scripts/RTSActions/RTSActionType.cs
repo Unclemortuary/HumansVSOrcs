@@ -37,4 +37,7 @@ public enum RTSActionType {
 	specialFireStorm,
 
     createFlyingWarrior,
+    moveFormationTo5,
+    moveFormationTo10,
+    moveFormationTo15,
 }
