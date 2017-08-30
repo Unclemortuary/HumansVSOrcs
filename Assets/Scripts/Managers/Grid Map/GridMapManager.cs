@@ -139,6 +139,14 @@ public class GridMapManager : RTSMonoBehaviour {
 		return true;
 	}
 
+	public void StatusToOccupied(int i, int j, int iMax, int jMax)
+	{
+		for (int I = i; I < iMax; I++)
+			for (int J = j; J < jMax; J++)
+				map [I, J].Status = CellStatus.Occupied;
+		Debug.Log ("Status changed");
+	}
+
 	public struct Cell
 	{
 		private Vector2 firstPoint;

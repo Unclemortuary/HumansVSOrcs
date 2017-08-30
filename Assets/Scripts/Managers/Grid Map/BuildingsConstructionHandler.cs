@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BuildingsConstructionHandler : MonoBehaviour {
 
-	private float buildingWidth = 3f;
-	private float buildingHeight = 3f;
+	private float buildingWidth;
+	private float buildingHeight;
 	private float cellSize;
 
 	private Color greenTransparentColor = new Color (0f, 0.8f, 0f, 0.3f);
@@ -16,16 +16,20 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 	private BuildingComponent settableBuilding;
 
 	private bool canBuild;
+	private bool weAreBuildingNow = false;
     public bool CanBuild {
         get {
             return canBuild;
         }
     }
+	public bool WeAreBuildingNow { set { weAreBuildingNow = value; } }
 
 	void Start()
 	{
 		cellSize = GridMapManager.instance.CellSize;
 		settableBuilding = GetComponent<BuildingComponent> ();
+		buildingWidth = settableBuilding.BuildingWidth;
+		buildingHeight = settableBuilding.BuildingHeight;
 		Collider[] colliders = settableBuilding.gameObject.GetComponents<Collider> ();
 		foreach (Collider collider in colliders)
 			collider.enabled = false;
@@ -58,11 +62,12 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 				renderer.material.color = currentColor;
 			}
 
-			if (Input.GetMouseButton (0))
-				BuildUp (hit.point);
+			//if(weAreBuildingNow)
+				//CanBuildCheck (hit.point, true);
 		}
 	}
 
+	/*
 	void BuildUp(Vector3 position)
 	{
 		if (canBuild) 
@@ -84,6 +89,7 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 			Debug.Log ("Cannot build here!");
 		}
 	}
+	*/
 
 	bool CanBuildCheck(Vector3 mousePosition)
 	{
