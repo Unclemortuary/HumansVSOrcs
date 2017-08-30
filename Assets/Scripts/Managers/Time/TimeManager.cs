@@ -16,7 +16,7 @@ namespace Project.TimeManager
 
 
         [Range(0, 1)]
-        private float _currTime;
+		public float _currTime;
         public float CurrTime {
             get { return _currTime; }
         }
@@ -32,7 +32,7 @@ namespace Project.TimeManager
         private int _iStartDay = 10;
         private int _iStartSunset = 20;
         private int _iStartNight = 22;
-        private float _fullDay = 300f; // duration of the day, in seconds
+        public float _fullDay = 300f; // duration of the day, in seconds
 
 
         private float _fStartSunrise;
