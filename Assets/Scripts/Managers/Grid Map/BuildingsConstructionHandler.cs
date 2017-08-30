@@ -16,13 +16,11 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 	private BuildingComponent settableBuilding;
 
 	private bool canBuild;
-	private bool weAreBuildingNow = false;
     public bool CanBuild {
         get {
             return canBuild;
         }
     }
-	public bool WeAreBuildingNow { set { weAreBuildingNow = value; } }
 
 	void Start()
 	{
@@ -58,8 +56,12 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 			
 			foreach (Renderer renderer in renderers) 
 			{
-				renderer.material.shader = Shader.Find ("Transparent/Diffuse");
-				renderer.material.color = currentColor;
+				foreach (Material mat in renderer.materials) 
+				{
+					mat.shader = Shader.Find ("Nature/Tree Creator Leaves");
+					mat.color = currentColor;
+				}
+
 			}
 
 			//if(weAreBuildingNow)

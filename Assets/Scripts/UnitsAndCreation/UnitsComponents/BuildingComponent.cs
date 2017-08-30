@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingComponent : RTSMonoBehaviour{
@@ -7,13 +9,9 @@ public class BuildingComponent : RTSMonoBehaviour{
 
     private Renderer[] renderers;
 
-	private Shader originShader;
-	private Color originColor;
-
-    private Renderer renderer0;
-
-	public Shader OriginShader { get { return originShader; } set { originShader = value; } }
-	public Color OriginColor {get { return originColor; } set { originColor = value; } }
+	private List<Shader> originShaders;
+	private List<Color> originColors;
+	 
 	public float BuildingWidth {get { return buildingWidth; } }
 	public float BuildingHeight {get { return buildingHeight; } }
 
@@ -21,27 +19,53 @@ public class BuildingComponent : RTSMonoBehaviour{
 	{
         base.Awake();
 
-        renderer0 = GetComponentsInChildren<Renderer> ()[0];
+		InitRenderers();
 
-		originShader = renderer0.material.shader;
-		originColor = renderer0.material.color;
+		originShaders = new List<Shader>();
+		foreach (Renderer rend in renderers)
+			foreach (Material mat in rend.materials)
+				originShaders.Add (mat.shader);
 
-        InitRenderers();
+		originColors = new List<Color> ();
+		foreach (Renderer rend in renderers)
+			foreach (Material mat in rend.materials)
+				originColors.Add (mat.color);
+        
 	}
 
 
-    private void InitRenderers() {
-        renderers = GetComponents<Renderer>();
+    private void InitRenderers() 
+	{
+		renderers = GetComponentsInChildren<Renderer>();
     }
 
     public void SetTransparent(bool val) {
 
+		int i = 0;
 
-        if(val) {
-            Debug.Log("Trying to make transparent");
-            renderer0.material.color = new Color(originColor.r, originColor.g, originColor.b, 0.3f);
-        } else {
-            renderer0.material.color = originColor;
+        if(val) 
+		{
+			foreach (Renderer rend in renderers) 
+			{
+				foreach (Material mat in rend.materials)
+				{
+					mat.shader = Shader.Find ("Transparent/Diffuse");
+					mat.color = new Color(originColors[i].r, originColors[i].g, originColors[i].b, 0.3f);
+					i++;
+				}
+			}
+        }
+		else
+		{
+			foreach (Renderer rend in renderers) 
+			{
+				foreach (Material mat in rend.materials)
+				{
+					mat.shader = originShaders[i];
+					mat.color = originColors[i];
+					i++;
+				}
+			}
         }
     }
 
