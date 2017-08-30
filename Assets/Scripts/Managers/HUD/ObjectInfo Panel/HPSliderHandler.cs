@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class HPSliderHandler : MonoBehaviour {
 
+	private ObjectInfoPanelManager ourManager;
+
 	private Slider slider;
 
 	[SerializeField]
@@ -21,10 +23,16 @@ public class HPSliderHandler : MonoBehaviour {
 
 	void Start()
 	{
+		ourManager = GetComponentInParent<ObjectInfoPanelManager> ();
+
 		slider = GetComponent<Slider> ();
 		slider.interactable = false;
 		slider.wholeNumbers = true;
 		slider.onValueChanged.AddListener(delegate {HPValueChanged(); });
+
+		ourManager.Updated += UpdateSlider;
+		ourManager.Deselect += ClearSlider;
+
 		ClearSlider ();
 	}
 

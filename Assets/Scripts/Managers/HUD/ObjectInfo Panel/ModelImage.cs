@@ -5,6 +5,9 @@ using UnityEngine;
 public class ModelImage : MonoBehaviour {
 
 	[SerializeField]
+	private ObjectInfoPanelManager ourManager;
+
+	[SerializeField]
 	private Transform spotPoint;
 
 	[SerializeField]
@@ -13,11 +16,19 @@ public class ModelImage : MonoBehaviour {
 	void Start()
 	{
 		spotPoint = transform;
+
+		ourManager.Updated += ModelImageUpdate;
+		ourManager.Deselect += ClearModelImage;
 	}
 
 	public void ModelImageUpdate(AbstractGameUnit unit)
 	{
-		currentUnit = Instantiate (unit.Avatar, spotPoint.position, Quaternion.identity, spotPoint);
+		Vector3 position;
+		if (unit.Avatar.GetComponent<BuildingComponent> ())
+			position = spotPoint.position + new Vector3 (0f, 0f, -5f);
+		else
+			position = spotPoint.position;
+		currentUnit = Instantiate (unit.Avatar, position, Quaternion.identity, spotPoint);
 	}
 
 	public void ClearModelImage()

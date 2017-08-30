@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class InfoText : MonoBehaviour {
 
+	private ObjectInfoPanelManager ourManager;
+
 	[SerializeField]
 	private Text nameText;
 	[SerializeField]
@@ -30,6 +32,11 @@ public class InfoText : MonoBehaviour {
 		allText.Add (attackValueText);
 		allText.Add (defenseValueText);
 
+		ourManager = GetComponentInParent<ObjectInfoPanelManager> ();
+
+		ourManager.Updated += UpdateInfoPanel;
+		ourManager.Deselect += ClearInfoText;
+
 		ClearInfoText ();
 	}
 
@@ -42,11 +49,11 @@ public class InfoText : MonoBehaviour {
 		}
 	}
 
-	public void UpdateInfoPanel(AbstractGameUnit unit, bool isBuilding)
+	public void UpdateInfoPanel(AbstractGameUnit unit)
 	{
 		selectedUnit = unit;
 		nameText.text = selectedUnit.Description;
-		if (isBuilding)
+		if (unit.Avatar.GetComponent<BuildingComponent>())
 			return;
 		else
 		{

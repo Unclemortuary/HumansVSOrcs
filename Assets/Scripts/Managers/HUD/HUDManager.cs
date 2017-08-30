@@ -5,6 +5,7 @@ using UnityEngine;
 public class HUDManager : MonoBehaviour {
 
 	private CommandPanelManager commandPanelManager;
+	private ObjectInfoPanelManager objectInfoPanelManager;
 
     private ArmyDispatcher playerArmyDispatcher;
     private AbstractGameUnitsList selectedUnitsList;
@@ -13,24 +14,43 @@ public class HUDManager : MonoBehaviour {
 	void Start()
 	{
 		commandPanelManager = GetComponentInChildren<CommandPanelManager> ();
+		objectInfoPanelManager = GetComponentInChildren<ObjectInfoPanelManager> ();
+		objectInfoPanelManager.PanelDeselect ();
 		commandPanelManager.ActionChanged += CurrentActionChanged;
-
-		//***Test Actions***
-		/*
-		List<RTSActionType> testActions = new List<RTSActionType> ();
-		testActions.Add (RTSActionType.moveTo);
-		testActions.Add (RTSActionType.stop);
-		CommandSetChangeHandler(testActions);
-		//***End of Test Actions***
-		*/
-
-        InitDispatcherMessages();
-        playerArmy = GameManager.Instance.PlayerArmy;
 	}
 
-	public RTSActionType ReturnCurrentAction()
+	public void InitHUD()
 	{
-		return commandPanelManager.CurrentAction;
+		InitDispatcherMessages();
+		playerArmy = GameManager.Instance.PlayerArmy;
+	}
+
+	private void InitDispatcherMessages() 
+	{
+
+		playerArmyDispatcher = GameManager.Instance.PlayerController.PlayerArmyDispatcher;
+
+		playerArmyDispatcher.StartListening<AbstractGameUnitsList>(ArmyMessageTypes.selectionChanged,
+			(AbstractGameUnitsList list) => {
+				UpdateSelected(list);
+			}
+		);
+		Debug.Log ("INIT DONE");
+	}
+
+	private void UpdateSelected(AbstractGameUnitsList list)
+	{
+		Debug.Log ("UpdateSelected call");
+		this.selectedUnitsList = list;
+
+		if (list.Count == 0)
+		{
+			List<RTSActionType> actionTypes = ConvertUnitsToActionTypes (list);
+			CommandSetChangeHandler (actionTypes);
+			objectInfoPanelManager.PanelUpdate (list);	
+		}
+		else
+			ClearSelection ();
 	}
 
 	public void CommandSetChangeHandler(List<RTSActionType> groupActions)
@@ -39,9 +59,10 @@ public class HUDManager : MonoBehaviour {
 		commandPanelManager.UpdatePanel (actionList);
 	}
 
-	public void ClearCommandPanel()
+	public void ClearSelection()
 	{
 		commandPanelManager.ClearPanel (false);
+		objectInfoPanelManager.PanelDeselect ();
 	}
 
 	private List<ActionData.ActionDataItem> ConvertActionsToData(List<RTSActionType> actions)
@@ -70,26 +91,12 @@ public class HUDManager : MonoBehaviour {
 
 
 
-    private void InitDispatcherMessages() {
-        playerArmyDispatcher = GameManager.Instance.PlayerController.PlayerArmyDispatcher;
 
-        playerArmyDispatcher.StartListening<AbstractGameUnitsList>(ArmyMessageTypes.selectionChanged,
-                (AbstractGameUnitsList list) => {
-                    UpdateSelected(list);
-                }
-        	);
-    }
-
-    private void UpdateSelected(AbstractGameUnitsList list) {
-        this.selectedUnitsList = list;
-
-        List<RTSActionType> actionTypes  = ConvertUnitsToActionTypes(list);
-
-        CommandSetChangeHandler(actionTypes);
-    }
+		
 
     // Implementation with actions union //
-    private List<RTSActionType> ConvertUnitsToActionTypes(AbstractGameUnitsList list) {
+    private List<RTSActionType> ConvertUnitsToActionTypes(AbstractGameUnitsList list) 
+	{
         List<RTSActionType> resultingList = new List<RTSActionType>();
 		foreach (AbstractGameUnit unit in list) {
             List<RTSActionType> types = unit.ActionsList;
@@ -112,5 +119,8 @@ public class HUDManager : MonoBehaviour {
         return  resultingList;
     }
 
-
+	public RTSActionType ReturnCurrentAction()
+	{
+		return commandPanelManager.CurrentAction;
+	}
 }
