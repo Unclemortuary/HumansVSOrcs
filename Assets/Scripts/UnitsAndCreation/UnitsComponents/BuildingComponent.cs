@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class BuildingComponent : RTSMonoBehaviour{
 
+	private float buildingWidth = 8f;
+	private float buildingHeight = 8f;
+
     private Renderer[] renderers;
 
 	private Shader originShader;
@@ -11,6 +14,8 @@ public class BuildingComponent : RTSMonoBehaviour{
 
 	public Shader OriginShader { get { return originShader; } set { originShader = value; } }
 	public Color OriginColor {get { return originColor; } set { originColor = value; } }
+	public float BuildingWidth {get { return buildingWidth; } }
+	public float BuildingHeight {get { return buildingHeight; } }
 
 	void Awake()
 	{
@@ -39,6 +44,17 @@ public class BuildingComponent : RTSMonoBehaviour{
             renderer0.material.color = originColor;
         }
     }
+
+	public void ChangeGridMapStatus(Vector3 position)
+	{
+		int iOffset = (int) ((buildingWidth / (GridMapManager.instance.CellSize * 2f)) + 1);
+		int jOffset = (int) ((buildingHeight / (GridMapManager.instance.CellSize * 2f)) + 1);
+
+		int currentI = (int) (position.x / GridMapManager.instance.CellSize);
+		int curretnJ = (int) (position.z / GridMapManager.instance.CellSize);
+
+		GridMapManager.instance.StatusToOccupied (currentI - iOffset, curretnJ - jOffset, currentI + iOffset, curretnJ + jOffset);
+	}
 
 
 }
