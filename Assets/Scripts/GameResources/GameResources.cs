@@ -3,6 +3,9 @@ using UnityEngine;
 [System.Serializable]
 public class GameResources {
 
+    private const float placesPerHouse = 5f;
+
+
 
     public enum ResourceType {
         GOLD, WOOD, FOOD, STONE, MEN, LIVING_HOUSES,
@@ -50,6 +53,11 @@ public class GameResources {
         resources.livingHouses = this.livingHouses;
 
         return  resources;
+    }
+
+
+    public float GetLivingPlacesNumber() {
+        return livingHouses * placesPerHouse;
     }
 
 

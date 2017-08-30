@@ -22,8 +22,8 @@ public class CreateUnitAction : AbstractRTSAction {
     }
 
     private void CreateUnitNearSelectedUnit(ArmyStateData data) {
-        Vector3 shiftVector = new Vector3(0f, 0, 19.5f);
-        Vector3 targetPoint = data.SelectedUnits[0].Avatar.transform.position - shiftVector;
+        Vector3 shiftVector = new Vector3(0f, 0, -19.5f);
+        Vector3 targetPoint = data.SelectedUnits[0].Avatar.transform.position + shiftVector;
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(targetPoint, out hit, 15.0f, NavMesh.AllAreas)) {
@@ -39,7 +39,7 @@ public class CreateUnitAction : AbstractRTSAction {
             warrior = data.ThisArmyManager.CreateWarrior(unitType, targetPoint);
         }
 
-        targetPoint = targetPoint + shiftVector;
+        targetPoint = targetPoint + 4 * shiftVector.normalized;
         if (NavMesh.SamplePosition(targetPoint, out hit, 5.0f, NavMesh.AllAreas)) {
             targetPoint = hit.position;
         }

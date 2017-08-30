@@ -17,6 +17,14 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
 
     public void SetGameUnit(AbstractGameUnit unit) {
         thisUnit = unit;
+
+// -----------------
+        projector = gameObject.transform.Find("Projector").gameObject;
+
+        InitializeEventTrigger();
+
+        SubscribeOnDispatcherMessages();
+
     }
 
     private NavMeshAgent agent;
@@ -34,19 +42,14 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
 
 
     void Start() {
-//        base.Start();
 
-//        if (gameObject.transform.Find("Projector") == null) {
-//            print("Can't find a Projector");
-//        }
+//        projector = gameObject.transform.Find("Projector").gameObject;
 //
-        projector = gameObject.transform.Find("Projector").gameObject;
+//        InitializeEventTrigger();
+//
+//        SubscribeOnDispatcherMessages();
+//
 
-        InitializeEventTrigger();
-
-        SubscribeOnDispatcherMessages();
-
-//        InitializeBuilderComponent();
     }
 
 //    private void InitializeBuilderComponent() {

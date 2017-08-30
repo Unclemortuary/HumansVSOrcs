@@ -44,13 +44,7 @@ public class BuilderReactionsComponent : RTSMonoBehaviour {
                 reactionsComponent.ThisUnit.ID
         );
 
-//        armyManager.Dispatcher.StartListening(ArmyMessageTypes.unitCommandStop,
-//                () => {
-//                    reactionsComponent.Agent.ResetPath();
-//                },
-//                reactionsComponent.ThisUnit.ID
-//        );
-//
+
 
     } // Subscribe on dispatcher messages //
 
