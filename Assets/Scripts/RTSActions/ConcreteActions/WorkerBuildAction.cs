@@ -117,18 +117,33 @@ public class WorkerBuildAction : AbstractRTSAction {
         Debug.Log("Starting Worker's BuildAction");
 
         foreach(AbstractGameUnit unit in data.SelectedUnits) {
-            performerBuilderReactions = unit.Avatar.GetComponent<BuilderReactionsComponent>();
 
-            if (performerBuilderReactions != null) {
-                performer = unit;
-                performerReactions = unit.Avatar.GetComponent<UnitReactionsComponent>();
-                Debug.Log("Found performer for building a Building");
-                break;
+            if(unit.IsActive) {
+                performerBuilderReactions = unit.Avatar.GetComponent<BuilderReactionsComponent>();
+
+                if (performerBuilderReactions != null) {
+                    performer = unit;
+                    performerReactions = unit.Avatar.GetComponent<UnitReactionsComponent>();
+                    Debug.Log("Found performer for building a Building");
+                    break;
+                }
             }
         }
 
         buildingGhost = data.ThisArmyManager.CreateBuildingGhost(unitType, Vector3.zero);
+
+
+
         constructionHandler = buildingGhost.AddComponent<BuildingsConstructionHandler>();
+
+//        ResourceBuilding rb = buildingGhost.GetComponent<ResourceBuilding>();
+//        if (rb != null) {
+//            constructionHandler = buildingGhost.AddComponent<ResourceBuildingConstructionHandler>();
+//        } else {
+//            constructionHandler = buildingGhost.AddComponent<BuildingsConstructionHandler>();
+//        }
+//
+
 
         NavMeshObstacle obstacle = buildingGhost.GetComponent<NavMeshObstacle>();
         if (obstacle != null) {

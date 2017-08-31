@@ -11,6 +11,7 @@ public static class Identification {
         GeneralHouse, Barrack, Farm, Forge, Quarry, Sawmill, SimpleHouse, WatchTower,
         Worker,
         FlyingWarrior,
+        Mine,
     };
 
 

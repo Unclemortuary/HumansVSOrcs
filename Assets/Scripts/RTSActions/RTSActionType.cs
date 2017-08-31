@@ -40,4 +40,6 @@ public enum RTSActionType {
     moveFormationTo5,
     moveFormationTo10,
     moveFormationTo15,
+
+    workersBuildMine,
 }

@@ -241,6 +241,7 @@ public class GameManager : MonoBehaviour {
         actionsLibrary.AddRTSAction(RTSActionType.workersBuildSawmill, new WorkerBuildAction(Identification.UnitType.Sawmill));
         actionsLibrary.AddRTSAction(RTSActionType.workersBuildSimpleHouse, new WorkerBuildAction(Identification.UnitType.SimpleHouse));
         actionsLibrary.AddRTSAction(RTSActionType.workersBuildWatchTower, new WorkerBuildAction(Identification.UnitType.WatchTower));
+        actionsLibrary.AddRTSAction(RTSActionType.workersBuildMine, new WorkerBuildAction(Identification.UnitType.Mine));
 
 //        Debug.Log ("GameManager: Reading ActionData");
         // Initialize ActionData form scriptableObject //
