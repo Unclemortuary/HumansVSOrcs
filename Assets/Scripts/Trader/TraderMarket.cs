@@ -14,45 +14,42 @@ public class TraderMarket : MonoBehaviour {
 	//------------------Buy--------------------------
 	public void BuyFood()
 	{
-		myResources = GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy].AvailableResources;
-		myResources.ChangeResourceAmount (GameResources.ResourceType.GOLD, -10);
-		myResources.ChangeResourceAmount (GameResources.ResourceType.FOOD, 10);
+		Exchange (GameResources.ResourceType.GOLD, 10, GameResources.ResourceType.FOOD, 10);
 	}
 
 	public void BuyWood()
 	{
-		myResources = GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy].AvailableResources;
-		myResources.ChangeResourceAmount (GameResources.ResourceType.GOLD, -15);
-		myResources.ChangeResourceAmount (GameResources.ResourceType.WOOD, 10);
+		Exchange (GameResources.ResourceType.GOLD, 15, GameResources.ResourceType.WOOD, 10);
 	}
 
 	public void BuyStone()
 	{
-		myResources = GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy].AvailableResources;
-		myResources.ChangeResourceAmount (GameResources.ResourceType.GOLD, -20);
-		myResources.ChangeResourceAmount (GameResources.ResourceType.STONE, 10);
+		Exchange (GameResources.ResourceType.GOLD, 20, GameResources.ResourceType.STONE, 10);
 	}
 
 	//-------------------SELL-------------------------
 
 	public void SellFood()
 	{
-		myResources = GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy].AvailableResources;
-		myResources.ChangeResourceAmount (GameResources.ResourceType.GOLD, 5);
-		myResources.ChangeResourceAmount (GameResources.ResourceType.FOOD, -10);
+		Exchange (GameResources.ResourceType.FOOD, 10, GameResources.ResourceType.GOLD, 5);
 	}
 
 	public void SelLWood()
 	{
-		myResources = GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy].AvailableResources;
-		myResources.ChangeResourceAmount (GameResources.ResourceType.GOLD, 7);
-		myResources.ChangeResourceAmount (GameResources.ResourceType.WOOD, -10);
+		Exchange (GameResources.ResourceType.WOOD, 10, GameResources.ResourceType.GOLD, 7);
 	}
 
 	public void SellStone()
 	{
+		Exchange (GameResources.ResourceType.STONE, 10, GameResources.ResourceType.GOLD, 9);
+	}
+
+	private void Exchange(GameResources.ResourceType fromRes, int fromCount
+		, GameResources.ResourceType toRes, int toCount) {
 		myResources = GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy].AvailableResources;
-		myResources.ChangeResourceAmount (GameResources.ResourceType.GOLD, 9);
-		myResources.ChangeResourceAmount (GameResources.ResourceType.STONE, -10);
+		if (myResources.GetResourceAmount (fromRes) >= fromCount) {
+			myResources.ChangeResourceAmount (fromRes, -fromCount);
+			myResources.ChangeResourceAmount (toRes, toCount);
+		}
 	}
 }
