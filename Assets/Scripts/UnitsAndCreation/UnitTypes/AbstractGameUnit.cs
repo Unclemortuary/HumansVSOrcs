@@ -12,7 +12,15 @@ public abstract class AbstractGameUnit {
 
     public abstract GameObject Avatar { get; }
 
-    public bool IsActive { get; set; }
+    private bool isActive = true;
+    public bool IsActive {
+        get {
+            return isActive;
+        }
+        set {
+            isActive = value;
+        }
+    }
 
 
     public abstract GameUnitCharacteristics Characteristics { get; }

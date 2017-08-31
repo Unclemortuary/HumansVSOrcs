@@ -8,7 +8,7 @@ public class MenuStartScript : MonoBehaviour {
 	// Use this for initialization
 	public GameObject startMenu;
 	public GameObject hud;
-//	public GameObject cameraHolder;
+	public GameObject cameraHolder;
 	public GameObject panelStart;
 	public GameObject panelChoose;
 	public GameObject human;
@@ -21,13 +21,13 @@ public class MenuStartScript : MonoBehaviour {
 	{
 		startMenu.SetActive (false);
 		hud.SetActive (true);
-//		cameraHolder.SetActive (true);
+		cameraHolder.SetActive (true);
 	}
 
 	void Start () {
 		startMenu.SetActive (true);
 		hud.SetActive (false);
-//		cameraHolder.SetActive (false);
+		cameraHolder.SetActive (false);
 	}
 
 	void Update()
@@ -61,7 +61,7 @@ public class MenuStartScript : MonoBehaviour {
 	private void CloseMainMenu() {
         startMenu.SetActive (false);
         hud.SetActive (true);
-//        cameraHolder.SetActive (true);
+        cameraHolder.SetActive (true);
     }
 
 

@@ -63,8 +63,6 @@ public class WorkerBuildAction : AbstractRTSAction {
 
                     newBuilding.Avatar.GetComponent<BuildingComponent>().SetTransparent(true);
 
-                    newBuilding.IsActive = false;
-
                     if(data == null) {
                         Debug.Log("data is null");
                     } else if (data.ThisArmyManager == null) {
@@ -84,6 +82,15 @@ public class WorkerBuildAction : AbstractRTSAction {
                             ArmyMessageTypes.unitCommandSetWorkDuration,
                             data.CurrentRtsAction.GetActionDataItem().TimeToComplete,
                             performer.ID);
+
+
+                    BuildingComponent buildingComponent = newBuilding.Avatar.GetComponent<BuildingComponent>();
+                    buildingComponent.ChangeGridMapStatus(newBuilding.Avatar.transform.position);
+
+
+                    // Pay the price //
+                    data.ThisArmyManager.AvailableResources.SpendResources(data.CurrentRtsAction.GetActionDataItem().PriceToUse);
+
 
                 }
 

@@ -54,6 +54,8 @@ public class CreateUnitAction : AbstractRTSAction {
                 warrior.ID
         );
 
+
+        // Pay the price //
         data.ThisArmyManager.AvailableResources.SpendResources(data.CurrentRtsAction.GetActionDataItem().PriceToUse);
 
         data.ThisArmyManager.StateMachine.Trigger(ArmySMTransitionType.doActionToSelected);

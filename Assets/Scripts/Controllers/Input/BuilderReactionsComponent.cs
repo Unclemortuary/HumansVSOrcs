@@ -5,6 +5,8 @@ public class BuilderReactionsComponent : RTSMonoBehaviour {
 
 
     private float workingRadius = 225; //15;
+    private float delta = 2;
+
     private AbstractGameUnit targetBuilding;
 
     private bool goingToBuild = false;
@@ -33,6 +35,11 @@ public class BuilderReactionsComponent : RTSMonoBehaviour {
                 (AbstractGameUnit building) => {
                     targetBuilding = building;
                     goingToBuild = true;
+
+                    SetActivityTo(false);
+
+//                    Vector3 buildingExtents = targetBuilding.Avatar.GetComponent<Collider>().bounds.extents;
+//                    workingRadius = buildingExtents.x * buildingExtents.x + buildingExtents.z * buildingExtents.z + delta;
                 },
                 reactionsComponent.ThisUnit.ID
         );
@@ -52,7 +59,8 @@ public class BuilderReactionsComponent : RTSMonoBehaviour {
     void Update() {
         if (goingToBuild) {
             if ((transform.position - targetBuilding.Avatar.transform.position).sqrMagnitude > workingRadius) {
-                Debug.Log("distance=" + (transform.position - targetBuilding.Avatar.transform.position).magnitude);
+                Debug.Log("distance^2=" + (transform.position - targetBuilding.Avatar.transform.position).sqrMagnitude +
+                        ", buildingDistance^2=" + workingRadius);
                 this.reactionsComponent.Agent.destination = targetBuilding.Avatar.transform.position;
             } else {
 //                targetBuilding.
@@ -73,7 +81,11 @@ public class BuilderReactionsComponent : RTSMonoBehaviour {
 
                 new Timer(targetBuilding.Avatar, delegate  {
                     scaffold.SetActive(false);
-                    targetBuilding.IsActive = true;
+
+
+                    SetActivityTo(true);
+
+
                 }, workTaskDuration);
 //                }, data.CurrentRtsAction.GetActionDataItem().TimeToComplete);
 
@@ -83,5 +95,13 @@ public class BuilderReactionsComponent : RTSMonoBehaviour {
         } // if (going to build) //
     }
 
-}
+
+    private void SetActivityTo(bool val) {
+        targetBuilding.IsActive = val;
+        reactionsComponent.ThisUnit.IsActive = val;
+        armyManager.Dispatcher.TriggerCommand(ArmyMessageTypes.refreshSelection);
+    }
+
+
+} // End of class //
 

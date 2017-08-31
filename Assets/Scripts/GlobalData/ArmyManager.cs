@@ -63,9 +63,12 @@ public class ArmyManager {
     private string GenerateDescription(Identification.UnitType type, AbstractGameUnit unit) {
         StringBuilder sb = new StringBuilder();
 
-        sb.Append("Unit of type ").Append(type.ToString());
-        sb.Append(" in army of " + thisArmy.ToString());
+        sb.Append(type.ToString());
+        sb.Append(" of " + thisArmy.ToString());
 
+//        sb.Append("Unit of type ").Append(type.ToString());
+//        sb.Append(" in army of " + thisArmy.ToString());
+//
         return sb.ToString();
     }
 

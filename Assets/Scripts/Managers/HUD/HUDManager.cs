@@ -39,6 +39,14 @@ public class HUDManager : MonoBehaviour {
 				UpdateSelected(list);
 			}
 		);
+
+		playerArmyDispatcher.StartListening(ArmyMessageTypes.refreshSelection,
+			() => {
+				RefreshActionsList();
+			}
+		);
+
+
 	}
 
 	private void UpdateSelected(AbstractGameUnitsList list)
@@ -46,15 +54,20 @@ public class HUDManager : MonoBehaviour {
 		Debug.Log ("HUDManager : UpdateSelected call");
 		this.selectedUnitsList = list;
 
-		if (list.Count != 0)
-		{
-			List<RTSActionType> actionTypes = ConvertUnitsToActionTypes (list);
-			CommandSetChangeHandler (actionTypes);
-			objectInfoPanelManager.PanelUpdate (list);	
-		}
-		else
-			ClearSelection ();
+		RefreshActionsList();
 	}
+
+    private void RefreshActionsList() {
+        if (this.selectedUnitsList.Count != 0)
+        {
+            List<RTSActionType> actionTypes = ConvertUnitsToActionTypes (this.selectedUnitsList);
+            CommandSetChangeHandler (actionTypes);
+            objectInfoPanelManager.PanelUpdate (this.selectedUnitsList);
+        }
+        else {
+            ClearSelection ();
+        }
+    }
 
 	public void CommandSetChangeHandler(List<RTSActionType> groupActions)
 	{
@@ -102,20 +115,23 @@ public class HUDManager : MonoBehaviour {
 	{
         List<RTSActionType> resultingList = new List<RTSActionType>();
 		foreach (AbstractGameUnit unit in list) {
-            List<RTSActionType> types = unit.ActionsList;
 
+            if (unit.IsActive) {
+                List<RTSActionType> types = unit.ActionsList;
 
-            if (types != null) {
-                Debug.Log("this user have " + types.Count);
+                if (types != null) {
+//                Debug.Log("this user have " + types.Count);
 
-                foreach (RTSActionType actionType in types) {
-                    Debug.Log("action:: " + actionType.ToString());
+                    foreach (RTSActionType actionType in types) {
+//                    Debug.Log("action:: " + actionType.ToString());
 
-                    if (!resultingList.Contains(actionType)) {
-                        resultingList.Add(actionType);
+                        if (!resultingList.Contains(actionType)) {
+                            resultingList.Add(actionType);
+                        }
                     }
                 }
-            }
+            } // if unit is active //
+
         }
 
         Debug.Log("Found " + resultingList.Count + " actions total");

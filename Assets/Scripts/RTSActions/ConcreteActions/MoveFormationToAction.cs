@@ -15,27 +15,46 @@ public class MoveFormationToAction : AbstractRTSAction {
         } else {
             Debug.Log("doing move, target point is " + data.TargetPoint);
 
-            if (data.TargetUnit != null) {
-                data.TargetPoint = data.TargetUnit.Avatar.transform.position;
+            Vector3 targetPoint = data.TargetPoint;
+            if (targetPoint == null) {
+                targetPoint = data.TargetUnit.Avatar.transform.position;
             }
 
             float unitsNumber = data.SelectedUnits.Count;
-//            float squareSide = Mathf.Floor(Mathf.Sqrt(unitsNumber));
-            float squareSide = Mathf.Ceil(Mathf.Sqrt(unitsNumber));
-            float formationWidth = squareSide;
-            float formationLen = Mathf.Ceil(unitsNumber / formationWidth);
 
-            float cornerX = data.TargetPoint.x - 0.5f * (formationWidth - 1) * interval;
-            float cornerZ = data.TargetPoint.z - 0.5f * (formationLen - 1) * interval;
+            float squareSide = Mathf.Floor(Mathf.Sqrt(unitsNumber));
+//            float squareSide = Mathf.Ceil(Mathf.Sqrt(unitsNumber));
+
+            float formationWidthNumber = squareSide;
+            float formationLenNumber = Mathf.Ceil(unitsNumber / formationWidthNumber);
+
+            float formationWidth = (formationWidthNumber - 1) * interval;
+            float formationLen = (formationLenNumber - 1) * interval;
+
+            float cornerX = targetPoint.x - 0.5f * formationWidth;
+            float cornerZ = targetPoint.z - 0.5f * formationLen;
+
+            Debug.Log("targetPoint = " + targetPoint +
+                ", formationLen = " + formationLenNumber + "x" + interval + "=" + formationLen +
+                ", formationWidth = " + formationWidthNumber + "x" + interval + "=" + formationWidth +
+                ", corner=(" + cornerX + "," + cornerZ + ")"
+            );
 
             // Send each unit to it's own destination //
             for (int i = 0; i < unitsNumber; i++) {
                 AbstractGameUnit unit = data.SelectedUnits[i];
 
                 if (unit != null) {
-                    float x = Mathf.Floor(i / formationWidth);
-                    float z = i - x * formationWidth;
-                    Vector3 dest = new Vector3(cornerX + x*interval, data.TargetPoint.y, cornerZ + z*interval);
+
+                    float z = i % formationLenNumber;
+                    float x = Mathf.Floor(i / formationLenNumber);
+
+//                    float z = Mathf.Floor(i / formationLenNumber);
+//                    float x = i - z * formationLenNumber;
+//
+                    Vector3 thisUnitTargetPoint = new Vector3(cornerX + x * interval, targetPoint.y, cornerZ + z * interval);
+                    Debug.Log("this unit target=" + thisUnitTargetPoint);
+                    Vector3 dest = thisUnitTargetPoint;
                     data.ThisArmyManager.Dispatcher.TriggerCommand<Vector3>(
                             ArmyMessageTypes.unitCommandGoToPosition, dest,
                             unit.ID

@@ -96,14 +96,18 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
 
         armyManager.Dispatcher.StartListening<Vector3>(ArmyMessageTypes.unitCommandGoToPosition,
                 (Vector3 pos) => {
-                    agent.destination = pos;
+                    if (ThisUnit.IsActive) {
+                        agent.destination = pos;
+                    }
                 },
             thisUnit.ID
         );
 
         armyManager.Dispatcher.StartListening(ArmyMessageTypes.unitCommandStop,
                 () => {
-                    agent.ResetPath();
+                    if (ThisUnit.IsActive) {
+                        agent.ResetPath();
+                    }
                 },
             thisUnit.ID
         );
