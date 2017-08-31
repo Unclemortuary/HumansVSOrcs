@@ -80,7 +80,7 @@ public class ResourcesPanel : MonoBehaviour {
 
 	void RotateDayTime()
 	{
-		timeImage.transform.Rotate (new Vector3 (0, 0, 1) * Time.deltaTime * myManager.GetComponent<TimeManager> ()._fullDay/360);
+		timeImage.transform.Rotate (new Vector3 (0, 0, 1) * Time.deltaTime * 360/myManager.GetComponent<TimeManager> ()._fullDay);
 		timeText.transform.rotation = startRotationText;
 	}
 		

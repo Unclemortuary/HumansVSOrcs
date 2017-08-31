@@ -32,7 +32,7 @@ namespace Project.TimeManager
         private int _iStartDay = 10;
         private int _iStartSunset = 20;
         private int _iStartNight = 22;
-        public float _fullDay = 300f; // duration of the day, in seconds
+        public float _fullDay = 900f; // duration of the day, in seconds
 
 
         private float _fStartSunrise;
