@@ -22,7 +22,7 @@ public class UnitsPathDraw : MonoBehaviour {
 		{
 			line = this.gameObject.AddComponent<LineRenderer> ();
 			line.material = new Material (Shader.Find ("Sprites/Default")) { color = Color.yellow };
-			line.SetWidth (0.5f, 0.5f);
+			line.SetWidth (0.4f, 0.4f);
 			line.SetColors (Color.yellow, Color.yellow);
 		}
 		line.enabled = true;
