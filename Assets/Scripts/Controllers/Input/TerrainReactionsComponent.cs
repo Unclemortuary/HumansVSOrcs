@@ -15,7 +15,7 @@ public class TerrainReactionsComponent : MonoBehaviour {
 
 //        InitializeEventTrigger();
 
-        Debug.Log(">>> Terrain Reactions Start exit OK");
+        Debug.Log(">>> Terrain Reactions Start exit OK" + gameObject.name + ", " + gameObject.transform.GetHashCode());
     }
 
 

@@ -136,6 +136,8 @@ public class ArmyManager {
         agent.height = boundsExtents.y / newUnit.Avatar.transform.localScale.y;
 
 
+        agent.speed = newUnit.Characteristics.MaxSpeed;
+
         return newUnit;
     }
 
