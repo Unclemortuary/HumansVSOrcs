@@ -48,17 +48,22 @@ public class MenuStartScript : MonoBehaviour {
 
 	public void StartGameHumans()
 	{
-		startMenu.SetActive (false);
-		hud.SetActive (true);
-		cameraHolder.SetActive (true);
-	}
+        CloseMainMenu();
+        GameManager.Instance.StartGameWithPlayerArmyThe(Identification.Army.Humans);
+    }
 
 	public void StartGameOrcs()
 	{
-		startMenu.SetActive (false);
-		hud.SetActive (true);
-		cameraHolder.SetActive (true);
-	}
+		CloseMainMenu();
+        GameManager.Instance.StartGameWithPlayerArmyThe(Identification.Army.Orcs);
+    }
+
+	private void CloseMainMenu() {
+        startMenu.SetActive (false);
+        hud.SetActive (true);
+        cameraHolder.SetActive (true);
+    }
+
 
 	public void Exit()
 	{

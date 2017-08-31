@@ -94,17 +94,30 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]
 	private Transform _sun;
 
+
     [SerializeField]
     private CameraHolderComponent cameraHolder;
+    [SerializeField]
+    private TerrainReactionsComponent terrainReactions;
+    [SerializeField]
+    private HUDManager hudManager;
+
 
 
     void Start() {
-        StartGameWithPlayerArmyThe(Identification.Army.Orcs);
+//        StartGameWithPlayerArmyThe(Identification.Army.Orcs);
 //        StartGameWithPlayerArmyThe(Identification.Army.Humans);
     }
 
 
     public void StartGameWithPlayerArmyThe(Identification.Army armyId) {
+
+// Wait Fro Everyone //
+        while(terrainReactions == null || (cameraHolder == null || hudManager == null)) {
+            Debug.Log("Waiting for terrain, camera, hud");
+        }
+
+
 
         Debug.Log("Start playing as " + armyId.ToString());
 
@@ -113,6 +126,23 @@ public class GameManager : MonoBehaviour {
         InitializeGame();
 
         LoadStartingGameUnits();
+
+        InitializeDependingObjects();
+    }
+
+    private void InitializeDependingObjects() {
+
+
+        if (terrainReactions != null) {
+            terrainReactions.SetDispatcher(playerController.PlayerArmyDispatcher);
+        }
+        terrainReactions.InitializeEventTrigger();
+
+
+//        cameraHolder
+
+        hudManager.InitHUD();
+
     }
 
 
@@ -336,16 +366,26 @@ public class GameManager : MonoBehaviour {
 
     public void HereIsTerrain(TerrainReactionsComponent reactionsScript) {
 
-        if (reactionsScript != null) {
-            reactionsScript.SetDispatcher(playerController.PlayerArmyDispatcher);
-        }
+        this.terrainReactions = reactionsScript;
+
+        Debug.Log("-> Terrain is initialized");
+
     }
 
     public void HereIsCameraHolder(CameraHolderComponent holder) {
-        cameraHolder = holder;
+
+
+        this.cameraHolder = holder;
+
+        Debug.Log("-> CameraHoder is initialized");
     }
 
 
+    public void HereIsHud(HUDManager hmanager) {
+        this.hudManager = hmanager;
+
+        Debug.Log("-> HudManager is initialized");
+    }
 
 } // End of class //
 

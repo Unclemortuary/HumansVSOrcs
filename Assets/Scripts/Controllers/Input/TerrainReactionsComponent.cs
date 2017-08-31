@@ -13,8 +13,9 @@ public class TerrainReactionsComponent : MonoBehaviour {
     void Start() {
         GameManager.Instance.HereIsTerrain(this);
 
-        InitializeEventTrigger();
+//        InitializeEventTrigger();
 
+        Debug.Log(">>> Terrain Reactions Start exit OK");
     }
 
 
@@ -22,7 +23,7 @@ public class TerrainReactionsComponent : MonoBehaviour {
 
 
 
-    private void InitializeEventTrigger() {
+    public void InitializeEventTrigger() {
 
         EventTrigger eventTrigger = GetComponent<EventTrigger>( );
 

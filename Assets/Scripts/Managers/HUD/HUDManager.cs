@@ -17,6 +17,8 @@ public class HUDManager : MonoBehaviour {
 		objectInfoPanelManager = GetComponentInChildren<ObjectInfoPanelManager> ();
 		objectInfoPanelManager.PanelDeselect ();
 		commandPanelManager.ActionChanged += CurrentActionChanged;
+
+        GameManager.Instance.HereIsHud(this);
 	}
 
 	public void InitHUD()
