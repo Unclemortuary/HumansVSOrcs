@@ -25,6 +25,8 @@ public class HUDManager : MonoBehaviour {
 	{
 		InitDispatcherMessages();
 		playerArmy = GameManager.Instance.PlayerArmy;
+
+        Debug.Log ("HUDManager : INIT DONE");
 	}
 
 	private void InitDispatcherMessages() 
@@ -37,15 +39,14 @@ public class HUDManager : MonoBehaviour {
 				UpdateSelected(list);
 			}
 		);
-		Debug.Log ("INIT DONE");
 	}
 
 	private void UpdateSelected(AbstractGameUnitsList list)
 	{
-		Debug.Log ("UpdateSelected call");
+		Debug.Log ("HUDManager : UpdateSelected call");
 		this.selectedUnitsList = list;
 
-		if (list.Count == 0)
+		if (list.Count != 0)
 		{
 			List<RTSActionType> actionTypes = ConvertUnitsToActionTypes (list);
 			CommandSetChangeHandler (actionTypes);

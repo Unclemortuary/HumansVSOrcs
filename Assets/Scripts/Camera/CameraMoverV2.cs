@@ -101,6 +101,10 @@ public class CameraMoverV2 : MonoBehaviour {
     }
 
 
+    public void SetStartingPosition(Vector3 pos) {
+        moveAtPosition = pos;
+    }
+
 
 
     void Start () {
@@ -137,7 +141,9 @@ public class CameraMoverV2 : MonoBehaviour {
 			Transform camTransform = Camera.main.transform;
 			float distance = Vector3.Distance (camTransform.position, endZoomPosition) + 1;
 			camTransform.Translate (camTransform.forward * distance * movement * Time.deltaTime * mouseWheelSpeed);
-			thisCamera.transform.localPosition = new Vector3(thisCamera.transform.localPosition.x, Mathf.Clamp (thisCamera.transform.localPosition.y, minCamSize, maxCamSize),Mathf.Clamp (thisCamera.transform.localPosition.z, startPosition.z, startPosition.z));
+			thisCamera.transform.localPosition = new Vector3(thisCamera.transform.localPosition.x,
+                    Mathf.Clamp (thisCamera.transform.localPosition.y, minCamSize, maxCamSize),
+                    Mathf.Clamp (thisCamera.transform.localPosition.z, startPosition.z, startPosition.z));
 		}
 		mouseSpeed = Mathf.Abs(3.5f * thisCamera.transform.localPosition.y / startPosition.y);
 	}

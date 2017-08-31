@@ -25,6 +25,8 @@ public class TerrainReactionsComponent : MonoBehaviour {
 
     public void InitializeEventTrigger() {
 
+        Debug.Log("TerrainReactions: Initialize Event Trigger");
+
         EventTrigger eventTrigger = GetComponent<EventTrigger>( );
 
         if (eventTrigger == null) {
@@ -45,6 +47,7 @@ public class TerrainReactionsComponent : MonoBehaviour {
 
     public void IAmClicked(PointerEventData data) {
 
+        Debug.Log("TerrainReactions: Terrain is clicked");
 
         if (data.button == PointerEventData.InputButton.Right)
         {

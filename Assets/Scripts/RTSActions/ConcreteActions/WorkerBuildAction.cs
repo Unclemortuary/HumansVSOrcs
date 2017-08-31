@@ -35,7 +35,7 @@ public class WorkerBuildAction : AbstractRTSAction {
 
         if (data.WaitingForTarget) {
 
-            Debug.Log("BuildingAction: Waiting for target");
+//            Debug.Log("WorkerBuildingAction: Waiting for target");
             if (buildingGhost == null) {
                 Debug.Log("Ghost is null");
             }
@@ -90,6 +90,8 @@ public class WorkerBuildAction : AbstractRTSAction {
                 data.ThisArmyManager.StateMachine.Trigger(ArmySMTransitionType.doActionToSelected);
 
             } else { // If Can Build //
+
+                Debug.LogError("Can't build here!!!!!");
 
                 data.WaitingForTarget = true;
 

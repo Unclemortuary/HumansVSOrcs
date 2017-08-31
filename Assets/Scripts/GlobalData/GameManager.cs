@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour {
 
 
     [SerializeField]
-    private CameraHolderComponent cameraHolder;
+    private CameraMoverV2 cameraMover;
     [SerializeField]
     private TerrainReactionsComponent terrainReactions;
     [SerializeField]
@@ -113,9 +113,9 @@ public class GameManager : MonoBehaviour {
     public void StartGameWithPlayerArmyThe(Identification.Army armyId) {
 
 // Wait Fro Everyone //
-        while(terrainReactions == null || (cameraHolder == null || hudManager == null)) {
-            Debug.Log("Waiting for terrain, camera, hud");
-        }
+//        while(terrainReactions == null || (cameraHolder == null || hudManager == null)) {
+//            Debug.Log("Waiting for terrain, camera, hud");
+//        }
 
 
 
@@ -169,7 +169,8 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Checking camera position for " + cameraPosition.Army.ToString());
             if (cameraPosition.Army == playerArmy) {
                 Debug.Log("Set starting position for camera");
-                cameraHolder.gameObject.transform.position = cameraPosition.Position;
+                cameraMover.SetStartingPosition(cameraPosition.Position);
+//                cameraHolder.gameObject.transform.position = cameraPosition.Position;
             }
         }
     }
@@ -366,25 +367,30 @@ public class GameManager : MonoBehaviour {
 
     public void HereIsTerrain(TerrainReactionsComponent reactionsScript) {
 
-        this.terrainReactions = reactionsScript;
-
-        Debug.Log("-> Terrain is initialized");
+//        this.terrainReactions = reactionsScript;
+//
+//        if (terrainReactions != null) {
+//            terrainReactions.SetDispatcher(playerController.PlayerArmyDispatcher);
+//        }
+//        terrainReactions.InitializeEventTrigger();
+//
+//        Debug.Log("-> Terrain is initialized");
 
     }
 
     public void HereIsCameraHolder(CameraHolderComponent holder) {
 
 
-        this.cameraHolder = holder;
-
-        Debug.Log("-> CameraHoder is initialized");
+//        this.cameraMover = holder;
+//
+//        Debug.Log("-> CameraHoder is initialized");
     }
 
 
     public void HereIsHud(HUDManager hmanager) {
-        this.hudManager = hmanager;
-
-        Debug.Log("-> HudManager is initialized");
+//        this.hudManager = hmanager;
+//
+//        Debug.Log("-> HudManager is initialized");
     }
 
 } // End of class //

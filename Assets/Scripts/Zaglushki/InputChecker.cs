@@ -74,6 +74,8 @@ public class InputChecker : MonoBehaviour {
                                 RTSActionType.moveTo);
         }
 */
+
+  /*
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
             print("0 is clicked - StopMachine!");
             GameManager.Instance.ArmyManagers[Identification.Army.Humans]
@@ -113,7 +115,7 @@ public class InputChecker : MonoBehaviour {
                     RTSActionType.buildFarm);
         }
 
-
+*/
 
 //        cameraMover.ShiftX( Input.GetAxis( "Mouse X") * mouseSpeed );
 //        cameraMover.ShiftZ( Input.GetAxis( "Mouse Y") * mouseSpeed );
@@ -132,16 +134,19 @@ public class InputChecker : MonoBehaviour {
 //        }
 //
 
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            CreateCurrentUnit(GameManager.Instance.ArmyManagers[Identification.Army.Humans]);
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            currentUnitTypeIndex = (currentUnitTypeIndex + 1) % numOfTypes;
-        }
+//
+//        if (Input.GetMouseButtonDown(1))
+//        {
+//            CreateCurrentUnit(GameManager.Instance.ArmyManagers[Identification.Army.Humans]);
+//        }
+//
+//
+//        if (Input.GetKeyDown(KeyCode.RightArrow)) {
+//            currentUnitTypeIndex = (currentUnitTypeIndex + 1) % numOfTypes;
+//        }
+//
+//
+//
 
     } // Update //
 
