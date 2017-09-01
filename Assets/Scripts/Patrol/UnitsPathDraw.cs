@@ -14,18 +14,23 @@ public class UnitsPathDraw : MonoBehaviour {
 	void DrawPath()
 	{
 		var nav = GetComponent<NavMeshAgent> ();
+		var proj  = gameObject.transform.Find("Projector").gameObject;
+	
 		if (nav == null || nav.path == null)
 			return;
 
 		var line = this.GetComponent<LineRenderer> ();
-		if (line == null) 
-		{
+
+		if (line == null) {
 			line = this.gameObject.AddComponent<LineRenderer> ();
 			line.material = new Material (Shader.Find ("Sprites/Default")) { color = Color.yellow };
 			line.SetWidth (0.4f, 0.4f);
 			line.SetColors (Color.yellow, Color.yellow);
 		}
 		line.enabled = true;
+		if (proj.activeInHierarchy == false) {
+			line.enabled = false;
+		}
 		if (Mathf.Abs (prevPosition.x - nav.nextPosition.x) < 0.01f && Mathf.Abs (prevPosition.z - nav.nextPosition.z) < 0.01f) {
 			line.enabled = false;
 		}
