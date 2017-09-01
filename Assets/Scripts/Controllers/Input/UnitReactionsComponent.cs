@@ -33,7 +33,12 @@ public class UnitReactionsComponent : RTSMonoBehaviour {
             return agent;
         }
     }
-    private float stoppingDistance  = 3;
+    private float stoppingDistance  = 2;
+    public float StoppingDistance {
+        get {
+            return stoppingDistance;
+        }
+    }
 
     public void SetNavmeshAgent(NavMeshAgent agent) {
         this.agent = agent;

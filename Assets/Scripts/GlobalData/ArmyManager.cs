@@ -59,6 +59,8 @@ public class ArmyManager {
     private Dictionary<int, AbstractGameUnit> warriors;
     private Dictionary<int, AbstractGameUnit> buildings;
 
+    private Dictionary<int, Identification.UnitType> id2typeDictionary;
+
 
     private string GenerateDescription(Identification.UnitType type, AbstractGameUnit unit) {
         StringBuilder sb = new StringBuilder();
@@ -86,6 +88,8 @@ public class ArmyManager {
         newUnit.Description = GenerateDescription(type, newUnit);
 
         AssimilateUnit(newUnit, unitsStorage);
+
+        id2typeDictionary.Add(newUnit.ID, type);
 
         return newUnit;
     }
@@ -138,6 +142,10 @@ public class ArmyManager {
 
         agent.speed = newUnit.Characteristics.MaxSpeed;
 
+//        //////////////////////////////////
+//        AvailableResources.ChangeResourceAmount(GameResources.ResourceType.MEN, 1);
+//        //////////////////////////////////
+
         return newUnit;
     }
 
@@ -149,6 +157,7 @@ public class ArmyManager {
 
         BuilderReactionsComponent builderReactions = newUnit.Avatar.AddComponent<BuilderReactionsComponent>();
         builderReactions.Initialize(reactionsComponent);
+
 
         return newUnit;
     }
@@ -164,6 +173,9 @@ public class ArmyManager {
         FlyingUnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<FlyingUnitReactionsComponent>();
         reactionsComponent.SetGameUnit(newUnit);
 
+//        //////////////////////////////////
+//        AvailableResources.ChangeResourceAmount(GameResources.ResourceType.MEN, 1);
+//        //////////////////////////////////
 
         return newUnit;
     }
@@ -179,6 +191,15 @@ public class ArmyManager {
 //        NavMeshObstacle obstacle = newUnit.Avatar.AddComponent<NavMeshObstacle>();
 //        obstacle.carving = true;
 //        reactionsComponent.SetNavmeshAgent(agent);
+
+//        ////////////////////////////////////
+//        if (type == Identification.UnitType.GeneralHouse) {
+//            AvailableResources.ChangeResourceAmount(GameResources.ResourceType.GENERAL_HOUSES, 1);
+//
+//        } else if (type == Identification.UnitType.SimpleHouse) {
+//            AvailableResources.ChangeResourceAmount(GameResources.ResourceType.LIVING_HOUSES, 1);
+//        }
+//        ///////////////////////////////////
 
 
 
@@ -224,10 +245,20 @@ public class ArmyManager {
         AbstractGameUnit unit = null;
         if (warriors.ContainsKey(id)) {
             unit =  warriors[id];
+
+            AvailableResources.ChangeResourceAmount(GameResources.ResourceType.MEN, -1);
+
             warriors.Remove(id);
         }
         if (buildings.ContainsKey(id)) {
             unit =  buildings[id];
+
+            if (GetBuildingTypeByAbstractGameUnit(unit) == Identification.UnitType.GeneralHouse) {
+                AvailableResources.ChangeResourceAmount(GameResources.ResourceType.GENERAL_HOUSES, -1);
+            } else if (GetBuildingTypeByAbstractGameUnit(unit) == Identification.UnitType.SimpleHouse) {
+                AvailableResources.ChangeResourceAmount(GameResources.ResourceType.LIVING_HOUSES, -1);
+            }
+
             buildings.Remove(id);
         }
 
@@ -237,6 +268,10 @@ public class ArmyManager {
     }
 
 
+
+    public Identification.UnitType GetBuildingTypeByAbstractGameUnit(AbstractGameUnit unit) {
+        return id2typeDictionary[unit.ID];
+    }
 
 
     public AbstractGameUnitsList FindWarriorsWithinViewportBounds(Bounds bounds) {
@@ -285,6 +320,8 @@ public class ArmyManager {
 
     public ArmyManager(Identification.Army army, int startingID, CommonGameUnitFactory warriorFactory,
             CommonGameUnitFactory buildingFactory /*, Controller ctrlr */, ArmyDispatcher armyDispatcher) {
+
+        this.id2typeDictionary = new Dictionary<int, Identification.UnitType>();
 
 
         this.thisArmy = army;

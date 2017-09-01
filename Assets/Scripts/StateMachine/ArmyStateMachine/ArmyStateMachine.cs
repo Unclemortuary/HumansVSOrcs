@@ -163,7 +163,7 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
 
                     } else if (CurrentState == ArmySMStateType.freeState) {
 
-                        Debug.Log("Previous state was freestate");
+                        Debug.Log("Previous state was freestate, Can't perform action with no selected units");
 
                         // Actions whith no performer??? //
 

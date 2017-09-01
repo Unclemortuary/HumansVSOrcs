@@ -3,12 +3,13 @@ using UnityEngine;
 [System.Serializable]
 public class GameResources {
 
-    private const float placesPerHouse = 5f;
+    private const float placesPerLivingHouse = 5f;
+    private const float placesPerGeneralHouse = 10f;
 
 
 
     public enum ResourceType {
-        GOLD, WOOD, FOOD, STONE, MEN, LIVING_HOUSES,
+        GOLD, WOOD, FOOD, STONE, MEN, LIVING_HOUSES, GENERAL_HOUSES,
     }
 
     [SerializeField]
@@ -24,6 +25,8 @@ public class GameResources {
     private float men;
     [SerializeField]
     private float livingHouses;
+    [SerializeField]
+    private float generalHouses;
 
     public static GameResources ZERO  = new GameResources();
 
@@ -39,6 +42,7 @@ public class GameResources {
         stone = 0;
         men = 0;
         livingHouses = 0;
+        generalHouses = 0;
     }
 
 
@@ -51,13 +55,18 @@ public class GameResources {
         resources.stone = this.stone;
         resources.men = this.men;
         resources.livingHouses = this.livingHouses;
+        resources.generalHouses = this.generalHouses;
 
         return  resources;
     }
 
 
     public float GetLivingPlacesNumber() {
-        return livingHouses * placesPerHouse;
+        return livingHouses * placesPerLivingHouse + generalHouses * placesPerGeneralHouse;
+    }
+
+    public bool HaveFreeLivingPlaces() {
+        return GetLivingPlacesNumber() > men;
     }
 
 
@@ -81,12 +90,18 @@ public class GameResources {
             case ResourceType.LIVING_HOUSES:
                 livingHouses += shift;
                 break;
+            case ResourceType.GENERAL_HOUSES:
+                generalHouses += shift;
+                break;
         }
 
         if (gold < 0) gold = 0;
         if (wood < 0) wood = 0;
         if (food < 0) food = 0;
         if (stone < 0) stone = 0;
+        if (men < 0) men = 0;
+        if (livingHouses < 0) livingHouses = 0;
+        if (generalHouses < 0) generalHouses = 0;
     } // ChangeResourceAmount //
 
     public float GetResourceAmount(ResourceType type) {
@@ -109,6 +124,8 @@ public class GameResources {
             case ResourceType.LIVING_HOUSES:
                 return livingHouses;
 //                break;
+            case ResourceType.GENERAL_HOUSES:
+                return generalHouses;
         }
         return -1;
     }
@@ -116,8 +133,9 @@ public class GameResources {
 
     public bool HaveEnoughResources(GameResources price) {
         return ( ( (this.gold >= price.gold) && (this.wood >= price.wood) )
-        && ( (this.food >= price.food) && (this.stone >= price.stone) ) )
-        && (this.men >= price.men && this.livingHouses >= price.livingHouses);
+            && ( (this.food >= price.food) && (this.stone >= price.stone) ) )
+            && ( (this.men >= price.men && this.livingHouses >= price.livingHouses)
+            && (this.generalHouses >= price.generalHouses) );
     }
 
     public void SpendResources(GameResources price) {

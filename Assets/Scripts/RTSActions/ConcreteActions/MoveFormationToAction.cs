@@ -22,8 +22,8 @@ public class MoveFormationToAction : AbstractRTSAction {
 
             float unitsNumber = data.SelectedUnits.Count;
 
-            float squareSide = Mathf.Floor(Mathf.Sqrt(unitsNumber));
-//            float squareSide = Mathf.Ceil(Mathf.Sqrt(unitsNumber));
+//            float squareSide = Mathf.Floor(Mathf.Sqrt(unitsNumber));
+            float squareSide = Mathf.Ceil(Mathf.Sqrt(unitsNumber));
 
             float formationWidthNumber = squareSide;
             float formationLenNumber = Mathf.Ceil(unitsNumber / formationWidthNumber);
@@ -81,12 +81,12 @@ public class MoveFormationToAction : AbstractRTSAction {
 
     public override void Stopping(ArmyStateData data) {
         data.WaitingForTarget = false;
-        Debug.Log("stopping move");
+        Debug.Log("stopping Move Formation To");
     }
 
     public override void Starting(ArmyStateData data) {
         data.WaitingForTarget = true;
-        Debug.Log("starting move");
+        Debug.Log("starting Move Formation To");
     }
 
 }

@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.Networking;
+using UnityEngine.AI;
 
 public class BuilderReactionsComponent : RTSMonoBehaviour {
 
 
     private float workingRadius = 225; //15;
-    private float delta = 2;
+    private float delta = 3;
 
     private AbstractGameUnit targetBuilding;
 
@@ -38,8 +38,22 @@ public class BuilderReactionsComponent : RTSMonoBehaviour {
 
                     SetActivityTo(false);
 
-//                    Vector3 buildingExtents = targetBuilding.Avatar.GetComponent<Collider>().bounds.extents;
-//                    workingRadius = buildingExtents.x * buildingExtents.x + buildingExtents.z * buildingExtents.z + delta;
+                    ///////// Adjast miniimum distance to build ////////
+                    Vector3 buildingExtents = targetBuilding.Avatar.GetComponent<Collider>().bounds.extents;
+                    workingRadius = buildingExtents.x * buildingExtents.x + buildingExtents.z * buildingExtents.z;
+
+                    Vector3 obstacleSize = targetBuilding.Avatar.GetComponent<NavMeshObstacle>().size;
+                    float navmeshRadius = obstacleSize.x * obstacleSize.x * 0.25f
+                                        + obstacleSize.z * obstacleSize.z * 0.25f;
+
+//                    navmeshRadius = navmeshRadius * navmeshRadius;
+                    if(workingRadius < navmeshRadius) {
+                        workingRadius = navmeshRadius;
+                    }
+
+                    workingRadius += reactionsComponent.StoppingDistance + delta;
+                    //////////////////////////////////////////////////////
+
                 },
                 reactionsComponent.ThisUnit.ID
         );
@@ -79,12 +93,26 @@ public class BuilderReactionsComponent : RTSMonoBehaviour {
                 Debug.Log("Setting scaffold active");
                 scaffold.SetActive(true);
 
+
+
                 new Timer(targetBuilding.Avatar, delegate  {
                     scaffold.SetActive(false);
 
 
                     SetActivityTo(true);
 
+
+                    ////////////////////////////////////
+                    Identification.UnitType type = armyManager.GetBuildingTypeByAbstractGameUnit(targetBuilding);
+                    if (type == Identification.UnitType.GeneralHouse) {
+                        armyManager.AvailableResources.ChangeResourceAmount(
+                                    GameResources.ResourceType.GENERAL_HOUSES, 1);
+
+                    } else if (type == Identification.UnitType.SimpleHouse) {
+                        armyManager.AvailableResources.ChangeResourceAmount(
+                                    GameResources.ResourceType.LIVING_HOUSES, 1);
+                    }
+                    ///////////////////////////////////
 
                 }, workTaskDuration);
 //                }, data.CurrentRtsAction.GetActionDataItem().TimeToComplete);

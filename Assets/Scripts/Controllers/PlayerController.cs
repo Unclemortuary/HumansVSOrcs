@@ -96,6 +96,8 @@ public class PlayerController {
         PlayerArmyDispatcher.StartListening<Vector3>(ArmyMessageTypes.terrainIsRightClicked,
                 (Vector3 pos) => {
                     Debug.Log("Terrain is right clicked: " + pos);
+
+                    PerformDefaultAction(pos);
                 }
         );
 
@@ -110,4 +112,10 @@ public class PlayerController {
     } // subscribe on dispatcher events //
 
 
-}
+    private void PerformDefaultAction(Vector3 clicPosition) {
+        PlayerArmyDispatcher.TriggerCommand<RTSActionType>(ArmyMessageTypes.invokeRTSAction, RTSActionType.moveFormationTo5);
+        PlayerArmyDispatcher.TriggerCommand<Vector3>(ArmyMessageTypes.setTargetPoint, clicPosition);
+    }
+
+
+} // End of class //

@@ -154,15 +154,17 @@ public class GameManager : MonoBehaviour {
         List<StartingGamePositions.GameUnitSpawnPoint> units = scriptableStartingPositions.GetUnitsPositions();
         List<StartingGamePositions.GameUnitSpawnPoint> buildings = scriptableStartingPositions.GetBuildingsPositions();
 
+
+        foreach(StartingGamePositions.ArmyResourcesPair resPair in scriptableStartingPositions.StartingResources) {
+            armyManagers[resPair.ArmyType].SetResources(resPair.ResourcesAmount.CreateCopy());
+        }
+
+
         foreach (StartingGamePositions.GameUnitSpawnPoint item in units) {
             armyManagers[item.ArmyType].CreateWarrior(item.UnitType, item.Position);
         }
         foreach (StartingGamePositions.GameUnitSpawnPoint item in buildings) {
             armyManagers[item.ArmyType].CreateBuilding(item.UnitType, item.Position);
-        }
-
-        foreach(StartingGamePositions.ArmyResourcesPair resPair in scriptableStartingPositions.StartingResources) {
-            armyManagers[resPair.ArmyType].SetResources(resPair.ResourcesAmount.CreateCopy());
         }
 
         foreach(StartingGamePositions.CameraPosition cameraPosition in scriptableStartingPositions.CameraHolderPositions) {
