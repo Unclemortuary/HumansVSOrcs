@@ -21,7 +21,7 @@ public class HPSliderHandler : MonoBehaviour {
 	[SerializeField]
 	private AbstractGameUnit selectedUnit = null;
 
-	void Start()
+	void Awake()
 	{
 		ourManager = GetComponentInParent<ObjectInfoPanelManager> ();
 
@@ -36,7 +36,7 @@ public class HPSliderHandler : MonoBehaviour {
 		ClearSlider ();
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if (selectedUnit != null)
 			slider.value = selectedUnit.CurrentHP;
@@ -44,6 +44,7 @@ public class HPSliderHandler : MonoBehaviour {
 
 	public void UpdateSlider(AbstractGameUnit unit)
 	{
+		Debug.Log ("UpdateSlider called");
 		selectedUnit = unit;
         if(selectedUnit != null) {
             slider.maxValue = selectedUnit.Characteristics.MaxHP;
