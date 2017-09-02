@@ -141,7 +141,7 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
                     data.WaitingForTarget = false;
                 });
 
-        data.ThisArmyManager.Dispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.setTargetPoint,
+        data.ThisArmyManager.Dispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.setTargetUnit,
                 (AbstractGameUnit unit) => {
                     Debug.Log("StateMachine: Setting Target Unit" + unit.ID);
 

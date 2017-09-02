@@ -341,6 +341,8 @@ public class GameManager : MonoBehaviour {
     } // initialize army managers //
 
 
+    NeutralsController neutralsController;
+    NeutralsController enemyController;
 
     private void InitializeControllers() {
 
@@ -348,10 +350,16 @@ public class GameManager : MonoBehaviour {
 
         // Neutrals controller //
 
-
-
+        neutralsController = new NeutralsController(armyManagers[Identification.Army.Neutrals]);
 
         // AI controllers //
+
+        if(playerArmy == Identification.Army.Orcs) {
+            enemyController = new NeutralsController(armyManagers[Identification.Army.Humans]);
+        } else {
+            enemyController = new NeutralsController(armyManagers[Identification.Army.Orcs]);
+        }
+
 
 
     }

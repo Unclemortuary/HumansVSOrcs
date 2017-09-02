@@ -16,9 +16,12 @@ public class MoveFormationToAction : AbstractRTSAction {
             Debug.Log("doing move, target point is " + data.TargetPoint);
 
             Vector3 targetPoint = data.TargetPoint;
-            if (targetPoint == null) {
+            if (data.TargetPointIsNowhere()) {
+                Debug.Log("Target unit is " + data.TargetUnit.Description);
+
                 targetPoint = data.TargetUnit.Avatar.transform.position;
             }
+
 
             float unitsNumber = data.SelectedUnits.Count;
 

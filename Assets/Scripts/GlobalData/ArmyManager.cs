@@ -171,7 +171,7 @@ public class ArmyManager {
         agent.height = boundsExtents.y / newUnit.Avatar.transform.localScale.y;
 
 
-        agent.speed = newUnit.Characteristics.MaxSpeed;
+        agent.speed = newUnit.Characteristics.MaxMovingSpeed;
 
 //        //////////////////////////////////
 //        AvailableResources.ChangeResourceAmount(GameResources.ResourceType.MEN, 1);
@@ -282,12 +282,16 @@ public class ArmyManager {
         if (warriors.ContainsKey(id)) {
             unit =  warriors[id];
 
+            Debug.Log("ArmyManager:: Destroying warrior");
+
             AvailableResources.ChangeResourceAmount(GameResources.ResourceType.MEN, -1);
 
             warriors.Remove(id);
         }
         if (buildings.ContainsKey(id)) {
             unit =  buildings[id];
+
+            Debug.Log("ArmyManager:: Destroying building");
 
             if (GetBuildingTypeByAbstractGameUnit(unit) == Identification.UnitType.GeneralHouse) {
                 AvailableResources.ChangeResourceAmount(GameResources.ResourceType.GENERAL_HOUSES, -1);
@@ -299,7 +303,7 @@ public class ArmyManager {
         }
 
         if (unit != null) {
-//            GameObject.Destroy(unit.Avatar);
+            GameObject.Destroy(unit.Avatar);
         }
     }
 
@@ -380,6 +384,16 @@ public class ArmyManager {
         ArmySMExecutorComponent executor = GameManager.Instance.gameObject.AddComponent<ArmySMExecutorComponent>();
         executor.SetStateMachine(stateMachine);
 
+
+        ////////////////// Subscribe ////////////////////////////////
+
+        this.dispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCryIsDead,
+                (AbstractGameUnit unit) => {
+                    Debug.Log("ArmyManager:: Unit is dead: " + unit.Description);
+
+                    DestroyGameUnit(unit.ID);
+                }
+        );
     }
 
 

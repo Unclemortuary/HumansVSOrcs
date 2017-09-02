@@ -68,11 +68,15 @@ public class PlayerController {
             Debug.Log("Click on unit means 'I want unit info'");
 
             /// Show enemy unit info ///////////////
+            PlayerArmyDispatcher.TriggerCommand(ArmyMessageTypes.deselectUnits);
 
-            /// *********************************8 ??????????????????????????????????????? ///
-            ///
-        }
-    }
+            armyManager.Dispatcher.TriggerCommand<AbstractGameUnit>(
+                    ArmyMessageTypes.enemyUnitSelected, unit
+            );
+
+        } ///
+
+    } // new target unit ///
 
 
     private void SubscribeOnDspatcherEvents() {
@@ -121,15 +125,15 @@ public class PlayerController {
                 }
         );
 
-        PlayerArmyDispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCryIsDead,
-                (AbstractGameUnit unit) => {
-                    Debug.Log("Unit is dead: " + unit.Description);
-
-                    armyManager.DestroyGameUnit(unit.ID);
-                }
-        );
-
-
+//        PlayerArmyDispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCryIsDead,
+//                (AbstractGameUnit unit) => {
+//                    Debug.Log("PlayerController:: Unit is dead: " + unit.Description);
+//
+//                    armyManager.DestroyGameUnit(unit.ID);
+//                }
+//        );
+//
+//
 
     } // subscribe on dispatcher events //
 

@@ -56,7 +56,7 @@ public class NeutralsController {
 
         ThisArmyDispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCryIsDead,
                 (AbstractGameUnit unit) => {
-                    Debug.Log("Unit is dead: " + unit.Description);
+                    Debug.Log("Neutrals Controller:: Unit is dead: " + unit.Description);
 
                     thisArmyManager.DestroyGameUnit(unit.ID);
                 }
@@ -66,7 +66,9 @@ public class NeutralsController {
 
 
 
+    // Send message to PlayerController to tell it "some other unit is clicked" //
     private void TellPlayerThatUnitWasClicked(AbstractGameUnit unit) {
+        Debug.Log("NeutralsController:: Sending message about a click to player");
         GameManager.Instance.PlayerController.NewTargetUnit(unit);
     }
 

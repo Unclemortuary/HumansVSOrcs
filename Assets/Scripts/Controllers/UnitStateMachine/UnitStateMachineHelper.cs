@@ -224,24 +224,6 @@ public class UnitStateMachineHelper {
                 }
             }
 
-
-
-//
-//            if (teamID != null)
-//            {
-//                if (teamID.ThisTeam != myTeam && !obj.GetComponent<Death>().IsDead)
-//                {
-//                    float sqrDistance = (obj.transform.position - gameObject.transform.position).sqrMagnitude;
-//                    if (sqrDistance < closestDistance)
-//                    {
-//                        target = obj;
-//                        closestDistance = sqrDistance;
-//                    }
-//                }
-//            }
-//
-
-
         } // foreach collider //
 
         return unitsMachines;

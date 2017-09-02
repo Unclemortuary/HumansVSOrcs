@@ -40,6 +40,12 @@ public class HUDManager : MonoBehaviour {
 			}
 		);
 
+		playerArmyDispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.enemyUnitSelected,
+			(AbstractGameUnit unit) => {
+				ShowEnemyInformation(unit);
+			}
+		);
+
 		playerArmyDispatcher.StartListening(ArmyMessageTypes.refreshSelection,
 			() => {
 				RefreshActionsList();
@@ -48,6 +54,19 @@ public class HUDManager : MonoBehaviour {
 
 
 	}
+
+    private void ShowEnemyInformation(AbstractGameUnit unit) {
+        Debug.Log ("HUDManager : tryint to show enemy info");
+
+        AbstractGameUnitsList unitsList = new AbstractGameUnitsList();
+		unitsList.Add(unit);
+
+        this.selectedUnitsList = unitsList;
+
+		List<RTSActionType> actionTypes = new List<RTSActionType>();
+		CommandSetChangeHandler (actionTypes);
+		objectInfoPanelManager.PanelUpdate (this.selectedUnitsList);
+    }
 
 	private void UpdateSelected(AbstractGameUnitsList list)
 	{
@@ -86,7 +105,7 @@ public class HUDManager : MonoBehaviour {
 
 		for (int i = 0; i < actions.Count; i++) 
 		{
-			var concreteAction = GameManager.Instance.ActionsLibrary.GetRTSAction (actions [i]);
+			AbstractRTSAction concreteAction = GameManager.Instance.ActionsLibrary.GetRTSAction (actions [i]);
 			result.Add (concreteAction.GetActionDataItem());
 		}
 		return result;

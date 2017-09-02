@@ -44,6 +44,7 @@ public enum ArmyMessageTypes {
         // StateMachine -> HUD
         selectionChanged,
         refreshSelection,
+        enemyUnitSelected,
 
     ////////////
         testUnitInSelection,

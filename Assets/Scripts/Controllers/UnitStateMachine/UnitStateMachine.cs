@@ -61,13 +61,21 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     void Update() {
 
+//        if(helper == null) {
+//            Debug.Log("UnitStateMachine Update:: helper is null, currentState is " + CurrentState.ToString());
+//        } else {
+//            Debug.Log("UnitStateMachine Update:: helper is ok");
+//        }
 
-        if (!helper.IsAlife()) {
-            TransitionToIsDeadState();
+        if (CurrentState != State._NONE) {
+
+            if (!helper.IsAlife() && CurrentState != State.IS_DEAD) {
+                TransitionToIsDeadState();
+            }
+
+
+            ExecuteCurrentState();
         }
-
-
-        ExecuteCurrentState();
 
     }
 
@@ -180,11 +188,41 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     private void StandPreparedState() {
 
+
+//        maxAttackDistance
+//        maxViewDistance
+//        attackPhisDamage
+//        attackCooldownTime
+
+
         List<UnitStateMachine> enemysList = helper.CheckEnemies(
             helper.ThisUnit.Avatar.transform.position,
             33333333333,
             armyManager.ThisArmy
         );
+
+
+
+
+
+
+//
+//            if (teamID != null)
+//            {
+//                if (teamID.ThisTeam != myTeam && !obj.GetComponent<Death>().IsDead)
+//                {
+//                    float sqrDistance = (obj.transform.position - gameObject.transform.position).sqrMagnitude;
+//                    if (sqrDistance < closestDistance)
+//                    {
+//                        target = obj;
+//                        closestDistance = sqrDistance;
+//                    }
+//                }
+//            }
+//
+
+
+
 
     }
 

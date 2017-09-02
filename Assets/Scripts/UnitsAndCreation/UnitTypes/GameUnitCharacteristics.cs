@@ -12,6 +12,35 @@ public class GameUnitCharacteristics {
     }
 
     [SerializeField]
+    private float maxViewDistance;
+    public float MaxViewDistance {
+        get {
+            return maxViewDistance;
+        }
+    }
+
+    [SerializeField]
+    private float attackPhisDamage;
+    public float AttackPhisDamage {
+        get {
+            return attackPhisDamage;
+        }
+    }
+
+    [SerializeField]
+    private float attackCooldownTime;
+    public float AttackCooldownTime {
+        get {
+            return attackCooldownTime;
+        }
+    }
+
+
+
+
+    //------------------------------------------
+
+    [SerializeField]
     private float maxHP;
     public float MaxHP {
         get {
@@ -34,10 +63,10 @@ public class GameUnitCharacteristics {
 
 
     [SerializeField]
-    private float maxSpeed;
-    public float MaxSpeed {
+    private float maxMovingSpeed;
+    public float MaxMovingSpeed {
         get {
-            return maxSpeed;
+            return maxMovingSpeed;
         }
     }
 
@@ -57,18 +86,27 @@ public class GameUnitCharacteristics {
 //        }
 //    }
 
-    public GameUnitCharacteristics(float attackDistance, float hp, float mp,
+
+
+    public GameUnitCharacteristics(float attackDistance, float viewDistance, float damage, float cooldown,
+                float hp, float mp,
                 float speed, float defence/*, float time*/) {
+
         this.maxAttackDistance = attackDistance;
+        this.maxViewDistance = viewDistance;
+        this.attackPhisDamage = damage;
+        this.attackCooldownTime = cooldown;
+
         this.maxHP = hp;
         this.maxMP = mp;
-        this.maxSpeed = speed;
+        this.maxMovingSpeed = speed;
         this.defence = defence;
 //        this.timeToCreate = time;
     }
 
     public GameUnitCharacteristics CreateCopy() {
-        return new GameUnitCharacteristics(maxAttackDistance, maxHP, maxMP, maxSpeed, defence/*, timeToCreate*/);
+        return new GameUnitCharacteristics(maxAttackDistance, maxViewDistance, attackPhisDamage, attackCooldownTime,
+                maxHP, maxMP, maxMovingSpeed, defence/*, timeToCreate*/);
     }
 
 
