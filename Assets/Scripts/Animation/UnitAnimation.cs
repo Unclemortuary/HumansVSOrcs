@@ -25,7 +25,7 @@ public class UnitAnimation : MonoBehaviour{
 	{
 	}
 
-	virtual public void AnimBuild()
+	virtual public void AnimWork()
 	{
 	}
 }
