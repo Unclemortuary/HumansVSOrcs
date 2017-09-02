@@ -14,83 +14,85 @@ public class AttackAction : AbstractRTSAction {
         if (data.WaitingForTarget) {
 //            Debug.Log("MoveToAction: Waiting for target");
         } else {
-            Debug.Log("doing move, target point is " + data.TargetPoint);
+            string targetDescription = (data.TargetPoint!=null?data.TargetPoint.ToString():data.TargetUnit.Description);
+            Debug.Log("Doing Attack! Target is " + targetDescription);
 
-            Vector3 targetPoint = data.TargetPoint;
-            if (data.TargetPointIsNowhere()) {
-                Debug.Log("Target unit is " + data.TargetUnit.Description);
-
-                targetPoint = data.TargetUnit.Avatar.transform.position;
-            }
 
 
             float unitsNumber = data.SelectedUnits.Count;
 
-//            float squareSide = Mathf.Floor(Mathf.Sqrt(unitsNumber));
-            float squareSide = Mathf.Ceil(Mathf.Sqrt(unitsNumber));
+            if (data.TargetPointIsNowhere()) {
+                Debug.Log("Target unit is " + data.TargetUnit.Description);
 
-            float formationWidthNumber = squareSide;
-            float formationLenNumber = Mathf.Ceil(unitsNumber / formationWidthNumber);
+                // Send all units to one target unit //
+                for (int i = 0; i < unitsNumber; i++) {
+                    AbstractGameUnit unit = data.SelectedUnits[i];
 
-            float formationWidth = (formationWidthNumber - 1) * interval;
-            float formationLen = (formationLenNumber - 1) * interval;
+                    if (unit != null) {
 
-            float cornerX = targetPoint.x - 0.5f * formationWidth;
-            float cornerZ = targetPoint.z - 0.5f * formationLen;
-
-            Debug.Log("targetPoint = " + targetPoint +
-            ", formationLen = " + formationLenNumber + "x" + interval + "=" + formationLen +
-            ", formationWidth = " + formationWidthNumber + "x" + interval + "=" + formationWidth +
-            ", corner=(" + cornerX + "," + cornerZ + ")"
-            );
-
-// Send each unit to it's own destination //
-            for (int i = 0; i < unitsNumber; i++) {
-                AbstractGameUnit unit = data.SelectedUnits[i];
-
-                if (unit != null) {
-
-                    float z = i % formationLenNumber;
-                    float x = Mathf.Floor(i / formationLenNumber);
-
-//                    float z = Mathf.Floor(i / formationLenNumber);
-//                    float x = i - z * formationLenNumber;
-//
-                    Vector3 thisUnitTargetPoint = new Vector3(cornerX + x * interval, targetPoint.y, cornerZ + z * interval);
-                    Debug.Log("this unit target=" + thisUnitTargetPoint);
-                    Vector3 dest = thisUnitTargetPoint;
-                    data.ThisArmyManager.Dispatcher.TriggerCommand<Vector3>(
-                            ArmyMessageTypes.unitCommandGoToPosition, dest,
-                            unit.ID
-                    );
+                        data.ThisArmyManager.Dispatcher.TriggerCommand<AbstractGameUnit>(
+                                ArmyMessageTypes.unitCommandGoToAttackUnit, unit,
+                                unit.ID
+                        );
+                    }
                 }
+            } else {
+                // Target is a point
+
+                Vector3 targetPoint = data.TargetPoint;
+
+//              float squareSide = Mathf.Floor(Mathf.Sqrt(unitsNumber));
+                float squareSide = Mathf.Ceil(Mathf.Sqrt(unitsNumber));
+
+                float formationWidthNumber = squareSide;
+                float formationLenNumber = Mathf.Ceil(unitsNumber / formationWidthNumber);
+
+                float formationWidth = (formationWidthNumber - 1) * interval;
+                float formationLen = (formationLenNumber - 1) * interval;
+
+                float cornerX = targetPoint.x - 0.5f * formationWidth;
+                float cornerZ = targetPoint.z - 0.5f * formationLen;
+
+
+                // Send each unit to it's own destination //
+                for (int i = 0; i < unitsNumber; i++) {
+                    AbstractGameUnit unit = data.SelectedUnits[i];
+
+                    if (unit != null) {
+
+                        float z = i % formationLenNumber;
+                        float x = Mathf.Floor(i / formationLenNumber);
+
+                        Vector3 thisUnitTargetPoint = new Vector3(cornerX + x * interval, targetPoint.y, cornerZ + z * interval);
+                        Debug.Log("this unit target=" + thisUnitTargetPoint);
+                        Vector3 dest = thisUnitTargetPoint;
+
+
+                        data.ThisArmyManager.Dispatcher.TriggerCommand<Vector3>(
+                                ArmyMessageTypes.unitCommandGoToAttackPoint, dest,
+                                unit.ID
+                        );
+                    }
+                }
+
             }
-
-//            foreach (AbstractGameUnit unit in data.SelectedUnits) {
-//                data.ThisArmyManager.Dispatcher.TriggerCommand<Vector3>(
-//                        ArmyMessageTypes.unitCommandGoToPosition, data.TargetPoint,
-//                        unit.ID
-//                );
-//            }
-
-
 
             data.ThisArmyManager.StateMachine.Trigger(ArmySMTransitionType.doActionToSelected);
 
-        }
+        } // if not waiting for target //
 
 
-    }
+    } // Doing() attack action //
 
 
     public override void Stopping(ArmyStateData data) {
         data.WaitingForTarget = false;
-        Debug.Log("stopping Move Formation To");
+        Debug.Log("stopping Attack");
     }
 
     public override void Starting(ArmyStateData data) {
         data.WaitingForTarget = true;
-        Debug.Log("starting Move Formation To");
+        Debug.Log("starting Attack");
     }
 
 
