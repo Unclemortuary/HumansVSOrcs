@@ -189,6 +189,7 @@ ModelImporter:
     7400016: taunt
     7400018: jump
     7400020: All
+    7400022: Working loop
     9500000: //RootNode
     11100000: //RootNode
     13700000: ogre_01
@@ -212,11 +213,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
-      improve retargeting quality.\n\t'OgreLToe11' has translation animation that
-      will be discarded.\n\t'OgreRToe11' has translation animation that will be discarded.\n\t'OgreRibcage'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -377,7 +374,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -518,6 +515,162 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ogre_01
+        weight: 1
+      - path: ogre_02
+        weight: 1
+      - path: ogre_armor
+        weight: 1
+      - path: ogre_armplate
+        weight: 1
+      - path: ogre_shoulderpad_00
+        weight: 1
+      - path: ogre_shoulderpad_01
+        weight: 1
+      - path: ogre_shoulderpad_03
+        weight: 1
+      - path: OgrePelvis
+        weight: 1
+      - path: OgrePelvis/Ogrecloth_back
+        weight: 1
+      - path: OgrePelvis/Ogrecloth_front
+        weight: 1
+      - path: OgrePelvis/OgreLThigh
+        weight: 1
+      - path: OgrePelvis/OgreLThigh/OgreLCalf
+        weight: 1
+      - path: OgrePelvis/OgreLThigh/OgreLCalf/OgreLFoot
+        weight: 1
+      - path: OgrePelvis/OgreLThigh/OgreLCalf/OgreLFoot/OgreLToe11
+        weight: 1
+      - path: OgrePelvis/OgreRThigh
+        weight: 1
+      - path: OgrePelvis/OgreRThigh/OgreRCalf
+        weight: 1
+      - path: OgrePelvis/OgreRThigh/OgreRCalf/OgreRFoot
+        weight: 1
+      - path: OgrePelvis/OgreRThigh/OgreRCalf/OgreRFoot/OgreRToe11
+        weight: 1
+      - path: OgrePelvis/OgreSpine1
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm/OgreLForearm
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm/OgreLForearm/OgreLPalm
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm/OgreLForearm/OgreLPalm/OgreLDigit11
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm/OgreLForearm/OgreLPalm/OgreLDigit11/OgreLDigit12
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm/OgreLForearm/OgreLPalm/OgreLDigit11/OgreLDigit12/OgreLDigit13
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm/OgreLForearm/OgreLPalm/OgreLDigit21
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm/OgreLForearm/OgreLPalm/OgreLDigit21/OgreLDigit22
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm/OgreLForearm/OgreLPalm/OgreLDigit21/OgreLDigit22/OgreLDigit23
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm/OgreLForearm/OgreLPalm/OgreLDigit31
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm/OgreLForearm/OgreLPalm/OgreLDigit31/OgreLDigit32
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreLCollarbone/OgreLUpperarm/OgreLForearm/OgreLPalm/OgreLDigit31/OgreLDigit32/OgreLDigit33
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreNeck
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreNeck/OgreHead
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreNeck/OgreHead/ogre_helmelt_01
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreNeck/OgreHead/ogre_helmelt_02
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreNeck/OgreHead/ogre_helmelt_03
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreNeck/OgreHead/Ogremouth
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/ogre_axe_01
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/ogre_axe_02
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/ogre_club
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/ogre_hammer
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/ogre_mace
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/ogre_morningstar
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/ogre_sword
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/ogre_trunk
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/OgreRDigit11
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/OgreRDigit11/OgreRDigit12
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/OgreRDigit11/OgreRDigit12/OgreRDigit13
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/OgreRDigit21
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/OgreRDigit21/OgreRDigit22
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/OgreRDigit21/OgreRDigit22/OgreRDigit23
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/OgreRDigit31
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/OgreRDigit31/OgreRDigit32
+        weight: 1
+      - path: OgrePelvis/OgreSpine1/OgreSpine2/OgreSpine3/OgreRibcage/OgreRCollarbone/OgreRUpperarm/OgreRForearm/OgreRPalm/OgreRDigit31/OgreRDigit32/OgreRDigit33
+        weight: 1
+      - path: Orgre_ponnytail
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Working loop
+      takeName: Take 001
+      firstFrame: 299
+      lastFrame: 330
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
