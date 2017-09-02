@@ -22,7 +22,7 @@ public class BuildingsConstructionHandler : MonoBehaviour {
         }
     }
 
-	void Start()
+	protected void Start()
 	{
 		cellSize = GridMapManager.instance.CellSize;
 		settableBuilding = GetComponent<BuildingComponent> ();
@@ -34,16 +34,16 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 		renderers = GetComponentsInChildren<Renderer> ();
 	}
 
-	void Update()
+	protected void Update()
 	{
-		if (settableBuilding != null) 
+		if (settableBuilding != null)
 		{
 			Color currentColor;
 			Ray mRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit = new RaycastHit ();
-			if (Physics.Raycast (mRay, out hit, 1000f)) 
+			if (Physics.Raycast (mRay, out hit, 1000f))
 			{
-				canBuild = CanBuildCheck (hit.point);
+				canBuild = CanBuildCheck (hit.point, hit.collider);
 				settableBuilding.transform.position = hit.point;
 			}
 			else
@@ -93,7 +93,7 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 	}
 	*/
 
-	bool CanBuildCheck(Vector3 mousePosition)
+	protected virtual bool CanBuildCheck(Vector3 mousePosition, Collider other)
 	{
 		int iOffset = (int) ((buildingWidth / (cellSize * 2f)) + 1);
 		int jOffset = (int) ((buildingHeight / (cellSize * 2f)) + 1);

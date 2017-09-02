@@ -53,7 +53,6 @@ public class HUDManager : MonoBehaviour {
 	{
 		Debug.Log ("HUDManager : UpdateSelected call");
 		this.selectedUnitsList = list;
-
 		RefreshActionsList();
 	}
 

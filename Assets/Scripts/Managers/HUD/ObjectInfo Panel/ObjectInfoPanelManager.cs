@@ -27,6 +27,7 @@ public class ObjectInfoPanelManager : MonoBehaviour {
 	{
 		gameObject.SetActive (true);
 		Updated (units [0]);
+		Debug.Log ("PanelUpdate Called");
 	}
 
 	public void PanelDeselect()

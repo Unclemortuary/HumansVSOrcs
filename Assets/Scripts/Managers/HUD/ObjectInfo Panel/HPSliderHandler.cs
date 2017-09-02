@@ -46,8 +46,10 @@ public class HPSliderHandler : MonoBehaviour {
 	{
 		selectedUnit = unit;
 		slider.maxValue = selectedUnit.Characteristics.MaxHP;
-		Color full = new Color (fillImage.color.r, fillImage.color.g, fillImage.color.b, 1f);
-		fillImage.color = full;
+		if (slider.value < 1f)
+			SliderColorToEmpty (true);
+		else
+			SliderColorToEmpty (false);
 	}
 
 	public void HPValueChanged()
@@ -55,10 +57,7 @@ public class HPSliderHandler : MonoBehaviour {
 		HPText.text = selectedUnit.CurrentHP.ToString () + " / " + selectedUnit.Characteristics.MaxHP.ToString ();
 		fillImage.color = Color.Lerp (minHPColor, maxHPColor, slider.normalizedValue);
 		if (slider.value < 1f)
-		{
-			Color empty = new Color (fillImage.color.r, fillImage.color.g, fillImage.color.b, 0f);
-			fillImage.color = empty;
-		}
+			SliderColorToEmpty (true);
 	}
 
 	public void ClearSlider()
@@ -67,5 +66,19 @@ public class HPSliderHandler : MonoBehaviour {
 		HPText.text = "";
 		slider.maxValue = 0f;
 		slider.value = 0f;
+	}
+
+	private void SliderColorToEmpty(bool value)
+	{
+		if (value)
+		{
+			Color empty = new Color (fillImage.color.r, fillImage.color.g, fillImage.color.b, 0f);
+			fillImage.color = empty;
+		}
+		else
+		{
+			Color full = new Color (fillImage.color.r, fillImage.color.g, fillImage.color.b, 1f);
+			fillImage.color = full;	
+		}
 	}
 }
