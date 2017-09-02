@@ -24,7 +24,7 @@ public class InfoText : MonoBehaviour {
 
 	private List<Text> allText = new List<Text>();
 
-	void Start()
+	void Awake()
 	{
 		allText.Add (nameText);
 		allText.Add (attackText);
