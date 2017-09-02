@@ -134,14 +134,14 @@ public class WorkerBuildAction : AbstractRTSAction {
 
 
 
-        constructionHandler = buildingGhost.AddComponent<BuildingsConstructionHandler>();
+//        constructionHandler = buildingGhost.AddComponent<BuildingsConstructionHandler>();
 
-//        ResourceBuilding rb = buildingGhost.GetComponent<ResourceBuilding>();
-//        if (rb != null) {
-//            constructionHandler = buildingGhost.AddComponent<ResourceBuildingConstructionHandler>();
-//        } else {
-//            constructionHandler = buildingGhost.AddComponent<BuildingsConstructionHandler>();
-//        }
+        ResourceBuilding rb = buildingGhost.GetComponent<ResourceBuilding>();
+        if (rb != null) {
+			constructionHandler = buildingGhost.AddComponent<ResourcePlaceChecker>();
+        } else {
+            constructionHandler = buildingGhost.AddComponent<BuildingsConstructionHandler>();
+        }
 //
 
 
