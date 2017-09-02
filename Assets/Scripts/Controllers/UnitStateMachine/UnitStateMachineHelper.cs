@@ -173,10 +173,23 @@ public class UnitStateMachineHelper {
     // ********************************************************* //
     ///////////////////////////////////////////////////////////////
 
-    // Building ///////////////////////////////////////////////////
+    // Fighting ///////////////////////////////////////////////////
 
 
-
+    // The unit was attaeked flag //
+    private bool wasAttacked = false;
+    public bool WasAttacked {
+        get {
+            if (wasAttacked) {
+                wasAttacked = false;
+                return true;
+            }
+            return false;
+        }
+    }
+    public void DropAttackedFlag() {
+        wasAttacked = false;
+    }
 
 
 

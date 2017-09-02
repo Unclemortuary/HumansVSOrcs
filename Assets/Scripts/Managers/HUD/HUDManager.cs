@@ -51,7 +51,7 @@ public class HUDManager : MonoBehaviour {
 
 	private void UpdateSelected(AbstractGameUnitsList list)
 	{
-		Debug.Log ("HUDManager : UpdateSelected call");
+		Debug.Log ("HUDManager : UpdateSelected call, units number=" + list.Count);
 		this.selectedUnitsList = list;
 		RefreshActionsList();
 	}

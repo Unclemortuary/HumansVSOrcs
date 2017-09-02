@@ -45,19 +45,25 @@ public class HPSliderHandler : MonoBehaviour {
 	public void UpdateSlider(AbstractGameUnit unit)
 	{
 		selectedUnit = unit;
-		slider.maxValue = selectedUnit.Characteristics.MaxHP;
-		if (slider.value < 1f)
-			SliderColorToEmpty (true);
-		else
-			SliderColorToEmpty (false);
+        if(selectedUnit != null) {
+            slider.maxValue = selectedUnit.Characteristics.MaxHP;
+            if (slider.value < 1f)
+                SliderColorToEmpty (true);
+            else
+                SliderColorToEmpty (false);
+        } else {
+            ClearSlider();
+        }
 	}
 
 	public void HPValueChanged()
 	{
-		HPText.text = selectedUnit.CurrentHP.ToString () + " / " + selectedUnit.Characteristics.MaxHP.ToString ();
-		fillImage.color = Color.Lerp (minHPColor, maxHPColor, slider.normalizedValue);
-		if (slider.value < 1f)
-			SliderColorToEmpty (true);
+        if(selectedUnit != null) {
+            HPText.text = selectedUnit.CurrentHP.ToString () + " / " + selectedUnit.Characteristics.MaxHP.ToString ();
+            fillImage.color = Color.Lerp (minHPColor, maxHPColor, slider.normalizedValue);
+            if (slider.value < 1f)
+                SliderColorToEmpty (true);
+        }
 	}
 
 	public void ClearSlider()

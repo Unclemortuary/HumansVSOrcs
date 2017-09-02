@@ -11,11 +11,14 @@ public class UnitStateMachine : RTSMonoBehaviour {
         }
     }
 
+    private UnitStateMachineSubscriptions subscriptions;
+
     public void SetUnitStateMachineHelper(UnitStateMachineHelper helper) {
         this.helper = helper;
 
         ////////////////////////////////////
 
+        subscriptions = new UnitStateMachineSubscriptions();
 
         SubscribeOnDispatcherMessages();
 
@@ -81,6 +84,14 @@ public class UnitStateMachine : RTSMonoBehaviour {
                 helper.ThisUnit.ID
         );
 
+        ////////// Attacking /////////////////////////////////
+
+        armyManager.Dispatcher.StartListening(ArmyMessageTypes.unitCommandGoToStandPreparedState,
+                () => {
+                    GoToStandPreparedState();
+                },
+                helper.ThisUnit.ID
+        );
 
     } // SubscribeOnDispatcherMessages() //
 
@@ -107,7 +118,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
         GOING_TO_BUILD, // moving to a point to build a building
         BUILDING, // waiting building proccess to be complete
 
-        CREATING_UNIT,
+        CREATING_UNIT, // waiting process of creation (showing progress) to be finished, then create unit
 
         IS_DEAD,
     }
@@ -181,7 +192,9 @@ public class UnitStateMachine : RTSMonoBehaviour {
                 helper.Agent.ResetPath();
             }
 
-            Debug.Log(">>> goto Idle State <<<");
+            helper.DropAttackedFlag();
+
+            Debug.Log(">>> goto Idle State <<< unitID=" + helper.ThisUnit.ID);
             currentState = State.IDLE;
         }
     }
@@ -189,44 +202,11 @@ public class UnitStateMachine : RTSMonoBehaviour {
     private void IdleState() {
 
         // Attack if attacked //
-
-
-    }
-
-// ################################################################################
-    private void GoToStandPreparedState() {
-        if(helper.ThisUnit.IsActive) {
-
-
-
-            Debug.Log(">>> goto Stand Prepared State <<<");
-            currentState = State.STAND_PREPARED;
+        if (helper.WasAttacked) {
+            GoToStandPreparedState();
         }
     }
 
-    private void StandPreparedState() {
-
-
-    }
-
-// ################################################################################
-    private void GoToHoldPositionState() {
-
-        if (helper.ThisUnit.IsActive) {
-
-
-
-            Debug.Log(">>> goto Hold Position State <<<");
-            currentState = State.HOLD_POSITION;
-        }
-
-    }
-
-    private void HoldPositionState() {
-
-
-
-    }
 
 // ################################################################################
     private void GoToWalkingToPointState(Vector3 pos) {
@@ -235,7 +215,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
             helper.Agent.destination = pos;
 
-            Debug.Log(">>> goto Walking to Point State <<<  new destination=" + helper.Agent.destination);
+            Debug.Log(">>> goto Walking to Point State <<<  new destination=" + helper.Agent.destination + " unitID=" + helper.ThisUnit.ID);
             currentState = State.WALKING_TO_POINT;
         }
     }
@@ -252,6 +232,22 @@ public class UnitStateMachine : RTSMonoBehaviour {
     }
 
 // ################################################################################
+    private void GoToStandPreparedState() {
+        if(helper.ThisUnit.IsActive) {
+
+
+
+            Debug.Log(">>> goto Stand Prepared State <<< unitID=" + helper.ThisUnit.ID);
+            currentState = State.STAND_PREPARED;
+        }
+    }
+
+    private void StandPreparedState() {
+
+
+    }
+
+// ################################################################################
     private void GoToMoveAndAttackState() {
 
         if (helper.ThisUnit.IsActive) {
@@ -259,7 +255,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
 
 
-            Debug.Log(">>> goto Move and Attack State <<<");
+            Debug.Log(">>> goto Move and Attack State <<< unitID=" + helper.ThisUnit.ID);
             currentState = State.MOVE_AND_ATTACK;
         }
     }
@@ -277,12 +273,31 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
 
 
-            Debug.Log(">>> goto Follow and Attack State <<<");
+            Debug.Log(">>> goto Follow and Attack State <<< unitID=" + helper.ThisUnit.ID);
             currentState = State.FOLLOW_AND_ATTACK;
         }
     }
 
     private void FollowAndAttackState() {
+
+
+    }
+
+// ################################################################################
+    private void GoToHoldPositionState() {
+
+        if (helper.ThisUnit.IsActive) {
+
+
+
+            Debug.Log(">>> goto Hold Position State <<< unitID=" + helper.ThisUnit.ID);
+            currentState = State.HOLD_POSITION;
+        }
+
+    }
+
+    private void HoldPositionState() {
+
 
 
     }
@@ -295,7 +310,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
             helper.TargetUnit = building;
 
-            SetActivityTo(false);
+            DeactivateUnitsWhileCreatingTo(false);
 
             ///////// Adjast miniimum distance to build ////////
             Vector3 buildingExtents = helper.TargetUnit.Avatar.GetComponent<Collider>().bounds.extents;
@@ -314,7 +329,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
             helper.Agent.destination = helper.TargetUnit.Avatar.transform.position;
 
-            Debug.Log(">>> goto Going to Build State <<<");
+            Debug.Log(">>> goto Going to Build State <<< unitID=" + helper.ThisUnit.ID);
             currentState = State.GOING_TO_BUILD;
         }
 
@@ -368,7 +383,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
             helper.TargetBuildingScaffold.SetActive(false);
 
 
-            SetActivityTo(true);
+            DeactivateUnitsWhileCreatingTo(true);
 
 
             ////////////////////////////////////
@@ -392,8 +407,9 @@ public class UnitStateMachine : RTSMonoBehaviour {
     }
 
 
-
-    private void SetActivityTo(bool val) {
+    // Fol Build an Create actions //
+    // Makes inactive current unit and target unit //
+    private void DeactivateUnitsWhileCreatingTo(bool val) {
         Debug.Log("##### Set Activity to " + val.ToString());
 
         helper.TargetUnit.IsActive = val;
@@ -408,13 +424,17 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
             helper.TargetUnit = newUnit;
 
-            SetActivityTo(false);
+            DeactivateUnitsWhileCreatingTo(false);
 
-            Debug.Log(">>> goto Creating Unit State <<<");
+            Debug.Log(">>> goto Creating Unit State <<< unitID=" + helper.ThisUnit.ID);
             currentState = State.CREATING_UNIT;
 
             helper.TaskRemaintinTime = helper.TaskDuration;
             helper.TaskName = currentState.ToString();
+
+            ////////////////////////////////
+            armyManager.AvailableResources.ChangeResourceAmount(GameResources.ResourceType.MEN, 1);
+            ////////////////////////////////
         }
     }
 
@@ -426,15 +446,12 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
         if ( helper.TaskRemaintinTime > 0) {
 
-        } else {
+        } else { // Time has come, Create unit //
 
             helper.TargetUnit.Avatar.SetActive(true);
 
-            SetActivityTo(true);
+            DeactivateUnitsWhileCreatingTo(true);
 
-            ////////////////////////////////
-            armyManager.AvailableResources.ChangeResourceAmount(GameResources.ResourceType.MEN, 1);
-            ////////////////////////////////
 
 
             ///// Find out where to move unit to ///////////////////////////////
@@ -462,10 +479,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
             // Make this building (unit creator) IDLE //
             GoToIdleState();
 
-
-        }
-
-
+        } //  unit creating //
 
     }// Creating Unit State //
 
@@ -477,7 +491,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
 
 
-        Debug.Log(">>> goto IsDead State <<<");
+        Debug.Log(">>> goto IsDead State <<< unitID=" + helper.ThisUnit.ID);
         currentState = State.IS_DEAD;
     }
 

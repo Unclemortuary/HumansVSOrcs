@@ -219,6 +219,8 @@ public class GameManager : MonoBehaviour {
 
         actionsLibrary.AddRTSAction(RTSActionType.stop, new StopAction());
 
+        actionsLibrary.AddRTSAction(RTSActionType.attack, new AttackAction(5));
+
         actionsLibrary.AddRTSAction(RTSActionType.createArcher, new CreateUnitAction(Identification.UnitType.Archer));
         actionsLibrary.AddRTSAction(RTSActionType.createSwordsman, new CreateUnitAction(Identification.UnitType.Swordsman));
         actionsLibrary.AddRTSAction(RTSActionType.createHorseman, new CreateUnitAction(Identification.UnitType.Horseman));
