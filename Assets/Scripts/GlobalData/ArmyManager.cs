@@ -56,8 +56,31 @@ public class ArmyManager {
 
     private int nextID;
 
+
     private Dictionary<int, AbstractGameUnit> warriors;
     private Dictionary<int, AbstractGameUnit> buildings;
+    public List<AbstractGameUnit> Warriors {
+        get {
+            return Dict2Values(warriors);
+        }
+    }
+    public List<AbstractGameUnit> Buildings {
+        get {
+            return Dict2Values(buildings);
+        }
+    }
+    private List<AbstractGameUnit> Dict2Values(Dictionary<int, AbstractGameUnit> dict) {
+        List<AbstractGameUnit> lst = new List<AbstractGameUnit>();
+
+        foreach (int i in dict.Keys) {
+            lst.Add(dict[i]);
+        }
+
+        return lst;
+    }
+
+
+
 
     private Dictionary<int, Identification.UnitType> id2typeDictionary;
 
@@ -124,16 +147,24 @@ public class ArmyManager {
 
         AbstractGameUnit newUnit = CreateUnit(warriorFactory, type, position, warriors);
 
-        UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
-        reactionsComponent.SetGameUnit(newUnit);
-
-        // Add navmesh //
+        UnitStateMachine unitStateMachine = newUnit.Avatar.AddComponent<UnitStateMachine>();
         NavMeshAgent agent = newUnit.Avatar.AddComponent<NavMeshAgent>();
-        reactionsComponent.SetNavmeshAgent(agent);
+
+        unitStateMachine.SetUnitStateMachineHelper( new UnitStateMachineHelper(newUnit, agent, this) );
+
+
+//        UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
+//        reactionsComponent.SetGameUnit(newUnit);
+//
+//        // Add navmesh //
+//        NavMeshAgent agent = newUnit.Avatar.AddComponent<NavMeshAgent>();
+//        reactionsComponent.SetNavmeshAgent(agent);
 
         // Set navmeshAgent size the same as collider //
 //        Debug.Log("Collider extents = " + newUnit.Avatar.GetComponent<Collider>().bounds.extents);
 //        Debug.Log("xxx=" + newUnit.Avatar.GetComponent<Collider>().bounds.extents / newUnit.Avatar.transform.localScale.x);
+
+
         // Shamanizm //
         Vector3 boundsExtents = newUnit.Avatar.GetComponent<Collider>().bounds.extents;
         agent.radius = boundsExtents.x / newUnit.Avatar.transform.localScale.x;
@@ -153,11 +184,11 @@ public class ArmyManager {
 
         AbstractGameUnit newUnit = CreateWarrior(type, position);
 
-        UnitReactionsComponent reactionsComponent = newUnit.Avatar.GetComponent<UnitReactionsComponent>();
-
-        BuilderReactionsComponent builderReactions = newUnit.Avatar.AddComponent<BuilderReactionsComponent>();
-        builderReactions.Initialize(reactionsComponent);
-
+//        UnitReactionsComponent reactionsComponent = newUnit.Avatar.GetComponent<UnitReactionsComponent>();
+//
+//        BuilderReactionsComponent builderReactions = newUnit.Avatar.AddComponent<BuilderReactionsComponent>();
+//        builderReactions.Initialize(reactionsComponent);
+//
 
         return newUnit;
     }
@@ -185,8 +216,13 @@ public class ArmyManager {
 
         AbstractGameUnit newUnit = CreateUnit(buildingFactory, type, position, buildings);
 
-        UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
-        reactionsComponent.SetGameUnit(newUnit);
+//        UnitReactionsComponent reactionsComponent = newUnit.Avatar.AddComponent<UnitReactionsComponent>();
+//        reactionsComponent.SetGameUnit(newUnit);
+
+        UnitStateMachine unitStateMachine = newUnit.Avatar.AddComponent<UnitStateMachine>();
+
+        unitStateMachine.SetUnitStateMachineHelper( new UnitStateMachineHelper(newUnit, this) );
+
 
 //        NavMeshObstacle obstacle = newUnit.Avatar.AddComponent<NavMeshObstacle>();
 //        obstacle.carving = true;

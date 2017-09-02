@@ -25,6 +25,8 @@ public class PlayerController {
         SubscribeOnDspatcherEvents();
     }
 
+
+
     public void NewUnitsSelection(Bounds viewportBounds) {
 
         AbstractGameUnitsList selectedUnits = armyManager.FindWarriorsWithinViewportBounds(viewportBounds);

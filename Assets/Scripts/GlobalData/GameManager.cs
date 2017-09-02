@@ -344,6 +344,11 @@ public class GameManager : MonoBehaviour {
 
         playerController = new PlayerController(armyManagers[playerArmy]);
 
+        // Neutrals controller //
+
+
+
+
         // AI controllers //
 
 

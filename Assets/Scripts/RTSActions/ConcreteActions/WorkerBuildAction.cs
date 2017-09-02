@@ -11,8 +11,8 @@ public class WorkerBuildAction : AbstractRTSAction {
     private BuildingsConstructionHandler constructionHandler = null;
 
     private AbstractGameUnit performer = null;
-    private UnitReactionsComponent performerReactions = null;
-    private BuilderReactionsComponent performerBuilderReactions = null;
+//    private UnitReactionsComponent performerReactions = null;
+//    private BuilderReactionsComponent performerBuilderReactions = null;
 
 
 //    private State state;
@@ -75,13 +75,13 @@ public class WorkerBuildAction : AbstractRTSAction {
                         Debug.Log("performer is null");
                     }
 
-                    data.ThisArmyManager.Dispatcher.TriggerCommand<AbstractGameUnit>(
-                            ArmyMessageTypes.unitCommandBuild, newBuilding, performer.ID);
-
                     data.ThisArmyManager.Dispatcher.TriggerCommand<float>(
                             ArmyMessageTypes.unitCommandSetWorkDuration,
                             data.CurrentRtsAction.GetActionDataItem().TimeToComplete,
                             performer.ID);
+
+                    data.ThisArmyManager.Dispatcher.TriggerCommand<AbstractGameUnit>(
+                            ArmyMessageTypes.unitCommandBuild, newBuilding, performer.ID);
 
 
                     BuildingComponent buildingComponent = newBuilding.Avatar.GetComponent<BuildingComponent>();
@@ -98,7 +98,7 @@ public class WorkerBuildAction : AbstractRTSAction {
 
             } else { // If Can Build //
 
-                Debug.LogError("Can't build here!!!!!");
+                Debug.Log("Can't build here!!!!!");
 
                 data.WaitingForTarget = true;
 
@@ -119,14 +119,14 @@ public class WorkerBuildAction : AbstractRTSAction {
         foreach(AbstractGameUnit unit in data.SelectedUnits) {
 
             if(unit.IsActive) {
-                performerBuilderReactions = unit.Avatar.GetComponent<BuilderReactionsComponent>();
+//                performerBuilderReactions = unit.Avatar.GetComponent<BuilderReactionsComponent>();
 
-                if (performerBuilderReactions != null) {
+//                if (performerBuilderReactions != null) {
                     performer = unit;
-                    performerReactions = unit.Avatar.GetComponent<UnitReactionsComponent>();
+//                    performerReactions = unit.Avatar.GetComponent<UnitReactionsComponent>();
                     Debug.Log("Found performer for building a Building");
                     break;
-                }
+//                }
             }
         }
 

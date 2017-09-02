@@ -34,6 +34,9 @@ public enum ArmyMessageTypes {
         unitCommandBuild,
         unitCommandSetWorkDuration,
 
+        unitCommandGoToStandPreparedState,
+        unitCommandCreateUnit,
+
         // StateMachine -> HUD
         selectionChanged,
         refreshSelection,
