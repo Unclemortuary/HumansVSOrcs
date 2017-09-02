@@ -141,8 +141,16 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
                     data.WaitingForTarget = false;
                 });
 
+        data.ThisArmyManager.Dispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.setTargetPoint,
+                (AbstractGameUnit unit) => {
+                    Debug.Log("StateMachine: Setting Target Unit" + unit.ID);
 
-// Zaglushki // #######################################################
+                    data.TargetUnit = unit;
+                    data.WaitingForTarget = false;
+                });
+
+
+// #######################################################
 
         data.ThisArmyManager.Dispatcher.StartListening<RTSActionType>(ArmyMessageTypes.invokeRTSAction,
                 (RTSActionType actionType) => {

@@ -18,7 +18,7 @@ public class UnitStateMachineSubscriptions {
     private void SubscribeOnDispatcherMessages() {
 
         armyManager.Dispatcher.StartListening(ArmyMessageTypes.unitCommandGoToStandPreparedState, () => {
-            stateMachine.GoToStandPreparedState();
+            stateMachine.TransitionToStandPreparedState();
         }, helper.ThisUnit.ID);
 
 
@@ -33,14 +33,14 @@ public class UnitStateMachineSubscriptions {
         armyManager.Dispatcher.StartListening<Vector3>(ArmyMessageTypes.unitCommandGoToPosition,
                 (Vector3 pos) => {
                     Debug.Log("%% init go to point action %%");
-                    stateMachine.GoToWalkingToPointState(pos);
+                    stateMachine.TransitionToWalkingToPointState(pos);
                 },
                 helper.ThisUnit.ID
         );
 
         armyManager.Dispatcher.StartListening(ArmyMessageTypes.unitCommandStop,
                 () => {
-                    stateMachine.GoToIdleState();
+                    stateMachine.TransitionToIdleState();
                 },
                 helper.ThisUnit.ID
         );
@@ -53,7 +53,7 @@ public class UnitStateMachineSubscriptions {
         armyManager.Dispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCommandBuild,
                 (AbstractGameUnit building) => {
 
-                    stateMachine.GoToGoingToBuildState(building);
+                    stateMachine.TransitionToGoingToBuildState(building);
                 },
                 helper.ThisUnit.ID
         );
@@ -61,7 +61,7 @@ public class UnitStateMachineSubscriptions {
         armyManager.Dispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCommandCreateUnit,
                 (AbstractGameUnit newUnit) => {
 
-                    stateMachine.GoToCreatingUnitState(newUnit);
+                    stateMachine.TransitionToCreatingUnitState(newUnit);
                 },
                 helper.ThisUnit.ID
         );
@@ -77,7 +77,7 @@ public class UnitStateMachineSubscriptions {
 
         armyManager.Dispatcher.StartListening(ArmyMessageTypes.unitCommandGoToStandPreparedState,
                 () => {
-                    stateMachine.GoToStandPreparedState();
+                    stateMachine.TransitionToStandPreparedState();
                 },
                 helper.ThisUnit.ID
         );
@@ -87,21 +87,21 @@ public class UnitStateMachineSubscriptions {
 
         armyManager.Dispatcher.StartListening<Vector3>(ArmyMessageTypes.unitCommandGoToAttackPoint,
                 (Vector3 point) => {
-                    stateMachine.GoToMoveAndAttackState(point);
+                    stateMachine.TransitionToMoveAndAttackState(point);
                 },
                 helper.ThisUnit.ID
         );
 
         armyManager.Dispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCommandGoToAttackUnit,
                 (AbstractGameUnit unit) => {
-                    stateMachine.GoToFollowAndAttackState(unit);
+                    stateMachine.TransitionToFollowAndAttackState(unit);
                 },
                 helper.ThisUnit.ID
         );
 
         armyManager.Dispatcher.StartListening(ArmyMessageTypes.unitCommandGoToHoldPosition,
                 () => {
-                    stateMachine.GoToHoldPositionState();
+                    stateMachine.TransitionToHoldPositionState();
                 },
                 helper.ThisUnit.ID
         );

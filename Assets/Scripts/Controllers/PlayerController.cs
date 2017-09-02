@@ -57,6 +57,24 @@ public class PlayerController {
     }
 
 
+    public void NewTargetUnit(AbstractGameUnit unit) {
+        bool test = false;
+        PlayerArmyDispatcher.TriggerFunc<bool>(ArmyMessageTypes.testWaitingForTarget, (bool v)=> { test = v; });
+        if (test) {
+            PlayerArmyDispatcher.TriggerCommand<AbstractGameUnit>(ArmyMessageTypes.setTargetUnit, unit);
+
+            Debug.Log("Setting target unit: unitId=" + unit.ID);
+        } else {
+            Debug.Log("Click on unit means 'I want unit info'");
+
+            /// Show enemy unit info ///////////////
+
+            /// *********************************8 ??????????????????????????????????????? ///
+            ///
+        }
+    }
+
+
     private void SubscribeOnDspatcherEvents() {
 
         PlayerArmyDispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCryLeftClicked,
@@ -106,6 +124,8 @@ public class PlayerController {
         PlayerArmyDispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCryIsDead,
                 (AbstractGameUnit unit) => {
                     Debug.Log("Unit is dead: " + unit.Description);
+
+                    armyManager.DestroyGameUnit(unit.ID);
                 }
         );
 

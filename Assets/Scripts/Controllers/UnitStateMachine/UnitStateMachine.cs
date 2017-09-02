@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,18 +17,10 @@ public class UnitStateMachine : RTSMonoBehaviour {
     public void SetUnitStateMachineHelper(UnitStateMachineHelper helper) {
         this.helper = helper;
 
-        ////////////////////////////////////
+        this.subscriptions = new UnitStateMachineSubscriptions(this, helper, armyManager);
 
-        subscriptions = new UnitStateMachineSubscriptions(this, helper, armyManager);
-
-//        SubscribeOnDispatcherMessages();
-
-        GoToIdleState();
-
+        TransitionToIdleState();
     }
-
-
-
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,50 +61,53 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     void Update() {
 
-        TestHealth();
 
+        if (!helper.IsAlife()) {
+            TransitionToIsDeadState();
+        }
+
+
+        ExecuteCurrentState();
+
+    }
+
+    private void ExecuteCurrentState() {
         switch (CurrentState) {
             case State.IDLE :
                 IdleState();
-            break;
+                break;
             case State.STAND_PREPARED :
                 StandPreparedState();
-            break;
+                break;
             case State.HOLD_POSITION :
                 HoldPositionState();
-            break;
+                break;
             case State.WALKING_TO_POINT :
                 WalkingToDestinationPointState();
-            break;
+                break;
             case State.MOVE_AND_ATTACK :
                 MoveAndAttackState();
-            break;
+                break;
             case State.FOLLOW_AND_ATTACK :
                 FollowAndAttackState();
-            break;
+                break;
             case State.GOING_TO_BUILD :
                 GoingToBuildState();
-            break;
+                break;
             case State.BUILDING :
                 BuildingState();
-            break;
+                break;
             case State.CREATING_UNIT :
                 CreatingUnitState();
-            break;
+                break;
             case State.IS_DEAD :
                 IsDeadState();
-            break;
+                break;
         }
-
     }
 
 
-// ################################################################################
-    private void TestHealth() {
 
-
-
-    }
 
 
 // ################################################################################
@@ -119,7 +115,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
 
 // ################################################################################
-    public void GoToIdleState() {
+    public void TransitionToIdleState() {
 
         if (helper.ThisUnit.IsActive) {
 
@@ -146,13 +142,13 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
         // Attack if attacked //
         if (helper.WasAttacked) {
-            GoToStandPreparedState();
+            TransitionToStandPreparedState();
         }
     }
 
 
 // ################################################################################
-    public void GoToWalkingToPointState(Vector3 pos) {
+    public void TransitionToWalkingToPointState(Vector3 pos) {
 
         if (helper.ThisUnit.IsActive && helper.Agent != null) {
 
@@ -169,17 +165,14 @@ public class UnitStateMachine : RTSMonoBehaviour {
 //        Debug.Log("<<<  velocity=" + helper.Agent.velocity + " remainingDistance = " + helper.Agent.remainingDistance + " delta = " + helper.Agent.stoppingDistance);
 //        if (helper.Agent.remainingDistance <= helper.Agent.stoppingDistance) {
         if ((helper.Agent.destination - transform.position).magnitude <= helper.Agent.stoppingDistance) {
-            GoToIdleState();
+            TransitionToIdleState();
         }
 
     }
 
 // ################################################################################
-    public void GoToStandPreparedState() {
+    public void TransitionToStandPreparedState() {
         if(helper.ThisUnit.IsActive) {
-
-
-
             Debug.Log(">>> goto Stand Prepared State <<< unitID=" + helper.ThisUnit.ID);
             currentState = State.STAND_PREPARED;
         }
@@ -187,11 +180,16 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     private void StandPreparedState() {
 
+        List<UnitStateMachine> enemysList = helper.CheckEnemies(
+            helper.ThisUnit.Avatar.transform.position,
+            33333333333,
+            armyManager.ThisArmy
+        );
 
     }
 
 // ################################################################################
-    public void GoToMoveAndAttackState(Vector3 attackPoint) {
+    public void TransitionToMoveAndAttackState(Vector3 attackPoint) {
 
         if (helper.ThisUnit.IsActive) {
 
@@ -208,8 +206,9 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     }
 
+
 // ################################################################################
-    public void GoToFollowAndAttackState(AbstractGameUnit unit) {
+    public void TransitionToFollowAndAttackState(AbstractGameUnit unit) {
 
         if (helper.ThisUnit.IsActive) {
 
@@ -227,7 +226,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
     }
 
 // ################################################################################
-    public void GoToHoldPositionState() {
+    public void TransitionToHoldPositionState() {
 
         if (helper.ThisUnit.IsActive) {
 
@@ -246,7 +245,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
     }
 
 // ################################################################################
-    public void GoToGoingToBuildState(AbstractGameUnit building) {
+    public void TransitionToGoingToBuildState(AbstractGameUnit building) {
 
         if (helper.ThisUnit.IsActive) {
 
@@ -342,7 +341,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
             ///////////////////////////////////
 
 
-            GoToIdleState();
+            TransitionToIdleState();
         }
 
 
@@ -361,7 +360,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
     }
 
 // ################################################################################
-    public void GoToCreatingUnitState(AbstractGameUnit newUnit) {
+    public void TransitionToCreatingUnitState(AbstractGameUnit newUnit) {
 
         if (helper.ThisUnit.IsActive) {
 
@@ -420,7 +419,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
 
             // Make this building (unit creator) IDLE //
-            GoToIdleState();
+            TransitionToIdleState();
 
         } //  unit creating //
 
@@ -430,16 +429,18 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
 
 // ################################################################################
-    public void GoToIsDeadState() {
+    public void TransitionToIsDeadState() {
 
+        helper.ThisUnit.IsActive = false;
 
+        armyManager.Dispatcher.TriggerCommand<AbstractGameUnit>(ArmyMessageTypes.unitCryIsDead, helper.ThisUnit);
 
         Debug.Log(">>> goto IsDead State <<< unitID=" + helper.ThisUnit.ID);
         currentState = State.IS_DEAD;
     }
 
     private void IsDeadState() {
-        armyManager.Dispatcher.TriggerCommand<AbstractGameUnit>(ArmyMessageTypes.unitCryIsDead, helper.ThisUnit);
+
     }
 
 

@@ -13,12 +13,19 @@ public class NeutralsController {
     }
 
 
-    public ArmyDispatcher PlayerArmyDispatcher {
+    private ArmyDispatcher PlayerArmyDispatcher {
         get {
             return GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy].Dispatcher;
         }
     }
+    private ArmyManager PlayerArmyManager {
+        get {
+            return GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy];
+        }
+    }
 
+
+    // Constructor //////////////////////////////////
     public NeutralsController(ArmyManager armyManager) {
         SetArmyManager(armyManager);
 
@@ -32,6 +39,8 @@ public class NeutralsController {
         ThisArmyDispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCryLeftClicked,
                 (AbstractGameUnit unit) => {
                     Debug.Log("neutral unit is left clicked" + unit.Description);
+
+                    TellPlayerThatUnitWasClicked(unit);
                 }
         );
 
@@ -39,6 +48,8 @@ public class NeutralsController {
         ThisArmyDispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCryRightClicked,
                 (AbstractGameUnit unit) => {
                     Debug.Log("neutral unit is right clicked: " + unit.Description);
+
+                    TellPlayerThatUnitWasClicked(unit);
                 }
         );
 
@@ -46,6 +57,8 @@ public class NeutralsController {
         ThisArmyDispatcher.StartListening<AbstractGameUnit>(ArmyMessageTypes.unitCryIsDead,
                 (AbstractGameUnit unit) => {
                     Debug.Log("Unit is dead: " + unit.Description);
+
+                    thisArmyManager.DestroyGameUnit(unit.ID);
                 }
         );
 
@@ -53,6 +66,9 @@ public class NeutralsController {
 
 
 
+    private void TellPlayerThatUnitWasClicked(AbstractGameUnit unit) {
+        GameManager.Instance.PlayerController.NewTargetUnit(unit);
+    }
 
 
 

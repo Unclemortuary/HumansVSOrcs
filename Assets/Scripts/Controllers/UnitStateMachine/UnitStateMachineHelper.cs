@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -30,6 +31,12 @@ public class UnitStateMachineHelper {
 
 
     private ArmyManager armyManager;
+
+    public Identification.Army MyArmy {
+        get {
+            return armyManager.ThisArmy;
+        }
+    }
 
 
 
@@ -192,7 +199,53 @@ public class UnitStateMachineHelper {
     }
 
 
+// ################################################################################
 
+
+    public bool IsAlife() {
+        return ThisUnit.CurrentHP > 0;
+    }
+
+
+    public List<UnitStateMachine> CheckEnemies(Vector3 center, float radius, Identification.Army friendlyArmy) {
+
+
+        List<UnitStateMachine> unitsMachines = new List<UnitStateMachine>();
+
+        Collider[] colliders = Physics.OverlapSphere(center, radius);
+
+        foreach (Collider col in colliders)
+        {
+            UnitStateMachine machine = col.gameObject.GetComponent<UnitStateMachine>();
+
+            if (machine != null) {
+                if (machine.Helper.MyArmy != friendlyArmy && machine.Helper.IsAlife())  {
+                    unitsMachines.Add(machine);
+                }
+            }
+
+
+
+//
+//            if (teamID != null)
+//            {
+//                if (teamID.ThisTeam != myTeam && !obj.GetComponent<Death>().IsDead)
+//                {
+//                    float sqrDistance = (obj.transform.position - gameObject.transform.position).sqrMagnitude;
+//                    if (sqrDistance < closestDistance)
+//                    {
+//                        target = obj;
+//                        closestDistance = sqrDistance;
+//                    }
+//                }
+//            }
+//
+
+
+        } // foreach collider //
+
+        return unitsMachines;
+    }
 
 
 
