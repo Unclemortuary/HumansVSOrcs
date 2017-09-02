@@ -47,6 +47,8 @@ public class WorkerBuildAction : AbstractRTSAction {
 
             if (constructionHandler.CanBuild) {
 
+                Debug.Log("I can build here!!");
+
                 if (data.TargetPointIsNowhere() && data.TargetUnit == null) {
 
                     Debug.Log("No Target position or unit. Can't create a unit");
@@ -58,10 +60,14 @@ public class WorkerBuildAction : AbstractRTSAction {
 
 //                    GameObject.Destroy(constructionHandler);
 
-                    AbstractGameUnit newBuilding = data.ThisArmyManager.CreateBuilding(unitType, data.TargetPoint);
+                    float height = Terrain.activeTerrain.SampleHeight(data.TargetPoint);
+                    Vector3 targetPosition = new Vector3(data.TargetPoint.x, height, data.TargetPoint.z);
+
+                    AbstractGameUnit newBuilding = data.ThisArmyManager.CreateBuilding(unitType, targetPosition);
 
 
                     newBuilding.Avatar.GetComponent<BuildingComponent>().SetTransparent(true);
+
 
                     if(data == null) {
                         Debug.Log("data is null");

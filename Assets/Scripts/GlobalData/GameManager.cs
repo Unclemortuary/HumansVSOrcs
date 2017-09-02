@@ -98,9 +98,11 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private CameraMoverV2 cameraMover;
     [SerializeField]
-    private TerrainReactionsComponent terrainReactions;
-    [SerializeField]
     private HUDManager hudManager;
+
+
+    [SerializeField]
+    private List<TerrainReactionsComponent> terrainReactionsList = new List<TerrainReactionsComponent>();
 
 
 
@@ -133,10 +135,15 @@ public class GameManager : MonoBehaviour {
     private void InitializeDependingObjects() {
 
 
-        if (terrainReactions != null) {
-            terrainReactions.SetDispatcher(playerController.PlayerArmyDispatcher);
+        foreach (TerrainReactionsComponent trc in terrainReactionsList) {
+            trc.SetDispatcher(playerController.PlayerArmyDispatcher);
+            trc.InitializeEventTrigger();
         }
-        terrainReactions.InitializeEventTrigger();
+
+//            if (terrainReactions != null) {
+//                terrainReactions.SetDispatcher(playerController.PlayerArmyDispatcher);
+//            }
+//        terrainReactions.InitializeEventTrigger();
 
 
 //        cameraHolder
@@ -327,10 +334,10 @@ public class GameManager : MonoBehaviour {
         // Neutrals Army Manager //
 
         CommonGameUnitFactory neutralWarriorFactory = new CommonGameUnitFactory();
-        InitAFactory(neutralWarriorFactory, scriptablePrototypesList.OrcWarriorsPrototypes);
+        InitAFactory(neutralWarriorFactory, scriptablePrototypesList.NeutralWarriorsPrototypes);
 
         CommonGameUnitFactory neutralBuildingFactory = new CommonGameUnitFactory();
-        InitAFactory(neutralBuildingFactory, scriptablePrototypesList.OrcBuildingsPrototypes);
+        InitAFactory(neutralBuildingFactory, scriptablePrototypesList.NeutralBuildingsPrototypes);
 
         armyManagers[Identification.Army.Neutrals] = new ArmyManager(Identification.Army.Neutrals,
                 neutralArmyStartingID, neutralWarriorFactory, neutralBuildingFactory,
@@ -385,14 +392,16 @@ public class GameManager : MonoBehaviour {
 
     public void HereIsTerrain(TerrainReactionsComponent reactionsScript) {
 
-//        this.terrainReactions = reactionsScript;
-//
+
+
+        this.terrainReactionsList.Add(reactionsScript);
+
 //        if (terrainReactions != null) {
 //            terrainReactions.SetDispatcher(playerController.PlayerArmyDispatcher);
 //        }
 //        terrainReactions.InitializeEventTrigger();
-//
-//        Debug.Log("-> Terrain is initialized");
+
+        Debug.Log("-> Terrain is added to GameManager");
 
     }
 

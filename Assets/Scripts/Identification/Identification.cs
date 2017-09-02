@@ -12,6 +12,14 @@ public static class Identification {
         Worker,
         FlyingWarrior,
         Mine,
+
+        // Neutrals //
+        Troll,
+        Zombie,
+        Barbarian,
+        Ghost,
+        Skeleton,
+        SkeletonHard,
     };
 
 

@@ -26,6 +26,15 @@ public class ScriptablePrototypesDictionaries : ScriptableObject {
     }
 
 
+    [SerializeField]
+    private TypeToGameUnitDictionary neutralWarriorsPrototypes;
+    public TypeToGameUnitDictionary NeutralWarriorsPrototypes {
+        get {
+            return neutralWarriorsPrototypes;
+        }
+    }
+
+
 
 
     [SerializeField]
@@ -43,6 +52,15 @@ public class ScriptablePrototypesDictionaries : ScriptableObject {
             return orcBuildingsPrototypes;
         }
     }
+
+    [SerializeField]
+    private TypeToGameUnitDictionary neutralBuildingsPrototypes;
+    public TypeToGameUnitDictionary NeutralBuildingsPrototypes {
+        get {
+            return neutralBuildingsPrototypes;
+        }
+    }
+
 
 
 }
