@@ -32,6 +32,7 @@ namespace Project.TimeManager
         private int _iStartDay = 10;
         private int _iStartSunset = 20;
         private int _iStartNight = 22;
+
         public float _fullDay = 900f; // duration of the day, in seconds
 
 
@@ -44,6 +45,8 @@ namespace Project.TimeManager
         private IClock _clockView;
         private SunControler _sunController;
 
+        public Light sunLight;
+
         void Awake() {
             _instance = this;
         }
@@ -51,6 +54,7 @@ namespace Project.TimeManager
         public void Init(Transform sun) {
             _sun = sun;
             _sunController = new SunControler(_sun);
+            sunLight = _sun.GetComponent<Light>();
         }
 
         public void Init(Transform sun, IClock clockView) {
