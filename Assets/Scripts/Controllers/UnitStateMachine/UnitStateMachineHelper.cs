@@ -114,7 +114,9 @@ public class UnitStateMachineHelper : IEnemyHelper {
 
 
     public void TurnSelection(bool on) {
-        projector.SetActive(on);
+        if(IsAlife()) {
+            projector.SetActive(on);
+        }
     }
 
 
@@ -202,7 +204,11 @@ public class UnitStateMachineHelper : IEnemyHelper {
 
 
     public bool IsAlife() {
-        return ThisUnit.CurrentHP > 0;
+        if (ThisUnit == null || ThisUnit.IsDead()) {
+            return false;
+        }
+
+        return true;
     }
 
     public void DamageHim(float damageValue) {

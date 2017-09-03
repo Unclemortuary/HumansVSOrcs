@@ -31,7 +31,7 @@ public class AttackAction : AbstractRTSAction {
                     if (unit != null) {
 
                         data.ThisArmyManager.Dispatcher.TriggerCommand<AbstractGameUnit>(
-                                ArmyMessageTypes.unitCommandGoToAttackUnit, unit,
+                                ArmyMessageTypes.unitCommandGoToAttackUnit, data.TargetUnit,
                                 unit.ID
                         );
                     }

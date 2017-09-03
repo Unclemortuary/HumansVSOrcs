@@ -142,4 +142,42 @@ public class ClonnableGameUnit : AbstractGameUnit {
     }
 
 
+    ////////////////////////////////////////////////////////
+
+//    private static GameObject NoAvatar = null;
+    private static GameObject NoAvatar = new GameObject();
+
+    private static GameUnitCharacteristics NoCharacteristics =
+        new GameUnitCharacteristics(0,0,0,0,0,0,0,0);
+
+    private static List<RTSActionType> NoActions = new List<RTSActionType>();
+
+
+    public override void Nullify() {
+
+        this.id = 0;
+        this.description = "";
+        this.characteristics = NoCharacteristics;
+
+        this.avatar.SetActive(false);
+        this.avatar = NoAvatar;
+//            GameObject.Destroy(unit.Avatar);
+
+        this.currentHP = 0;
+        this.currentMP = 0;
+
+        this.actionsList = NoActions;
+    }
+
+    public override bool IsDead() {
+        if (Avatar == NoAvatar || CurrentHP <= 0) {
+            return true;
+        }
+        if (Avatar == null || !Avatar.activeSelf) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

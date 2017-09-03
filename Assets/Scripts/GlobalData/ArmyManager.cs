@@ -303,7 +303,8 @@ public class ArmyManager {
         }
 
         if (unit != null) {
-            GameObject.Destroy(unit.Avatar);
+            unit.Nullify();
+            GameManager.Instance.PlayerController.PlayerArmyDispatcher.TriggerCommand(ArmyMessageTypes.refreshSelection);
         }
     }
 
