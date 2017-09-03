@@ -9,6 +9,8 @@ public abstract class AbstractGameUnit {
 
     public abstract float CurrentHP { get; }
     public abstract float CurrentMP { get; }
+    public abstract void ChangeHP(float value);
+    public abstract void ChangeMP(float value);
 
     public abstract GameObject Avatar { get; }
 

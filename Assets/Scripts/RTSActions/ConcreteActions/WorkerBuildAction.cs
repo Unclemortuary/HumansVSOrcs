@@ -58,6 +58,22 @@ public class WorkerBuildAction : AbstractRTSAction {
                         data.TargetPoint = data.TargetUnit.Avatar.transform.position;
                     }
 
+
+                    // IF there is a stone or gold on construction place, it will be removed //
+                    //////////////////////////////////////////////////////////////////////////////
+                    Ray mRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+                    RaycastHit hit = new RaycastHit ();
+                    if (Physics.Raycast (mRay, out hit, 1000f))
+                    {
+                        //ResourceBuilding rb = hit.collider.gameObject.GetComponent<ResourceBuilding>();
+                        if(hit.collider.tag.Equals ("GOLD") || hit.collider.tag.Equals ("STONE")) {
+                            hit.collider.gameObject.SetActive(false);
+                        }
+                    }
+                    /////////////////////////////////////////////////////////////////////////////
+
+
+
 //                    GameObject.Destroy(constructionHandler);
 
                     float height = Terrain.activeTerrain.SampleHeight(data.TargetPoint);

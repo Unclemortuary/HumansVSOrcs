@@ -36,6 +36,27 @@ public class ClonnableGameUnit : AbstractGameUnit {
         }
     }
 
+    public override void ChangeHP(float value) {
+        currentHP += value;
+        if (currentHP < 0) {
+            currentHP = 0;
+        }
+        if (currentHP > characteristics.MaxHP) {
+            currentHP = characteristics.MaxHP;
+        }
+    }
+
+    public override void ChangeMP(float value) {
+        currentMP += value;
+        if (currentMP < 0) {
+            currentMP = 0;
+        }
+        if (currentMP > characteristics.MaxMP) {
+            currentMP = characteristics.MaxMP;
+        }
+    }
+
+
 
     [SerializeField]
     private float currentMP;
