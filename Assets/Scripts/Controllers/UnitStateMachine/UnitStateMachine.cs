@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,7 +7,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
 
     private UnitStateMachineHelper helper;
-    public UnitStateMachineHelper Helper {
+    public IEnemyHelper Helper {
         get {
             return helper;
         }
@@ -144,9 +145,9 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     private void IdleState() {
 
-        if(helper == null) {
-            Debug.Log("IdleState:: helper is null");
-        }
+//        if(helper == null) {
+//            Debug.Log("IdleState:: helper is null");
+//        }
 
         // Attack if attacked //
         if (helper.WasAttacked) {
@@ -169,10 +170,9 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     private void WalkingToDestinationPointState() {
 
-
-//        Debug.Log("<<<  velocity=" + helper.Agent.velocity + " remainingDistance = " + helper.Agent.remainingDistance + " delta = " + helper.Agent.stoppingDistance);
-//        if (helper.Agent.remainingDistance <= helper.Agent.stoppingDistance) {
-        if ((helper.Agent.destination - transform.position).magnitude <= helper.Agent.stoppingDistance) {
+        if (helper.WasAttacked) {
+            TransitionToMoveAndAttackState(helper.Agent.destination);
+        } else if ((helper.Agent.destination - transform.position).magnitude <= helper.Agent.stoppingDistance) {
             TransitionToIdleState();
         }
 
@@ -188,72 +188,67 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     private void StandPreparedState() {
 
+        Vector3 myPosition = helper.ThisUnit.Avatar.transform.position;
+        float viewDistance = helper.ThisUnit.Characteristics.MaxViewDistance;
 
-//        maxAttackDistance
-//        maxViewDistance
-//        attackPhisDamage
-//        attackCooldownTime
+        IEnemyHelper closestEnemy = helper.FindTheClosestEnemy(myPosition, viewDistance);
 
+        if (closestEnemy != null) {
+            TransitionToFollowAndAttackState(closestEnemy);
+        }
 
-        List<UnitStateMachine> enemysList = helper.CheckEnemies(
-            helper.ThisUnit.Avatar.transform.position,
-            33333333333,
-            armyManager.ThisArmy
-        );
-
-
-
-
-
-
-//
-//            if (teamID != null)
-//            {
-//                if (teamID.ThisTeam != myTeam && !obj.GetComponent<Death>().IsDead)
-//                {
-//                    float sqrDistance = (obj.transform.position - gameObject.transform.position).sqrMagnitude;
-//                    if (sqrDistance < closestDistance)
-//                    {
-//                        target = obj;
-//                        closestDistance = sqrDistance;
-//                    }
-//                }
-//            }
-//
-
-
-
-
-    }
+    }  // Stand prepared State //
 
 // ################################################################################
     public void TransitionToMoveAndAttackState(Vector3 attackPoint) {
 
-        if (helper.ThisUnit.IsActive) {
+        if (helper.ThisUnit.IsActive && helper.Agent != null) {
 
+            helper.Agent.destination = attackPoint;
 
+            Debug.Log(">>> goto Move and Attack State <<< unitID=" + helper.ThisUnit.ID
+                        + ", attackPoint=" + attackPoint);
 
-
-            Debug.Log(">>> goto Move and Attack State <<< unitID=" + helper.ThisUnit.ID);
             currentState = State.MOVE_AND_ATTACK;
         }
     }
 
     private void MoveAndAttackState() {
 
+        Vector3 myPosition = helper.ThisUnit.Avatar.transform.position;
+        float viewDistance = helper.ThisUnit.Characteristics.MaxViewDistance;
 
-    }
+        IEnemyHelper closestEnemy = helper.FindTheClosestEnemy(myPosition, viewDistance);
+
+        if (closestEnemy != null) {
+            // the closest enemy found ? //
+            TransitionToFollowAndAttackState(closestEnemy);
+        } else if ((helper.Agent.destination - transform.position).magnitude <= helper.Agent.stoppingDistance) {
+            TransitionToStandPreparedState();
+        }
+
+    } // Move and attack State //
 
 
 // ################################################################################
     public void TransitionToFollowAndAttackState(AbstractGameUnit unit) {
+        UnitStateMachine stateMachine = unit.Avatar.GetComponent<UnitStateMachine>();
+
+        if(stateMachine != null && stateMachine.Helper != null) {
+            TransitionToFollowAndAttackState(stateMachine.Helper);
+        }
+
+    }
+
+    public void TransitionToFollowAndAttackState(IEnemyHelper enemyHelper) {
 
         if (helper.ThisUnit.IsActive) {
 
+            helper.TargetEnemyHelper = enemyHelper;
 
+            Debug.Log(">>> goto Follow and Attack State <<< unitID=" + helper.ThisUnit.ID
+                        + " following unit of army " + enemyHelper.MyArmy + " at position " + enemyHelper.GetPosition());
 
-
-            Debug.Log(">>> goto Follow and Attack State <<< unitID=" + helper.ThisUnit.ID);
             currentState = State.FOLLOW_AND_ATTACK;
         }
     }
@@ -261,7 +256,17 @@ public class UnitStateMachine : RTSMonoBehaviour {
     private void FollowAndAttackState() {
 
 
+//        MaxAttackDistance
+//        MaxViewDistance
+//        AttackPhisDamage
+//        AttackCooldownTime
+
+
+
+
+
     }
+
 
 // ################################################################################
     public void TransitionToHoldPositionState() {

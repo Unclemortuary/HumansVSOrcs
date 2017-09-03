@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
-public class UnitStateMachineHelper {
+public class UnitStateMachineHelper : IEnemyHelper {
 
 // Selection light circle //
     private GameObject projector;
@@ -130,7 +130,7 @@ public class UnitStateMachineHelper {
     private float workingRadius = 225f; //15;
     private float workingRadiusDelta = 3f;
 
-    private AbstractGameUnit targetBuilding;
+    private AbstractGameUnit targetUnit;
 
 
     private float workTaskDuration = 3f;
@@ -153,10 +153,10 @@ public class UnitStateMachineHelper {
 
     public AbstractGameUnit TargetUnit {
         get {
-            return targetBuilding;
+            return targetUnit;
         }
         set {
-            targetBuilding = value;
+            targetUnit = value;
         }
     }
 
@@ -183,6 +183,8 @@ public class UnitStateMachineHelper {
     // Fighting ///////////////////////////////////////////////////
 
 
+    public IEnemyHelper TargetEnemyHelper { get; set; }
+
     // The unit was attaeked flag //
     private bool wasAttacked = false;
     public bool WasAttacked {
@@ -199,18 +201,54 @@ public class UnitStateMachineHelper {
     }
 
 
-// ################################################################################
-
-
     public bool IsAlife() {
         return ThisUnit.CurrentHP > 0;
     }
 
+    public void DamageHim(float damageValue) {
+        ThisUnit.CurrentHP -= (1-ThisUnit.Characteristics.Defence) * damageValue;
 
-    public List<UnitStateMachine> CheckEnemies(Vector3 center, float radius, Identification.Army friendlyArmy) {
+        wasAttacked = true;
+    }
+
+    public Vector3 GetPosition() {
+        return ThisUnit.Avatar.transform.position;
+    }
+
+    public IEnemyHelper FindTheClosestEnemy(Vector3 myPosition, float viewDistance) {
+        List<IEnemyHelper> enemyHelpersList = CheckEnemies(
+                myPosition,
+                viewDistance,
+                MyArmy
+        );
 
 
-        List<UnitStateMachine> unitsMachines = new List<UnitStateMachine>();
+        if (enemyHelpersList.Count > 0) {
+            float minDistSqr = viewDistance * viewDistance + 1;
+            IEnemyHelper closestEnemy = enemyHelpersList[0];
+
+            // find closest enemy //
+            foreach (IEnemyHelper unitSMH in enemyHelpersList) {
+                float distToHimSqr = (myPosition - unitSMH.GetPosition()).sqrMagnitude;
+                if (distToHimSqr < minDistSqr) {
+                    minDistSqr = distToHimSqr;
+                    closestEnemy = unitSMH;
+                }
+            }
+
+            // the closest enemy found //
+            return closestEnemy;
+
+        } else {
+            // No enemies found //
+            return null;
+        }
+    } // Find the closest enemy() //
+
+    public List<IEnemyHelper> CheckEnemies(Vector3 center, float radius, Identification.Army friendlyArmy) {
+
+
+        List<IEnemyHelper> unitsMachines = new List<IEnemyHelper>();
 
         Collider[] colliders = Physics.OverlapSphere(center, radius);
 
@@ -220,14 +258,14 @@ public class UnitStateMachineHelper {
 
             if (machine != null) {
                 if (machine.Helper.MyArmy != friendlyArmy && machine.Helper.IsAlife())  {
-                    unitsMachines.Add(machine);
+                    unitsMachines.Add(machine.Helper);
                 }
             }
 
         } // foreach collider //
 
         return unitsMachines;
-    }
+    } // CheckEnemies() //
 
 
 
