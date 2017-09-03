@@ -10,10 +10,4 @@ public interface IEnemyHelper {
 
     void DamageHim(float damageValue);
 
-    /// IWorker Helper ///////
-
-    float TaskDuration { get; }
-    float TaskRemaintinTime { get; }
-    string TaskName { set; }
-
 }

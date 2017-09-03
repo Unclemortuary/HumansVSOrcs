@@ -7,11 +7,17 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
 
     private UnitStateMachineHelper helper;
-    public IEnemyHelper Helper {
+    public IEnemyHelper EnemyHelper {
         get {
             return helper;
         }
     }
+    public ITaskerHelper TaskerHelper {
+        get {
+            return helper;
+        }
+    }
+
 
     private UnitStateMachineSubscriptions subscriptions;
 
@@ -240,8 +246,8 @@ public class UnitStateMachine : RTSMonoBehaviour {
     public void TransitionToFollowAndAttackState(AbstractGameUnit unit) {
         UnitStateMachine stateMachine = unit.Avatar.GetComponent<UnitStateMachine>();
 
-        if(stateMachine != null && stateMachine.Helper != null) {
-            TransitionToFollowAndAttackState(stateMachine.Helper);
+        if(stateMachine != null && stateMachine.EnemyHelper != null) {
+            TransitionToFollowAndAttackState(stateMachine.EnemyHelper);
         }
 
     }
@@ -443,14 +449,21 @@ public class UnitStateMachine : RTSMonoBehaviour {
             helper.TargetBuildingScaffold.SetActive(true);
 
 
+            // Stop //
             helper.Agent.ResetPath();
 
 
-
+            // Go to building process state //
             currentState = State.BUILDING;
 
+            // Start counting progress of building process //
             helper.TaskRemaintinTime = helper.TaskDuration;
             helper.TaskName = currentState.ToString();
+
+            // Set component to show construction progress on building //
+            BuildingProgressComponent progressComponent = helper.TargetUnit.Avatar.AddComponent<BuildingProgressComponent>();
+            progressComponent.Helper= helper;
+            armyManager.Dispatcher.TriggerCommand(ArmyMessageTypes.refreshSelection);
         }
 
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
-public class UnitStateMachineHelper : IEnemyHelper {
+public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
 
 // Selection light circle //
     private GameObject projector;
@@ -277,9 +277,9 @@ public class UnitStateMachineHelper : IEnemyHelper {
 
             if (machine != null) {
 //                Debug.Log("found unit of " + machine.Helper.MyArmy);
-                if (machine.Helper.MyArmy != MyArmy && machine.Helper.IsAlife())  {
+                if (machine.EnemyHelper.MyArmy != MyArmy && machine.EnemyHelper.IsAlife())  {
 //                    Debug.Log("Adding to list unit of " + machine.Helper.MyArmy);
-                    unitsMachines.Add(machine.Helper);
+                    unitsMachines.Add(machine.EnemyHelper);
                 }
             }
 //            Debug.Log("-------------");

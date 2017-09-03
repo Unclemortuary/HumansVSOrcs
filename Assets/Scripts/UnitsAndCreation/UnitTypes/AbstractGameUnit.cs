@@ -4,7 +4,15 @@ using UnityEngine;
 
 public abstract class AbstractGameUnit {
 
-
+    private bool isActive = true;
+    public bool IsActive {
+        get {
+            return isActive;
+        }
+        set {
+            isActive = value;
+        }
+    }
 
     public abstract int ID { get; set;}
     public abstract string Description { get; set; }
@@ -16,15 +24,7 @@ public abstract class AbstractGameUnit {
 
     public abstract GameObject Avatar { get; }
 
-    private bool isActive = true;
-    public bool IsActive {
-        get {
-            return isActive;
-        }
-        set {
-            isActive = value;
-        }
-    }
+
 
     public abstract void Nullify();
 
