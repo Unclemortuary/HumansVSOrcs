@@ -21,10 +21,13 @@ public class CommandPanelManager : MonoBehaviour {
 
     public RTSActionType CurrentAction { get { return currentAction; } }
 
+	//GameResources myResources;
+
     void Awake ()
     {
         InitCommandsList ();
         currentAction = RTSActionType.NULL;
+		//myResources = new GameResources ();
     }
 
     void InitCommandsList ()
@@ -71,6 +74,7 @@ public class CommandPanelManager : MonoBehaviour {
         }
 //Debug.Log ("Current action is " + actionType.ToString ());
     }
+
 
 
 // Changing icons set here

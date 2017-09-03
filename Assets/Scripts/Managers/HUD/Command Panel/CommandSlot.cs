@@ -23,11 +23,13 @@ public class CommandSlot : MonoBehaviour, IClickable, IPointerClickHandler {
 
     public RTSActionType Command { get { return command; } }
 
+	GameResources myResources;
     void Awake()
     {
 //commandImage = GetComponentInChildren<Image> ();
         commandImage = transform.GetChild(0).GetComponent<Image>();
         UnsetCommand ();
+		myResources = new GameResources ();
     }
 
     public void SetCommand(RTSActionType command, Sprite sprite)
@@ -43,6 +45,12 @@ public class CommandSlot : MonoBehaviour, IClickable, IPointerClickHandler {
         commandImage.sprite = null;
         command = RTSActionType.NULL;
     }
+
+	void ChangeColor()
+	{
+		myResources = GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy].AvailableResources;
+
+	}
 
     public void SelectAction()
     {

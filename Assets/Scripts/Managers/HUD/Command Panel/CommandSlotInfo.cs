@@ -7,9 +7,46 @@ public class CommandSlotInfo : MonoBehaviour {
 
 	public ActionData myActionData;
 	public GameObject slotMove;
-	void Awake()
+	GameResources myResources;
+	void Start()
 	{
-		slotMove.SetActive (false);
+		myResources = new GameResources ();
+		//slotMove.SetActive (false);
+	}
+
+	void Update()
+	{
+		ChangeColor ();
+	}
+
+	//ChangeColor if we don't have enought resources
+	public void ChangeColor()
+	{
+		myResources = GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy].AvailableResources;
+		var slot = GetComponent<CommandSlot> ();
+		//myActionData.ActionsData [slot.Command].PriceToUse [0];
+		for (int i = 0; i < myActionData.ActionsData.Count; i++) 
+		{
+			
+			if (myActionData.ActionsData [i].Action == slot.Command)// && (myActionData.ActionsData [i].Action.ToString().Contains("reate") 
+				//|| myActionData.ActionsData [i].Action.ToString().Contains("Build")))
+			{		
+				slot.gameObject.transform.GetChild(0).gameObject.GetComponent<Image> ().color = new Color32(255,255,255,255);
+				if (myActionData.ActionsData [i].PriceToUse.GetResourceAmount (GameResources.ResourceType.STONE) > myResources.GetResourceAmount (GameResources.ResourceType.STONE)
+				    || myActionData.ActionsData [i].PriceToUse.GetResourceAmount (GameResources.ResourceType.GOLD) > myResources.GetResourceAmount (GameResources.ResourceType.GOLD)
+				    || myActionData.ActionsData [i].PriceToUse.GetResourceAmount (GameResources.ResourceType.WOOD) > myResources.GetResourceAmount (GameResources.ResourceType.WOOD)
+				    || myActionData.ActionsData [i].PriceToUse.GetResourceAmount (GameResources.ResourceType.FOOD) > myResources.GetResourceAmount (GameResources.ResourceType.FOOD)) 
+				{
+					slot.gameObject.transform.GetChild (0).gameObject.GetComponent<Image> ().color =  new Color32(25,25,25,255);
+					//Debug.Log ("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+				}
+			 else 
+				{
+					slot.gameObject.transform.GetChild(0).gameObject.GetComponent<Image> ().color = new Color32(255,255,255,255);
+				}
+				break;
+			}
+		}
 	}
 
 	public void SlotInfoEnter()
