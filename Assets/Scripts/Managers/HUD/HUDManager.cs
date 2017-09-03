@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class HUDManager : MonoBehaviour {
@@ -78,9 +79,13 @@ public class HUDManager : MonoBehaviour {
     private void RefreshActionsList() {
         if (this.selectedUnitsList.Count != 0)
         {
-            List<RTSActionType> actionTypes = ConvertUnitsToActionTypes (this.selectedUnitsList);
-            CommandSetChangeHandler (actionTypes);
-            objectInfoPanelManager.PanelUpdate (this.selectedUnitsList);
+			List<RTSActionType> actionTypes;
+			if (CheckIfSameUnit ())
+				actionTypes = ConvertUnitsToActionTypes (this.selectedUnitsList);
+			else
+				actionTypes = UniteActions (selectedUnitsList);
+			CommandSetChangeHandler (actionTypes);
+			objectInfoPanelManager.PanelUpdate (this.selectedUnitsList);
         }
         else {
             ClearSelection ();
@@ -131,6 +136,8 @@ public class HUDManager : MonoBehaviour {
     // Implementation with actions union //
     private List<RTSActionType> ConvertUnitsToActionTypes(AbstractGameUnitsList list) 
 	{
+
+
         List<RTSActionType> resultingList = new List<RTSActionType>();
 		foreach (AbstractGameUnit unit in list) {
 
@@ -155,6 +162,36 @@ public class HUDManager : MonoBehaviour {
         Debug.Log("Found " + resultingList.Count + " actions total");
         return  resultingList;
     }
+
+	private List<RTSActionType> UniteActions(AbstractGameUnitsList list)
+	{
+		List<RTSActionType> input = new List<RTSActionType> ();
+
+		for (int i = 0; i < list.Count; i++) 
+		{
+			for (int j = 0; j < list[i].ActionsList.Count; j++) 
+			{
+				input.Add (list [i].ActionsList [j]);	
+			}
+		}
+
+		List<RTSActionType> result = input.GroupBy (x => x).Where (g => g.Count() > 1).Select (g => g.Key).ToList ();
+		return result;
+	}
+
+	private bool CheckIfSameUnit()
+	{
+		var prevUnitActions = selectedUnitsList [0].ActionsList;
+		List<RTSActionType> currentUnitActions;
+		for (int i = 0; i < selectedUnitsList.Count; i++) 
+		{
+			currentUnitActions = selectedUnitsList [i].ActionsList;
+			if (currentUnitActions != prevUnitActions)
+				return false;
+			prevUnitActions = currentUnitActions;
+		}
+		return true;
+	}
 
 	public RTSActionType ReturnCurrentAction()
 	{

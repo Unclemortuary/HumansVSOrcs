@@ -44,7 +44,7 @@ public class InfoText : MonoBehaviour {
 	{
 		if (isUnit) 
 		{
-			//attackValueText.text = selectedUnit.Characteristics.Attack.ToString()
+			attackValueText.text = selectedUnit.Characteristics.AttackPhisDamage.ToString();
 			defenseValueText.text = selectedUnit.Characteristics.Defence.ToString();
 		}
 	}

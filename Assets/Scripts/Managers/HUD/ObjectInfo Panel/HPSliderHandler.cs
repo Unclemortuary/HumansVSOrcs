@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HPSliderHandler : MonoBehaviour {
 
+	/*
 	private ObjectInfoPanelManager ourManager;
 
 	private Slider slider;
@@ -18,8 +19,9 @@ public class HPSliderHandler : MonoBehaviour {
 	private Color minHPColor = Color.red;
 	private Color maxHPColor = Color.green;
 
-	[SerializeField]
 	private AbstractGameUnit selectedUnit = null;
+	[SerializeField]
+	private UnitStateMachineHelper helper = null;
 
 	void Awake()
 	{
@@ -27,7 +29,7 @@ public class HPSliderHandler : MonoBehaviour {
 
 		slider = GetComponent<Slider> ();
 		slider.interactable = false;
-		slider.wholeNumbers = true;
+		//slider.wholeNumbers = true;
 		slider.onValueChanged.AddListener(delegate {HPValueChanged(); });
 
 		ourManager.Updated += UpdateSlider;
@@ -38,15 +40,25 @@ public class HPSliderHandler : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		if (selectedUnit != null)
-			slider.value = selectedUnit.CurrentHP;
+		if (selectedUnit != null) 
+		{
+			if ((helper.TaskRemaintinTime < 0f + float.Epsilon && helper.TaskRemaintinTime > 0f + float.Epsilon) || helper.TaskRemaintinTime > 0f)
+			{
+				SliderColorToEmpty (true);
+				float percents = (1 - helper.TaskRemaintinTime / helper.TaskDuration) * 100f;
+				HPText.text = percents.ToString();
+			}
+			else
+				slider.value = selectedUnit.CurrentHP;
+		}
 	}
 
 	public void UpdateSlider(AbstractGameUnit unit)
 	{
-		Debug.Log ("UpdateSlider called");
 		selectedUnit = unit;
-        if(selectedUnit != null) {
+		helper = selectedUnit.Avatar.GetComponent<UnitStateMachine> ().Helper;
+        if(selectedUnit != null) 
+		{
             slider.maxValue = selectedUnit.Characteristics.MaxHP;
             if (slider.value < 1f)
                 SliderColorToEmpty (true);
@@ -88,4 +100,5 @@ public class HPSliderHandler : MonoBehaviour {
 			fillImage.color = full;	
 		}
 	}
+	*/
 }
