@@ -9,4 +9,11 @@ public interface IEnemyHelper {
     Vector3 GetPosition();
 
     void DamageHim(float damageValue);
+
+    /// IWorker Helper ///////
+
+    float TaskDuration { get; }
+    float TaskRemaintinTime { get; }
+    string TaskName { set; }
+
 }
