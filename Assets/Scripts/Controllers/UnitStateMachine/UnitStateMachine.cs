@@ -40,7 +40,10 @@ public class UnitStateMachine : RTSMonoBehaviour {
         HOLD_POSITION, // stand, attacks enemy if sees him, but do not go far away, returns when has nobody to attack
         WALKING_TO_POINT, // goint to target point, attacks if was attacked
         MOVE_AND_ATTACK, // moving to a point, attacks any enemy on the way
+
         FOLLOW_AND_ATTACK, // following a unit, trying to attack him
+        COOLDOWN, // pause between strikes //
+//        ATTACKING, // attack at regular intervals
 
         GOING_TO_BUILD, // moving to a point to build a building
         BUILDING, // waiting building proccess to be complete
@@ -99,6 +102,9 @@ public class UnitStateMachine : RTSMonoBehaviour {
                 break;
             case State.FOLLOW_AND_ATTACK :
                 FollowAndAttackState();
+                break;
+            case State.COOLDOWN :
+                CooldownState();
                 break;
             case State.GOING_TO_BUILD :
                 GoingToBuildState();
@@ -246,8 +252,8 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
             helper.TargetEnemyHelper = enemyHelper;
 
-            Debug.Log(">>> goto Follow and Attack State <<< unitID=" + helper.ThisUnit.ID
-                        + " following unit of army " + enemyHelper.MyArmy + " at position " + enemyHelper.GetPosition());
+//            Debug.Log(">>> goto Follow and Attack State <<< unitID=" + helper.ThisUnit.ID
+//                        + " following unit of army " + enemyHelper.MyArmy + " at position " + enemyHelper.GetPosition());
 
             currentState = State.FOLLOW_AND_ATTACK;
         }
@@ -256,33 +262,112 @@ public class UnitStateMachine : RTSMonoBehaviour {
     private void FollowAndAttackState() {
 
 
-//        MaxAttackDistance
-//        MaxViewDistance
-//        AttackPhisDamage
-//        AttackCooldownTime
-
         IEnemyHelper enemy = helper.TargetEnemyHelper;
-        Vector3 enemyPosition = helper.TargetEnemyHelper.GetPosition();
 
-        Vector3 enemyView = enemyPosition - transform.position;
-        float distanceToEnemy = enemyView.magnitude;
+        if (enemy == null || !enemy.IsAlife()) {
+            TransitionToStandPreparedState();
+        } else {
 
-        // look rotateion
+            Vector3 myPosition = helper.ThisUnit.Avatar.transform.position;
+            float viewDistance = helper.ThisUnit.Characteristics.MaxViewDistance;
+            float attackDistance = helper.ThisUnit.Characteristics.MaxAttackDistance;
 
-        // if < attackdist then destination - enemyPosition
+            Vector3 enemyPosition = helper.TargetEnemyHelper.GetPosition();
 
-        // if > viewDsit then Stand Prepared
+            Vector3 viewToEnemyDirection = enemyPosition - myPosition;
+            float distanceToEnemy = viewToEnemyDirection.magnitude;
 
-        // else attack!!!
+            // look rotateion
+            helper.ThisUnit.Avatar.transform.rotation = Quaternion.LookRotation(viewToEnemyDirection);
 
 
+            if (distanceToEnemy > viewDistance) {
+                // lost him, try to find //
+                TransitionToMoveAndAttackState(enemyPosition);
+            } else if (distanceToEnemy > attackDistance) {
+                // go to him //
+                helper.Agent.destination = enemyPosition;
+            } else {
+                // attack him //
+                helper.Agent.ResetPath();
 
+                enemy.DamageHim(helper.ThisUnit.Characteristics.AttackPhisDamage);
 
-//  if ((helper.Agent.destination - transform.position).magnitude <= helper.Agent.stoppingDistance) {
+                TransitionToCooldownState();
+//                TransitionToAttackingState();
+            }
 
+        } // if enemy is alife //
 
     }
 
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+    private void TransitionToCooldownState() {
+        if (helper.ThisUnit.IsActive) {
+
+            currentState = State.COOLDOWN;
+
+            helper.TaskRemaintinTime = helper.ThisUnit.Characteristics.AttackCooldownTime;
+            helper.TaskName = currentState.ToString();
+        }
+    }
+
+    private void CooldownState() {
+            Debug.Log("*** Task Remaining Time = " + helper.TaskRemaintinTime + ", deltatime=" + Time.deltaTime);
+
+            helper.TaskRemaintinTime -= Time.deltaTime;
+
+            if ( helper.TaskRemaintinTime <= 0) {
+                TransitionToFollowAndAttackState(helper.TargetEnemyHelper);
+            }
+    }
+
+//    private void TransitionToAttackingState() {
+//        Debug.Log(">>> goto ATTACKING State <<< unitID=" + helper.ThisUnit.ID
+//        + " following unit of army " + helper.TargetEnemyHelper.MyArmy
+//        + " at position " + helper.TargetEnemyHelper.GetPosition());
+//
+//        currentState = State.ATTACKING;
+//    }
+//
+//    private void AttackingState() {
+////        MaxAttackDistance
+////        MaxViewDistance
+////        AttackPhisDamage
+////        AttackCooldownTime
+//
+//
+//        IEnemyHelper enemy = helper.TargetEnemyHelper;
+//
+//        if (enemy == null || !enemy.IsAlife()) {
+//            TransitionToStandPreparedState();
+//        } else {
+//
+//            Vector3 myPosition = helper.ThisUnit.Avatar.transform.position;
+//            float attackDistance = helper.ThisUnit.Characteristics.MaxAttackDistance;
+//
+//            Vector3 enemyPosition = helper.TargetEnemyHelper.GetPosition();
+//
+//            Vector3 viewToEnemyDirection = enemyPosition - myPosition;
+//            float distanceToEnemy = viewToEnemyDirection.magnitude;
+//
+//            // look rotateion
+//            helper.ThisUnit.Avatar.transform.rotation = Quaternion.LookRotation(viewToEnemyDirection);
+//
+//
+//            if (distanceToEnemy <= attackDistance) {
+//                //asdf;
+//                enemy.DamageHim(helper.ThisUnit.Characteristics.AttackPhisDamage);
+//
+//            } else {
+//
+//                TransitionToFollowAndAttackState(helper.TargetEnemyHelper);
+//            }
+//
+//        } // if enemy is alife //
+//
+//    }
 
 // ################################################################################
     public void TransitionToHoldPositionState() {

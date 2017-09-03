@@ -212,14 +212,27 @@ public class UnitStateMachineHelper : IEnemyHelper {
     }
 
     public Vector3 GetPosition() {
+        if(ThisUnit == null) {
+            Debug.Log("USMH:: this unit is null");
+        }
+        if(ThisUnit.Avatar == null) {
+            Debug.Log("USMH:: avatar is null");
+            Debug.Log("HP=" + ThisUnit.CurrentHP + ", is alife=" + IsAlife().ToString());
+        }
+        if(ThisUnit.Avatar.transform == null) {
+            Debug.Log("USMH:: transform is null");
+        }
+        if(ThisUnit.Avatar.transform.position == null) {
+            Debug.Log("USMH:: position is null");
+        }
+
         return ThisUnit.Avatar.transform.position;
     }
 
     public IEnemyHelper FindTheClosestEnemy(Vector3 myPosition, float viewDistance) {
         List<IEnemyHelper> enemyHelpersList = CheckEnemies(
                 myPosition,
-                viewDistance,
-                MyArmy
+                viewDistance
         );
 
 
@@ -245,7 +258,7 @@ public class UnitStateMachineHelper : IEnemyHelper {
         }
     } // Find the closest enemy() //
 
-    public List<IEnemyHelper> CheckEnemies(Vector3 center, float radius, Identification.Army friendlyArmy) {
+    public List<IEnemyHelper> CheckEnemies(Vector3 center, float radius) {
 
 
         List<IEnemyHelper> unitsMachines = new List<IEnemyHelper>();
@@ -257,10 +270,13 @@ public class UnitStateMachineHelper : IEnemyHelper {
             UnitStateMachine machine = col.gameObject.GetComponent<UnitStateMachine>();
 
             if (machine != null) {
-                if (machine.Helper.MyArmy != friendlyArmy && machine.Helper.IsAlife())  {
+//                Debug.Log("found unit of " + machine.Helper.MyArmy);
+                if (machine.Helper.MyArmy != MyArmy && machine.Helper.IsAlife())  {
+//                    Debug.Log("Adding to list unit of " + machine.Helper.MyArmy);
                     unitsMachines.Add(machine.Helper);
                 }
             }
+//            Debug.Log("-------------");
 
         } // foreach collider //
 

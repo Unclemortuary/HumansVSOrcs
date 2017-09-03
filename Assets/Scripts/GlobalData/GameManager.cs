@@ -129,14 +129,17 @@ public class GameManager : MonoBehaviour {
 
         LoadStartingGameUnits();
 
+        InitializeControllers();
+
         InitializeDependingObjects();
+
     }
 
     private void InitializeDependingObjects() {
 
 
         foreach (TerrainReactionsComponent trc in terrainReactionsList) {
-            trc.SetDispatcher(playerController.PlayerArmyDispatcher);
+            trc.SetDispatcher(armyDispatchers[playerArmy]);//playerController.PlayerArmyDispatcher);
             trc.InitializeEventTrigger();
         }
 
@@ -191,8 +194,6 @@ public class GameManager : MonoBehaviour {
         InitializeArmyManagers();
 
         InitializeActionsLibrary();
-
-        InitializeControllers();
 
 		gameObject.AddComponent<TimeManager> ();
 		TimeManager.GetInstance.Init (_sun);
@@ -348,6 +349,8 @@ public class GameManager : MonoBehaviour {
     } // initialize army managers //
 
 
+    // Controllers ///////////////////////////////////////////////////////////
+
     NeutralsController neutralsController;
     NeutralsController enemyController;
 
@@ -369,7 +372,7 @@ public class GameManager : MonoBehaviour {
 
 
 
-    }
+    } // InitializeControllers() //
 
 
 
