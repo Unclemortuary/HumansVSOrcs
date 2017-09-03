@@ -378,6 +378,13 @@ public class UnitStateMachine : RTSMonoBehaviour {
             }
             ///////////////////////////////////
 
+			ResourceBuilding resourceBuilding = helper.TargetUnit.Avatar.GetComponent<ResourceBuilding> ();
+			if (resourceBuilding != null)
+			{
+				resourceBuilding.StartMining ();
+				Debug.Log ("Start mining " + resourceBuilding.ResourceType.ToString());
+			}
+
 
             TransitionToIdleState();
         }
