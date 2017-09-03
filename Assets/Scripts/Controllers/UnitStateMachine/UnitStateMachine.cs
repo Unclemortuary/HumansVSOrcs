@@ -261,8 +261,24 @@ public class UnitStateMachine : RTSMonoBehaviour {
 //        AttackPhisDamage
 //        AttackCooldownTime
 
+        IEnemyHelper enemy = helper.TargetEnemyHelper;
+        Vector3 enemyPosition = helper.TargetEnemyHelper.GetPosition();
+
+        Vector3 enemyView = enemyPosition - transform.position;
+        float distanceToEnemy = enemyView.magnitude;
+
+        // look rotateion
+
+        // if < attackdist then destination - enemyPosition
+
+        // if > viewDsit then Stand Prepared
+
+        // else attack!!!
 
 
+
+
+//  if ((helper.Agent.destination - transform.position).magnitude <= helper.Agent.stoppingDistance) {
 
 
     }

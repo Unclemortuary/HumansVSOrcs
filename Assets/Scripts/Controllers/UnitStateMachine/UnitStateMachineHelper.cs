@@ -206,7 +206,7 @@ public class UnitStateMachineHelper : IEnemyHelper {
     }
 
     public void DamageHim(float damageValue) {
-        ThisUnit.CurrentHP -= (1-ThisUnit.Characteristics.Defence) * damageValue;
+        ThisUnit.ChangeHP((ThisUnit.Characteristics.Defence - 1) * damageValue);
 
         wasAttacked = true;
     }
