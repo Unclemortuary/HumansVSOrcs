@@ -21,7 +21,7 @@ public class UnitAnimation : MonoBehaviour{
 		prevPosition = nav.nextPosition;
 	}
 
-	virtual public void  AnimArrack()
+	virtual public void  AnimAttack()
 	{
 	}
 
