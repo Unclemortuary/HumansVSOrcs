@@ -156,6 +156,7 @@ ModelImporter:
     7400086: 2H_skeleton_swing_mid_right
     7400088: 2H_skeleton_sword_swing_high_straight_down
     7400090: 2H_skeleton_sword_thrust_mid
+    9500000: //RootNode
     11100000: //RootNode
     13700000: Hair
     13700002: skeleton_footman
@@ -176,7 +177,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -1481,10 +1482,10 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
