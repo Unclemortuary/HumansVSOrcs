@@ -69,7 +69,7 @@ public class ProgressBarHandler : MonoBehaviour {
 					if (helper.TaskRemaintinTime > 0f)
 						ShowProgress (helper.TaskRemaintinTime, helper.TaskDuration);
 					else
-						progressBar.value = 0f;	
+						ActionFinished ();
 				}
 			}
 		}

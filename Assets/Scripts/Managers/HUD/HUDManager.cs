@@ -26,9 +26,18 @@ public class HUDManager : MonoBehaviour {
 	{
 		InitDispatcherMessages();
 		playerArmy = GameManager.Instance.PlayerArmy;
-
-        Debug.Log ("HUDManager : INIT DONE");
 	}
+
+
+	void Update()
+	{
+		if (selectedUnitsList.Count != 0)
+		{
+			if (selectedUnitsList [0].IsDead ())
+				ClearSelection ();
+		}
+	}
+
 
 	private void InitDispatcherMessages() 
 	{
