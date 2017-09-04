@@ -179,6 +179,7 @@ public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
             return workTaskDuration;
         }
         set {
+            Debug.Log("UnitStateMachineHelper:: WorkTaskDuration = " + value);
             workTaskDuration = value;
         }
     }

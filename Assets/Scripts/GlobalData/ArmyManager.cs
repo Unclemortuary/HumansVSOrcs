@@ -85,6 +85,13 @@ public class ArmyManager {
     private Dictionary<int, Identification.UnitType> id2typeDictionary;
 
 
+    /////////////////////////////////////////////////////////////////////
+    public bool AreEverybodyDead() {
+        Debug.Log("warcount = " + warriors.Count + ", buildCount = " + buildings.Count);
+        return (warriors.Count == 0 && buildings.Count == 0);
+    }
+    /////////////////////////////////////////////////////////////////////
+
     private string GenerateDescription(Identification.UnitType type, AbstractGameUnit unit) {
         StringBuilder sb = new StringBuilder();
 

@@ -470,7 +470,9 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
             // Set component to show construction progress on building //
             BuildingProgressComponent progressComponent = helper.TargetUnit.Avatar.AddComponent<BuildingProgressComponent>();
-            progressComponent.Helper= helper;
+            progressComponent.Helper = helper;
+
+            // Обновить отображаемую в HUD информацию //
             armyManager.Dispatcher.TriggerCommand(ArmyMessageTypes.refreshSelection);
         }
 
@@ -479,7 +481,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     private void BuildingState() {
 
-        Debug.Log("*** Task Remaining Time = " + helper.TaskRemaintinTime + ", deltatime=" + Time.deltaTime);
+        Debug.Log("*** Task Remaining Time = " + helper.TaskRemaintinTime + " of " + helper.TaskDuration + ", deltatime=" + Time.deltaTime);
 
         helper.TaskRemaintinTime -= Time.deltaTime;
 
