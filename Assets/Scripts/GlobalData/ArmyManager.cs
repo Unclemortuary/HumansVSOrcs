@@ -240,7 +240,9 @@ public class ArmyManager {
 
 
         // This is a building //
-        newUnit.Avatar.AddComponent<BuildingComponent>();
+        BuildingComponent buildingComponent = newUnit.Avatar.AddComponent<BuildingComponent>();
+
+        buildingComponent.ChangeGridMapStatus(newUnit.Avatar.transform.position);
 
         return newUnit;
     }

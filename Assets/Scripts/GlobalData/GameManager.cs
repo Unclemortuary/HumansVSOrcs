@@ -174,7 +174,10 @@ public class GameManager : MonoBehaviour {
             armyManagers[item.ArmyType].CreateWarrior(item.UnitType, item.Position);
         }
         foreach (StartingGamePositions.GameUnitSpawnPoint item in buildings) {
-            armyManagers[item.ArmyType].CreateBuilding(item.UnitType, item.Position);
+            AbstractGameUnit newBuilding = armyManagers[item.ArmyType].CreateBuilding(item.UnitType, item.Position);
+
+//            BuildingComponent buildingComponent = newBuilding.Avatar.GetComponent<BuildingComponent>();
+//            buildingComponent.ChangeGridMapStatus(newBuilding.Avatar.transform.position);
         }
 
         foreach(StartingGamePositions.CameraPosition cameraPosition in scriptableStartingPositions.CameraHolderPositions) {

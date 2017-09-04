@@ -106,8 +106,8 @@ public class WorkerBuildAction : AbstractRTSAction {
                             ArmyMessageTypes.unitCommandBuild, newBuilding, performer.ID);
 
 
-                    BuildingComponent buildingComponent = newBuilding.Avatar.GetComponent<BuildingComponent>();
-                    buildingComponent.ChangeGridMapStatus(newBuilding.Avatar.transform.position);
+//                    BuildingComponent buildingComponent = newBuilding.Avatar.GetComponent<BuildingComponent>();
+//                    buildingComponent.ChangeGridMapStatus(newBuilding.Avatar.transform.position);
 
 
                     // Pay the price //
