@@ -5,7 +5,7 @@ using UnityEngine;
 public class ClonnableGameUnit : AbstractGameUnit {
 
 
-    [SerializeField]
+    //[SerializeField]
     private int id;
     public override int ID {
         get {
@@ -16,7 +16,7 @@ public class ClonnableGameUnit : AbstractGameUnit {
         }
     }
 
-    [SerializeField]
+    //[SerializeField]
     private string description;
     public override string Description {
         get {
@@ -28,7 +28,7 @@ public class ClonnableGameUnit : AbstractGameUnit {
     }
 
 
-    [SerializeField]
+    //[SerializeField]
     private float currentHP;
     public override float CurrentHP {
         get {
@@ -58,7 +58,7 @@ public class ClonnableGameUnit : AbstractGameUnit {
 
 
 
-    [SerializeField]
+    //[SerializeField]
     private float currentMP;
     public override float CurrentMP {
         get {

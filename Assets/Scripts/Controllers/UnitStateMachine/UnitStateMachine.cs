@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class UnitStateMachine : RTSMonoBehaviour {
 
-
+    [SerializeField]
     private UnitStateMachineHelper helper;
     public IEnemyHelper EnemyHelper {
         get {
@@ -297,8 +297,16 @@ public class UnitStateMachine : RTSMonoBehaviour {
                 // attack him //
                 helper.Agent.ResetPath();
 
+                // Animate strike //
+                if (helper.Animator != null) {
+                    helper.Animator.SetTrigger(helper.ATTACK_HASH);
+                } else {
+                    Debug.Log("Can't animate strike: Aniimator is null");
+                }
+                // Damage him //
                 enemy.DamageHim(helper.ThisUnit.Characteristics.AttackPhisDamage);
 
+                // Make pause //
                 TransitionToCooldownState();
 //                TransitionToAttackingState();
             }

@@ -1,14 +1,24 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
+[System.Serializable]
 public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
 
 // Selection light circle //
     private GameObject projector;
 
+    private Animator animator;
+    public Animator Animator {
+        get {
+            return animator;
+        }
+    }
+    public string ATTACK_HASH = "Attack";
 
+    [SerializeField]
     private AbstractGameUnit thisUnit;
     public AbstractGameUnit ThisUnit {
         get {
@@ -44,37 +54,34 @@ public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
 
     public UnitStateMachineHelper(AbstractGameUnit unit, NavMeshAgent agent, ArmyManager manager) {
 
-        this.thisUnit = unit;
-
         this.agent = agent;
         agent.stoppingDistance = stoppingDistance;
 
-        this.armyManager = manager;
 
-        // ------------
-
-        projector = thisUnit.Avatar.transform.Find("Projector").gameObject;
-
-        InitializeEventTrigger();
+        Init(unit, manager);
 
     }
 
 
     public UnitStateMachineHelper(AbstractGameUnit unit, ArmyManager manager) {
 
+        Init(unit, manager);
+
+    }
+
+    private void Init(AbstractGameUnit unit, ArmyManager manager) {
         this.thisUnit = unit;
 
         this.armyManager = manager;
 
-        // ------------
+// ------------
 
         projector = thisUnit.Avatar.transform.Find("Projector").gameObject;
 
+        animator = thisUnit.Avatar.GetComponent<Animator>();
+
         InitializeEventTrigger();
-
     }
-
-
 
 
     private void InitializeEventTrigger() {
@@ -129,12 +136,16 @@ public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
 
 
 
+    [SerializeField]
     private float workingRadius = 225f; //15;
+    [SerializeField]
     private float workingRadiusDelta = 3f;
 
+    [SerializeField]
     private AbstractGameUnit targetUnit;
 
 
+    [SerializeField]
     private float workTaskDuration = 3f;
 
 
@@ -171,8 +182,28 @@ public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
             workTaskDuration = value;
         }
     }
-    public float TaskRemaintinTime { get; set; }
-    public string TaskName { set; get; }
+
+    [SerializeField]
+    private float taskRemainingTime;
+    public float TaskRemaintinTime {
+        get {
+            return taskRemainingTime;
+        }
+        set {
+            taskRemainingTime = value;
+        }
+    }
+    [SerializeField]
+    private string taskName;
+    public string TaskName {
+        get {
+            return taskName;
+        }
+        set {
+            taskName = value;
+        }
+    }
+
     // /// //
 
     public GameObject TargetBuildingScaffold { get; set; }
