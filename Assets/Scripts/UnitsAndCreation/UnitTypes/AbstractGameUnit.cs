@@ -15,6 +15,9 @@ public abstract class AbstractGameUnit {
         }
     }
 
+    public abstract float Radius { get; }
+
+
     public abstract int ID { get; set;}
     public abstract string Description { get; set; }
 

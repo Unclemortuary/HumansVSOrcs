@@ -464,6 +464,8 @@ public class GameManager : MonoBehaviour {
         CheckEndGame();
     }
 
+
+
     public void CheckEndGame() {
 
 //        foreach (Identification.Army armyType in Enum.GetValues(typeof(Identification.Army))) {

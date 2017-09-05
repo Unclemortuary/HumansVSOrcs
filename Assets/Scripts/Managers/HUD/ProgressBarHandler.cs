@@ -66,6 +66,7 @@ public class ProgressBarHandler : MonoBehaviour {
 				else
 				{
 					Enable (true);
+//                    Debug.Log("PBH:: TaskRemainingTime=" + helper.TaskRemaintinTime);
 					if (helper.TaskRemaintinTime > 0f)
 						ShowProgress (helper.TaskRemaintinTime, helper.TaskDuration);
 					else
@@ -79,7 +80,7 @@ public class ProgressBarHandler : MonoBehaviour {
 	{
 		float percent = (1f - (nominator / denominator)) * 100f;
 		progressBar.value = percent;
-		Debug.Log (nominator);
+//		Debug.Log (nominator);
 		if (percent < progressBar.maxValue + float.Epsilon && percent > progressBar.maxValue - float.Epsilon)
 			ActionFinished ();
 	}
@@ -100,7 +101,9 @@ public class ProgressBarHandler : MonoBehaviour {
 			if (unit.Avatar.GetComponent<BuildingComponent> ())
 			{
 				checkBuildingProgress = true;
-			}
+			} else {
+                checkBuildingProgress = false;
+            }
 		}
 		else
 			Debug.LogError (unit.Avatar.name + " helper is null!");

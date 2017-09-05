@@ -19,6 +19,8 @@ public class HUDManager : MonoBehaviour {
 		objectInfoPanelManager.PanelDeselect ();
 		commandPanelManager.ActionChanged += CurrentActionChanged;
 
+        selectedUnitsList = new AbstractGameUnitsList();
+
         GameManager.Instance.HereIsHud(this);
 	}
 

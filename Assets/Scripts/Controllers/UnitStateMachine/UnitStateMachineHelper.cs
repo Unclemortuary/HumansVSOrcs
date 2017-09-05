@@ -8,30 +8,44 @@ using UnityEngine.EventSystems;
 public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
 
 // Selection light circle //
+    [SerializeField]
     private GameObject projector;
 
+    [SerializeField]
     private Animator animator;
     public Animator Animator {
         get {
             return animator;
         }
     }
+
+    [SerializeField]
     public string ATTACK_HASH = "Attack";
 
     [SerializeField]
-    private AbstractGameUnit thisUnit;
+    private ClonnableGameUnit thisUnit;
     public AbstractGameUnit ThisUnit {
         get {
             return thisUnit;
         }
     }
 
+//    [SerializeField]
+//    private AbstractGameUnit thisUnit;
+//    public AbstractGameUnit ThisUnit {
+//        get {
+//            return thisUnit;
+//        }
+//    }
+//
+    [SerializeField]
     private NavMeshAgent agent;
     public NavMeshAgent Agent {
         get {
             return agent;
         }
     }
+    [SerializeField]
     private float stoppingDistance  = 2;
     public float StoppingDistance {
         get {
@@ -40,8 +54,10 @@ public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
     }
 
 
+    [SerializeField]
     private ArmyManager armyManager;
 
+    [SerializeField]
     public Identification.Army MyArmy {
         get {
             return armyManager.ThisArmy;
@@ -70,7 +86,7 @@ public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
     }
 
     private void Init(AbstractGameUnit unit, ArmyManager manager) {
-        this.thisUnit = unit;
+        this.thisUnit = (ClonnableGameUnit)unit;
 
         this.armyManager = manager;
 
@@ -194,6 +210,7 @@ public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
             taskRemainingTime = value;
         }
     }
+
     [SerializeField]
     private string taskName;
     public string TaskName {
@@ -207,7 +224,16 @@ public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
 
     // /// //
 
-    public GameObject TargetBuildingScaffold { get; set; }
+    [SerializeField]
+    private GameObject targetBuildingScaffold;
+    public GameObject TargetBuildingScaffold {
+        get {
+            return targetBuildingScaffold;
+        }
+        set {
+            targetBuildingScaffold = value;
+        }
+    }
 
     ///////////////////////////////////////////////////////////////
     // --------------------------------------------------------- //
@@ -216,10 +242,23 @@ public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
 
     // Fighting ///////////////////////////////////////////////////
 
+    [SerializeField]
+    private IEnemyHelper targetEnemyHelper;
+    public IEnemyHelper TargetEnemyHelper {
+        get {
+            return targetEnemyHelper;
+        }
+        set {
+            targetEnemyHelper = value;
+        }
+    }
 
-    public IEnemyHelper TargetEnemyHelper { get; set; }
+    public float GetRadius() {
+        return ThisUnit.Radius;
+    }
 
     // The unit was attaeked flag //
+    [SerializeField]
     private bool wasAttacked = false;
     public bool WasAttacked {
         get {
@@ -243,10 +282,18 @@ public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
         return true;
     }
 
-    public void DamageHim(float damageValue) {
-        ThisUnit.ChangeHP((ThisUnit.Characteristics.Defence - 1) * damageValue);
+    public float DamageHim(float damageValue) {
+        if (ThisUnit != null && !ThisUnit.IsDead()) {
+            ThisUnit.ChangeHP((ThisUnit.Characteristics.Defence - 1) * damageValue);
 
-        wasAttacked = true;
+            wasAttacked = true;
+
+            if (ThisUnit.IsDead()) {
+                return ThisUnit.Characteristics.DropGold;
+            }
+        }
+
+        return 0;
     }
 
     public Vector3 GetPosition() {

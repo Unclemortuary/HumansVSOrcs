@@ -87,7 +87,7 @@ public class ArmyManager {
 
     /////////////////////////////////////////////////////////////////////
     public bool AreEverybodyDead() {
-        Debug.Log("warcount = " + warriors.Count + ", buildCount = " + buildings.Count);
+//        Debug.Log("warcount = " + warriors.Count + ", buildCount = " + buildings.Count);
         return (warriors.Count == 0 && buildings.Count == 0);
     }
     /////////////////////////////////////////////////////////////////////
@@ -312,9 +312,18 @@ public class ArmyManager {
         }
 
         if (unit != null) {
+
+            InstantiateDeadBody(unit);
+
             unit.Nullify();
             GameManager.Instance.PlayerController.PlayerArmyDispatcher.TriggerCommand(ArmyMessageTypes.refreshSelection);
         }
+    }
+
+    private void InstantiateDeadBody(AbstractGameUnit unit) {
+        GameObject deadPrefab = unit.Characteristics.DeadAvatar;
+
+        GameObject.Instantiate(deadPrefab, unit.Avatar.transform.position, unit.Avatar.transform.rotation);
     }
 
 

@@ -4,6 +4,14 @@ using UnityEngine;
 public class GameUnitCharacteristics {
 
     [SerializeField]
+    private GameObject deadAvatar;
+    public GameObject DeadAvatar {
+        get {
+            return deadAvatar;
+        }
+    }
+
+    [SerializeField]
     private float maxAttackDistance;
     public float MaxAttackDistance {
         get {
@@ -87,10 +95,19 @@ public class GameUnitCharacteristics {
 //    }
 
 
+    [SerializeField]
+    private float dropGold;
+    public float DropGold {
+        get {
+            return dropGold;
+        }
+    }
 
-    public GameUnitCharacteristics(float attackDistance, float viewDistance, float damage, float cooldown,
+    public GameUnitCharacteristics(GameObject deadAvatar, float attackDistance, float viewDistance, float damage, float cooldown,
                 float hp, float mp,
-                float speed, float defence/*, float time*/) {
+                float speed, float defence, float drop /*, float time*/) {
+
+        this.deadAvatar = deadAvatar;
 
         this.maxAttackDistance = attackDistance;
         this.maxViewDistance = viewDistance;
@@ -101,12 +118,14 @@ public class GameUnitCharacteristics {
         this.maxMP = mp;
         this.maxMovingSpeed = speed;
         this.defence = defence;
+
+        this.dropGold = drop;
 //        this.timeToCreate = time;
     }
 
     public GameUnitCharacteristics CreateCopy() {
-        return new GameUnitCharacteristics(maxAttackDistance, maxViewDistance, attackPhisDamage, attackCooldownTime,
-                maxHP, maxMP, maxMovingSpeed, defence/*, timeToCreate*/);
+        return new GameUnitCharacteristics(deadAvatar, maxAttackDistance, maxViewDistance, attackPhisDamage, attackCooldownTime,
+                maxHP, maxMP, maxMovingSpeed, defence, dropGold/*, timeToCreate*/);
     }
 
 

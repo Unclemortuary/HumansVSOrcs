@@ -8,6 +8,8 @@ public interface IEnemyHelper {
 
     Vector3 GetPosition();
 
-    void DamageHim(float damageValue);
+    float GetRadius();
+
+    float DamageHim(float damageValue);
 
 }

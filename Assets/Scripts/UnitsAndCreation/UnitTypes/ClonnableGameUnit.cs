@@ -1,11 +1,20 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [System.Serializable]
 public class ClonnableGameUnit : AbstractGameUnit {
 
 
-    //[SerializeField]
+    [SerializeField]
+    private float radius;
+    public override float Radius {
+        get {
+            return radius;
+        }
+    }
+
+    [SerializeField]
     private int id;
     public override int ID {
         get {
@@ -16,7 +25,7 @@ public class ClonnableGameUnit : AbstractGameUnit {
         }
     }
 
-    //[SerializeField]
+    [SerializeField]
     private string description;
     public override string Description {
         get {
@@ -28,7 +37,7 @@ public class ClonnableGameUnit : AbstractGameUnit {
     }
 
 
-    //[SerializeField]
+    [SerializeField]
     private float currentHP;
     public override float CurrentHP {
         get {
@@ -58,7 +67,7 @@ public class ClonnableGameUnit : AbstractGameUnit {
 
 
 
-    //[SerializeField]
+    [SerializeField]
     private float currentMP;
     public override float CurrentMP {
         get {
@@ -109,8 +118,43 @@ public class ClonnableGameUnit : AbstractGameUnit {
         this.currentMP = this.characteristics.MaxMP;
 
         this.actionsList = list;
+
+        this.radius = CalculateUnitRadius();
     }
 
+    private float CalculateUnitRadius() {
+        Vector3 extents = Avatar.GetComponent<Collider>().bounds.extents;
+        float radius2 = extents.x * extents.x + extents.z * extents.z;
+
+        NavMeshObstacle meshObstacle = Avatar.GetComponent<NavMeshObstacle>();
+        NavMeshAgent meshAgent = Avatar.GetComponent<NavMeshAgent>();
+
+
+        if (meshObstacle != null) {
+
+            Vector3 obstacleSize = meshObstacle.size;
+
+            float obstacleRadius2 = obstacleSize.x * obstacleSize.x * 0.25f +
+            obstacleSize.z * obstacleSize.z * 0.25f;
+
+            if (radius2 <  obstacleRadius2) {
+                radius2 = obstacleRadius2;
+            }
+        }
+
+        float radius = Mathf.Sqrt(radius2);
+
+        if (meshAgent != null) {
+
+            float agentRadius = meshAgent.radius;
+
+            if (radius <  agentRadius) {
+                radius = agentRadius;
+            }
+        }
+
+        return radius;
+    }
 
     /**
     * All clones refer to the same GameUnitCharacteristics instance
@@ -148,13 +192,14 @@ public class ClonnableGameUnit : AbstractGameUnit {
     private static GameObject NoAvatar = new GameObject();
 
     private static GameUnitCharacteristics NoCharacteristics =
-        new GameUnitCharacteristics(0,0,0,0,0,0,0,0);
+        new GameUnitCharacteristics(null,0,0,0,0,0,0,0,0,0);
 
     private static List<RTSActionType> NoActions = new List<RTSActionType>();
 
 
     public override void Nullify() {
 
+        this.radius = 0;
         this.id = 0;
         this.description = "";
         this.characteristics = NoCharacteristics;
