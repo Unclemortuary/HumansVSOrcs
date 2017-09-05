@@ -51,8 +51,7 @@ public class ProgressBarHandler : MonoBehaviour {
 			{
 				if (checkBuildingProgress)
 				{
-					if (currentUnit.Avatar.GetComponent<BuildingProgressComponent> ())
-					{
+					if (currentUnit.Avatar.GetComponent<BuildingProgressComponent> ()) {
 						buildingProgress = currentUnit.Avatar.GetComponent<BuildingProgressComponent> ();
 						if (buildingProgress.Finished)
 							ActionFinished ();
@@ -61,6 +60,12 @@ public class ProgressBarHandler : MonoBehaviour {
 							Enable (true);
 							ShowProgress (buildingProgress.Helper.TaskRemaintinTime, buildingProgress.Helper.TaskDuration);
 						}
+					}
+					else
+					{
+						Enable (true);
+						if (helper.TaskRemaintinTime > 0f)
+							ShowProgress (helper.TaskRemaintinTime, helper.TaskDuration);
 					}
 				}
 				else
