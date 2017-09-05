@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class AddNewRTSActionToUnitAction : AbstractRTSAction {
 
+    private RTSActionType thisActionType;
+
     private Identification.UnitType unitType;
     private RTSActionType actionType;
 
-    public AddNewRTSActionToUnitAction(Identification.UnitType unitType, RTSActionType actionType) {
+    public AddNewRTSActionToUnitAction(RTSActionType thisActionType, Identification.UnitType unitType, RTSActionType actionType) {
+        this.thisActionType = thisActionType;
+
         this.unitType = unitType;
         this.actionType = actionType;
     }
@@ -17,6 +21,7 @@ public class AddNewRTSActionToUnitAction : AbstractRTSAction {
         data.ThisArmyManager.AvailableResources.SpendResources(data.CurrentRtsAction.GetActionDataItem().PriceToUse);
 
         GameManager.Instance.ArmyManagers[data.ThisArmyManager.ThisArmy].AddRTSActionToUnit(unitType, actionType);
+        GameManager.Instance.ArmyManagers[data.ThisArmyManager.ThisArmy].RemoveRTSActionForEveryUnit(thisActionType);
 
         data.ThisArmyManager.StateMachine.Trigger(ArmySMTransitionType.doActionToSelected);
     }

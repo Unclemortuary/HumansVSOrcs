@@ -124,6 +124,28 @@ public class ArmyManager {
         }
     }
 
+    public void RemoveRTSActionForEveryUnit(RTSActionType actionType) {
+
+
+        foreach(int id in warriors.Keys) {
+            RemoveRTSActionForUnit(warriors[id], actionType);
+        }
+
+        foreach(int id in buildings.Keys) {
+            RemoveRTSActionForUnit(buildings[id], actionType);
+        }
+
+        GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy].Dispatcher.TriggerCommand(ArmyMessageTypes.refreshSelection);
+    }
+
+    private void RemoveRTSActionForUnit(AbstractGameUnit unit, RTSActionType actionType) {
+        Debug.Log("unit " + unit.Description + " -- checking for action " + actionType.ToString());
+        if (unit.Characteristics.ActionsList.Contains(actionType)) {
+            unit.Characteristics.ActionsList.Remove(actionType);
+        }
+    }
+
+
     private AbstractGameUnit CreateUnit(CommonGameUnitFactory factory, Identification.UnitType type,
             Vector3 position, Dictionary<int, AbstractGameUnit> unitsStorage) {
 

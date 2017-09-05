@@ -281,7 +281,35 @@ public class GameManager : MonoBehaviour {
         actionsLibrary.AddRTSAction(RTSActionType.createArcher3, new CreateUnitAction(Identification.UnitType.Archer3));
 
 
-        actionsLibrary.AddRTSAction(RTSActionType.upgradeArcherTo2, new AddNewRTSActionToUnitAction(Identification.UnitType.Barrack, RTSActionType.createArcher2));
+
+        Dictionary<Identification.UnitType, RTSActionType> unitActionDictionary = null;
+
+        unitActionDictionary = new Dictionary<Identification.UnitType, RTSActionType>();
+        unitActionDictionary.Add(Identification.UnitType.Barrack, RTSActionType.createArcher2);
+        unitActionDictionary.Add(Identification.UnitType.Forge, RTSActionType.upgradeArcherTo3);
+        actionsLibrary.AddRTSAction(RTSActionType.upgradeArcherTo2,
+                new AddSomeNewRTSActionsToUnitsAction(RTSActionType.upgradeArcherTo2, unitActionDictionary)
+        );
+
+        unitActionDictionary = new Dictionary<Identification.UnitType, RTSActionType>();
+        unitActionDictionary.Add(Identification.UnitType.Barrack, RTSActionType.createArcher3);
+        actionsLibrary.AddRTSAction(RTSActionType.upgradeArcherTo3,
+                new AddSomeNewRTSActionsToUnitsAction(RTSActionType.upgradeArcherTo3, unitActionDictionary)
+        );
+
+
+        unitActionDictionary = new Dictionary<Identification.UnitType, RTSActionType>();
+        unitActionDictionary.Add(Identification.UnitType.Barrack, RTSActionType.createSwordsman2);
+        unitActionDictionary.Add(Identification.UnitType.Forge, RTSActionType.upgradeSwordsmanTo3);
+        actionsLibrary.AddRTSAction(RTSActionType.upgradeSwordsmanTo2,
+                new AddSomeNewRTSActionsToUnitsAction(RTSActionType.upgradeSwordsmanTo2, unitActionDictionary)
+        );
+
+        unitActionDictionary = new Dictionary<Identification.UnitType, RTSActionType>();
+        unitActionDictionary.Add(Identification.UnitType.Barrack, RTSActionType.createSwordsman3);
+        actionsLibrary.AddRTSAction(RTSActionType.upgradeSwordsmanTo3,
+                new AddSomeNewRTSActionsToUnitsAction(RTSActionType.upgradeSwordsmanTo3, unitActionDictionary)
+        );
 
 
 
