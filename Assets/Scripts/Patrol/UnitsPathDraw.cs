@@ -29,6 +29,8 @@ public class UnitsPathDraw : MonoBehaviour {
 		}
 		if (stateMachine.CurrentState == UnitStateMachine.State.MOVE_AND_ATTACK || stateMachine.CurrentState == UnitStateMachine.State.FOLLOW_AND_ATTACK) {
 			line.SetColors (Color.red, Color.red);
+		} else {
+			line.SetColors (Color.yellow, Color.yellow);
 		}
 
 		line.enabled = true;
