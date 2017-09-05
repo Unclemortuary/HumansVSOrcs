@@ -95,29 +95,25 @@ public class ClonnableGameUnit : AbstractGameUnit {
 	}
 
 
-    [SerializeField]
-    private List<RTSActionType> actionsList;
-    public override List<RTSActionType> ActionsList {
-        get {
-            return actionsList;
-        }
-    }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private ClonnableGameUnit(int id, string descr, GameUnitCharacteristics characteristics, GameObject avatar, List<RTSActionType> list) {
+    private ClonnableGameUnit(int id, string descr, GameUnitCharacteristics characteristics, GameObject avatar) {
 
         this.id = id;
         this.description = descr;
         this.characteristics = characteristics;
 
         this.avatar = avatar;
+        if (this.avatar == null) {
+            this.avatar = characteristics.AvatarPrefab;
+        }
 
         this.currentHP = this.characteristics.MaxHP;
         this.currentMP = this.characteristics.MaxMP;
 
-        this.actionsList = list;
+//        this.actionsList = list;
 
         this.radius = CalculateUnitRadius();
     }
@@ -162,9 +158,9 @@ public class ClonnableGameUnit : AbstractGameUnit {
      */
     public ClonnableGameUnit CreateClone(Vector3 position, int id = 0, string descr = "") {
 
-        GameObject newAvatar = GameObject.Instantiate(this.Avatar, position, this.Avatar.transform.rotation);
+        GameObject newAvatar = GameObject.Instantiate(this.Characteristics.AvatarPrefab, position, this.Characteristics.AvatarPrefab.transform.rotation);
 
-        return new ClonnableGameUnit(id, descr, characteristics, newAvatar, actionsList);
+        return new ClonnableGameUnit(id, descr, characteristics, newAvatar);
 
     }
 
@@ -176,23 +172,18 @@ public class ClonnableGameUnit : AbstractGameUnit {
 
         GameUnitCharacteristics characteristicsCopy = characteristics.CreateCopy();
 
-        List<RTSActionType> newActionsList = new List<RTSActionType>();
 
-        foreach(RTSActionType type in this.actionsList) {
-            newActionsList.Add(type);
-        }
-
-        return new ClonnableGameUnit(id, description, characteristicsCopy, avatar, newActionsList);
+        return new ClonnableGameUnit(id, description, characteristicsCopy, avatar);
     }
 
 
-    ////////////////////////////////////////////////////////
+    //////////  DEATH  //////////////////////////////////////////////
 
 //    private static GameObject NoAvatar = null;
     private static GameObject NoAvatar = new GameObject();
 
     private static GameUnitCharacteristics NoCharacteristics =
-        new GameUnitCharacteristics(null,0,0,0,0,0,0,0,0,0);
+        new GameUnitCharacteristics(null, null,0,0,0,0,0,0,0,0,0, NoActions);
 
     private static List<RTSActionType> NoActions = new List<RTSActionType>();
 
@@ -211,16 +202,19 @@ public class ClonnableGameUnit : AbstractGameUnit {
         this.currentHP = 0;
         this.currentMP = 0;
 
-        this.actionsList = NoActions;
+//        this.actionsList = NoActions;
 
         this.IsActive = false;
     }
 
     public override bool IsDead() {
         if (Avatar == NoAvatar || CurrentHP <= 0) {
+            Debug.Log("##################################### Unit is dead ###########################");
             return true;
         }
-        if (Avatar == null || !Avatar.activeSelf) {
+        if (Avatar == null) {
+//        if (Avatar == null || !Avatar.activeSelf) {
+            Debug.Log("##################################### Unit is dead ###########################");
             return true;
         }
 

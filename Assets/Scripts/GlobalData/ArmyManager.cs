@@ -110,8 +110,24 @@ public class ArmyManager {
         return go;
     }
 
+    public void AddRTSActionToUnit(Identification.UnitType type, RTSActionType actionType) {
+        CommonGameUnitFactory targetFactory = null;
+        if (buildingFactory.CanCreateByType(type)) {
+            targetFactory = buildingFactory;
+        } else if (warriorFactory.CanCreateByType(type)) {
+            targetFactory = warriorFactory;
+        }
+
+        if(targetFactory != null) {
+            GameUnitCharacteristics characteristics = targetFactory.GetGameUnitCharacteristics(type);
+            characteristics.ActionsList.Add(actionType);
+        }
+    }
+
     private AbstractGameUnit CreateUnit(CommonGameUnitFactory factory, Identification.UnitType type,
             Vector3 position, Dictionary<int, AbstractGameUnit> unitsStorage) {
+
+        Debug.Log("ArmyManager:: Creating unit of type " + type.ToString() + " in army " + thisArmy.ToString());
 
         AbstractGameUnit newUnit = factory.CreateGameUnit(type, position);
 
@@ -321,7 +337,7 @@ public class ArmyManager {
     }
 
     private void InstantiateDeadBody(AbstractGameUnit unit) {
-        GameObject deadPrefab = unit.Characteristics.DeadAvatar;
+        GameObject deadPrefab = unit.Characteristics.DeadAvatarPrefab;
 
         GameObject.Instantiate(deadPrefab, unit.Avatar.transform.position, unit.Avatar.transform.rotation);
     }

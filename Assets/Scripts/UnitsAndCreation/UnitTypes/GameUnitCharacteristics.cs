@@ -1,15 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class GameUnitCharacteristics {
 
     [SerializeField]
-    private GameObject deadAvatar;
-    public GameObject DeadAvatar {
+    private GameObject avatarPrefab;
+    public GameObject AvatarPrefab {
         get {
-            return deadAvatar;
+            return avatarPrefab;
         }
     }
+
+    [SerializeField]
+    private GameObject deadAvatarPrefab;
+    public GameObject DeadAvatarPrefab {
+        get {
+            return deadAvatarPrefab;
+        }
+    }
+
 
     [SerializeField]
     private float maxAttackDistance;
@@ -103,11 +113,24 @@ public class GameUnitCharacteristics {
         }
     }
 
-    public GameUnitCharacteristics(GameObject deadAvatar, float attackDistance, float viewDistance, float damage, float cooldown,
-                float hp, float mp,
-                float speed, float defence, float drop /*, float time*/) {
 
-        this.deadAvatar = deadAvatar;
+
+
+    [SerializeField]
+    private List<RTSActionType> actionsList;
+    public List<RTSActionType> ActionsList {
+        get {
+            return actionsList;
+        }
+    }
+
+
+    public GameUnitCharacteristics(GameObject avatar, GameObject deadAvatar, float attackDistance, float viewDistance, float damage, float cooldown,
+                float hp, float mp,
+                float speed, float defence, float drop, List<RTSActionType> actionsList /*, float time*/) {
+
+        this.avatarPrefab = avatar;
+        this.deadAvatarPrefab = deadAvatar;
 
         this.maxAttackDistance = attackDistance;
         this.maxViewDistance = viewDistance;
@@ -121,11 +144,20 @@ public class GameUnitCharacteristics {
 
         this.dropGold = drop;
 //        this.timeToCreate = time;
+
+        this.actionsList = actionsList;
     }
 
     public GameUnitCharacteristics CreateCopy() {
-        return new GameUnitCharacteristics(deadAvatar, maxAttackDistance, maxViewDistance, attackPhisDamage, attackCooldownTime,
-                maxHP, maxMP, maxMovingSpeed, defence, dropGold/*, timeToCreate*/);
+
+        List<RTSActionType> newActionsList = new List<RTSActionType>();
+
+        foreach(RTSActionType type in this.actionsList) {
+            newActionsList.Add(type);
+        }
+
+        return new GameUnitCharacteristics(avatarPrefab, deadAvatarPrefab, maxAttackDistance, maxViewDistance, attackPhisDamage, attackCooldownTime,
+                maxHP, maxMP, maxMovingSpeed, defence, dropGold, newActionsList/*, timeToCreate*/);
     }
 
 

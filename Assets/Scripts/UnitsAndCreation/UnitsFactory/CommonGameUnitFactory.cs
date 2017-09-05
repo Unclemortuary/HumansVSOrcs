@@ -19,6 +19,20 @@ public class CommonGameUnitFactory {
         }
     }
 
+    public GameUnitCharacteristics GetGameUnitCharacteristics(Identification.UnitType type) {
+        AbstractGameUnitCreator creator = creators[type];
+        if (creator == null) {
+            return null;
+        } else {
+            return creator.GetGameUnitCharacteristics();
+        }
+    }
+
+    public bool CanCreateByType(Identification.UnitType type) {
+        AbstractGameUnitCreator creator = creators[type];
+        return (creator != null);
+    }
+
     public void AddCreator(Identification.UnitType type, AbstractGameUnitCreator creator) {
         creators.Add(type, creator);
     }

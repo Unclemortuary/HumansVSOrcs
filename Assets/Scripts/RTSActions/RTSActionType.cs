@@ -42,4 +42,15 @@ public enum RTSActionType {
     moveFormationTo15,
 
     workersBuildMine,
+
+    createArcher2,
+    createArcher3,
+    createSwordsman2,
+    createSwordsman3,
+
+    upgradeArcherTo2,
+    upgradeArcherTo3,
+    upgradeSwordsmanTo2,
+    upgradeSwordsmanTo3,
+
 }

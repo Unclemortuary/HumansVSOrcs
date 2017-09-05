@@ -542,7 +542,9 @@ public class UnitStateMachine : RTSMonoBehaviour {
     private void DeactivateUnitsWhileCreatingTo(bool val) {
         Debug.Log("##### Set Activity to " + val.ToString());
 
-        helper.TargetUnit.IsActive = val;
+        if (helper.TargetUnit != null) {
+            helper.TargetUnit.IsActive = val;
+        }
         helper.ThisUnit.IsActive = val;
         armyManager.Dispatcher.TriggerCommand(ArmyMessageTypes.refreshSelection);
     }
@@ -578,6 +580,10 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
         } else { // Time has come, Create unit //
 
+            if(helper.TargetUnit == null) {
+                Debug.Log("USM::CreatingUnitState:: target unit is null, thisUnitID=" + helper.ThisUnit.ID);
+            }
+            Debug.Log("USM::CreatingUnitStae:: helper.targetUnit.id=" + helper.TargetUnit.ID);
             helper.TargetUnit.Avatar.SetActive(true);
 
             DeactivateUnitsWhileCreatingTo(true);
@@ -605,6 +611,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
                     helper.TargetUnit.ID
             );
 
+            Debug.Log("##USM::CreatingUnitState:: Unit is set visible and sent to a position, myID=" + helper.ThisUnit.ID);
 
             // Make this building (unit creator) IDLE //
             TransitionToIdleState();

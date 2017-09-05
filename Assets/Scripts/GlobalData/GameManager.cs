@@ -254,14 +254,14 @@ public class GameManager : MonoBehaviour {
         actionsLibrary.AddRTSAction(RTSActionType.createFlyingWarrior, new CreateUnitAction(Identification.UnitType.FlyingWarrior));
 
 
-        actionsLibrary.AddRTSAction(RTSActionType.buildFarm, new BuildAction(Identification.UnitType.Farm));
-        actionsLibrary.AddRTSAction(RTSActionType.buildGeneralHouse, new BuildAction(Identification.UnitType.GeneralHouse));
-        actionsLibrary.AddRTSAction(RTSActionType.buildBarrack, new BuildAction(Identification.UnitType.Barrack));
-        actionsLibrary.AddRTSAction(RTSActionType.buildForge, new BuildAction(Identification.UnitType.Forge));
-        actionsLibrary.AddRTSAction(RTSActionType.buildQuarry, new BuildAction(Identification.UnitType.Quarry));
-        actionsLibrary.AddRTSAction(RTSActionType.buildSawmill, new BuildAction(Identification.UnitType.Sawmill));
-        actionsLibrary.AddRTSAction(RTSActionType.buildSimpleHouse, new BuildAction(Identification.UnitType.SimpleHouse));
-        actionsLibrary.AddRTSAction(RTSActionType.buildWatchTower, new BuildAction(Identification.UnitType.WatchTower));
+//        actionsLibrary.AddRTSAction(RTSActionType.buildFarm, new BuildAction(Identification.UnitType.Farm));
+//        actionsLibrary.AddRTSAction(RTSActionType.buildGeneralHouse, new BuildAction(Identification.UnitType.GeneralHouse));
+//        actionsLibrary.AddRTSAction(RTSActionType.buildBarrack, new BuildAction(Identification.UnitType.Barrack));
+//        actionsLibrary.AddRTSAction(RTSActionType.buildForge, new BuildAction(Identification.UnitType.Forge));
+//        actionsLibrary.AddRTSAction(RTSActionType.buildQuarry, new BuildAction(Identification.UnitType.Quarry));
+//        actionsLibrary.AddRTSAction(RTSActionType.buildSawmill, new BuildAction(Identification.UnitType.Sawmill));
+//        actionsLibrary.AddRTSAction(RTSActionType.buildSimpleHouse, new BuildAction(Identification.UnitType.SimpleHouse));
+//        actionsLibrary.AddRTSAction(RTSActionType.buildWatchTower, new BuildAction(Identification.UnitType.WatchTower));
 
         actionsLibrary.AddRTSAction(RTSActionType.workersBuildFarm, new WorkerBuildAction(Identification.UnitType.Farm));
         actionsLibrary.AddRTSAction(RTSActionType.workersBuildGeneralHouse, new WorkerBuildAction(Identification.UnitType.GeneralHouse));
@@ -272,6 +272,19 @@ public class GameManager : MonoBehaviour {
         actionsLibrary.AddRTSAction(RTSActionType.workersBuildSimpleHouse, new WorkerBuildAction(Identification.UnitType.SimpleHouse));
         actionsLibrary.AddRTSAction(RTSActionType.workersBuildWatchTower, new WorkerBuildAction(Identification.UnitType.WatchTower));
         actionsLibrary.AddRTSAction(RTSActionType.workersBuildMine, new WorkerBuildAction(Identification.UnitType.Mine));
+
+
+
+        actionsLibrary.AddRTSAction(RTSActionType.createSwordsman2, new CreateUnitAction(Identification.UnitType.Swordsman2));
+        actionsLibrary.AddRTSAction(RTSActionType.createSwordsman3, new CreateUnitAction(Identification.UnitType.Swordsman3));
+        actionsLibrary.AddRTSAction(RTSActionType.createArcher2, new CreateUnitAction(Identification.UnitType.Archer2));
+        actionsLibrary.AddRTSAction(RTSActionType.createArcher3, new CreateUnitAction(Identification.UnitType.Archer3));
+
+
+        actionsLibrary.AddRTSAction(RTSActionType.upgradeArcherTo2, new AddNewRTSActionToUnitAction(Identification.UnitType.Barrack, RTSActionType.createArcher2));
+
+
+
 
 //        Debug.Log ("GameManager: Reading ActionData");
         // Initialize ActionData form scriptableObject //

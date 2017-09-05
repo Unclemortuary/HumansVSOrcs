@@ -20,6 +20,9 @@ public static class Identification {
         Ghost,
         Skeleton,
         SkeletonHard,
+
+        Archer2, Archer3,
+        Swordsman2, Swordsman3,
     };
 
 

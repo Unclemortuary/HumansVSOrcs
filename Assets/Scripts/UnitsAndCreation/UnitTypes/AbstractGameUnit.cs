@@ -5,7 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public abstract class AbstractGameUnit {
 
-    private bool isActive = true;
+    [SerializeField]
+    protected bool isActive = true;
     public bool IsActive {
         get {
             return isActive;
@@ -36,6 +37,6 @@ public abstract class AbstractGameUnit {
 
     public abstract GameUnitCharacteristics Characteristics { get; }
 
-    public abstract List<RTSActionType> ActionsList { get; }
+//    public abstract List<RTSActionType> ActionsList { get; }
 
 }

@@ -153,7 +153,7 @@ public class HUDManager : MonoBehaviour {
 		foreach (AbstractGameUnit unit in list) {
 
             if (unit.IsActive) {
-                List<RTSActionType> types = unit.ActionsList;
+                List<RTSActionType> types = unit.Characteristics.ActionsList;
 
                 if (types != null) {
 //                Debug.Log("this user have " + types.Count);
@@ -180,9 +180,9 @@ public class HUDManager : MonoBehaviour {
 
 		for (int i = 0; i < list.Count; i++) 
 		{
-			for (int j = 0; j < list[i].ActionsList.Count; j++) 
+			for (int j = 0; j < list[i].Characteristics.ActionsList.Count; j++)
 			{
-				input.Add (list [i].ActionsList [j]);	
+				input.Add (list [i].Characteristics.ActionsList [j]);
 			}
 		}
 
@@ -192,11 +192,11 @@ public class HUDManager : MonoBehaviour {
 
 	private bool CheckIfSameUnit()
 	{
-		var prevUnitActions = selectedUnitsList [0].ActionsList;
+		var prevUnitActions = selectedUnitsList [0].Characteristics.ActionsList;
 		List<RTSActionType> currentUnitActions;
 		for (int i = 0; i < selectedUnitsList.Count; i++) 
 		{
-			currentUnitActions = selectedUnitsList [i].ActionsList;
+			currentUnitActions = selectedUnitsList [i].Characteristics.ActionsList;
 			if (currentUnitActions != prevUnitActions)
 				return false;
 			prevUnitActions = currentUnitActions;

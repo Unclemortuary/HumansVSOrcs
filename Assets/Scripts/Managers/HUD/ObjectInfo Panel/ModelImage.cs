@@ -63,7 +63,7 @@ public class ModelImage : MonoBehaviour {
 			rotation = Vector3.zero;
 		}
 			
-		currentUnit = Instantiate (unit.Avatar, position, Quaternion.Euler(rotation), spotPoint);
+		currentUnit = Instantiate (unit.Characteristics.AvatarPrefab, position, Quaternion.Euler(rotation), spotPoint);
 	}
 
 	public void ClearModelImage()
