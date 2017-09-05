@@ -19,6 +19,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
     }
 
 
+//    [SerializeField]
     private UnitStateMachineSubscriptions subscriptions;
 
     public void SetUnitStateMachineHelper(UnitStateMachineHelper helper) {
@@ -60,6 +61,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
     }
 
 
+    [SerializeField]
     private State currentState = State._NONE;
     public State CurrentState {
         get {
@@ -276,7 +278,8 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
             Vector3 myPosition = helper.ThisUnit.Avatar.transform.position;
             float viewDistance = helper.ThisUnit.Characteristics.MaxViewDistance;
-            float attackDistance = helper.ThisUnit.Characteristics.MaxAttackDistance;
+            float attackDistance = helper.ThisUnit.Characteristics.MaxAttackDistance
+                                + helper.TargetEnemyHelper.GetRadius() + helper.GetRadius();;
 
             Vector3 enemyPosition = helper.TargetEnemyHelper.GetPosition();
 
@@ -304,7 +307,12 @@ public class UnitStateMachine : RTSMonoBehaviour {
                     Debug.Log("Can't animate strike: Aniimator is null");
                 }
                 // Damage him //
-                enemy.DamageHim(helper.ThisUnit.Characteristics.AttackPhisDamage);
+                float drop = enemy.DamageHim(helper.ThisUnit.Characteristics.AttackPhisDamage);
+
+                if (drop != 0) {
+                    GameManager.Instance.ArmyManagers[helper.MyArmy].AvailableResources
+                                .ChangeResourceAmount(GameResources.ResourceType.GOLD, drop);
+                }
 
                 // Make pause //
                 TransitionToCooldownState();
@@ -328,7 +336,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
     }
 
     private void CooldownState() {
-            Debug.Log("*** Task Remaining Time = " + helper.TaskRemaintinTime + ", deltatime=" + Time.deltaTime);
+//            Debug.Log("COOLDOWN:: *** Task Remaining Time = " + helper.TaskRemaintinTime + ", deltatime=" + Time.deltaTime);
 
             helper.TaskRemaintinTime -= Time.deltaTime;
 
@@ -412,19 +420,25 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
             DeactivateUnitsWhileCreatingTo(false);
 
-            ///////// Adjast miniimum distance to build ////////
-            Vector3 buildingExtents = helper.TargetUnit.Avatar.GetComponent<Collider>().bounds.extents;
-            helper.WorkingRadius = buildingExtents.x * buildingExtents.x + buildingExtents.z * buildingExtents.z;
+//            ///////// Adjast miniimum distance to build ////////
+//            Vector3 buildingExtents = helper.TargetUnit.Avatar.GetComponent<Collider>().bounds.extents;
+//            helper.WorkingRadius = buildingExtents.x * buildingExtents.x + buildingExtents.z * buildingExtents.z;
+//
+//            Vector3 obstacleSize = helper.TargetUnit.Avatar.GetComponent<NavMeshObstacle>().size;
+//            float navmeshRadius = obstacleSize.x * obstacleSize.x * 0.25f +
+//                                    obstacleSize.z * obstacleSize.z * 0.25f;
+//
+//            if (helper.WorkingRadius < navmeshRadius) {
+//                helper.WorkingRadius = navmeshRadius;
+//            }
 
-            Vector3 obstacleSize = helper.TargetUnit.Avatar.GetComponent<NavMeshObstacle>().size;
-            float navmeshRadius = obstacleSize.x * obstacleSize.x * 0.25f +
-                                    obstacleSize.z * obstacleSize.z * 0.25f;
+            IEnemyHelper buildingHelper = building.Avatar.GetComponent<UnitStateMachine>().EnemyHelper;
 
-            if (helper.WorkingRadius < navmeshRadius) {
-                helper.WorkingRadius = navmeshRadius;
-            }
+            helper.WorkingRadius = buildingHelper.GetRadius() + helper.GetRadius();
 
-            helper.WorkingRadius += helper.StoppingDistance + helper.WorkingRadiusDelta;
+//            helper.WorkingRadius += helper.WorkingRadiusDelta;
+
+//            helper.WorkingRadius += helper.StoppingDistance + helper.WorkingRadiusDelta;
             //////////////////////////////////////////////////////
 
             helper.Agent.destination = helper.TargetUnit.Avatar.transform.position;
@@ -437,7 +451,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     private void GoingToBuildState() {
 
-        if ((transform.position - helper.TargetUnit.Avatar.transform.position).sqrMagnitude > helper.WorkingRadius) {
+        if ((transform.position - helper.TargetUnit.Avatar.transform.position).magnitude > helper.WorkingRadius) {
 //            Debug.Log("distance^2=" + (transform.position - helper.TargetBuilding.Avatar.transform.position).sqrMagnitude +
 //            ", buildingDistance^2=" + helper.WorkingRadius);
         } else {
@@ -470,7 +484,9 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
             // Set component to show construction progress on building //
             BuildingProgressComponent progressComponent = helper.TargetUnit.Avatar.AddComponent<BuildingProgressComponent>();
-            progressComponent.Helper= helper;
+            progressComponent.Helper = helper;
+
+            // Обновить отображаемую в HUD информацию //
             armyManager.Dispatcher.TriggerCommand(ArmyMessageTypes.refreshSelection);
         }
 
@@ -479,7 +495,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     private void BuildingState() {
 
-        Debug.Log("*** Task Remaining Time = " + helper.TaskRemaintinTime + ", deltatime=" + Time.deltaTime);
+//        Debug.Log("*** Task Remaining Time = " + helper.TaskRemaintinTime + " of " + helper.TaskDuration + ", deltatime=" + Time.deltaTime);
 
         helper.TaskRemaintinTime -= Time.deltaTime;
 
@@ -554,7 +570,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     private void CreatingUnitState() {
 
-        Debug.Log("*** Task Remaining Time = " + helper.TaskRemaintinTime + ", deltatime=" + Time.deltaTime);
+//        Debug.Log("*** Task Remaining Time = " + helper.TaskRemaintinTime + ", deltatime=" + Time.deltaTime);
 
         helper.TaskRemaintinTime -= Time.deltaTime;
 

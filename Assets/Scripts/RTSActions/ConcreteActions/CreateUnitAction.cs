@@ -29,12 +29,17 @@ public class CreateUnitAction : AbstractRTSAction {
 
             AbstractGameUnit performer = data.SelectedUnits[0];
 
-//            Vector3 shiftVector = new Vector3(0f, 0, -19.5f);
-            Vector3 shiftVector = - 0.7f * performer.Avatar.GetComponent<NavMeshObstacle>().size;
-            shiftVector = new Vector3(shiftVector.x, 0, shiftVector.z);
-            Debug.Log("shiftVector=" + shiftVector);
+            float radius = performer.Avatar.GetComponent<UnitStateMachine>().EnemyHelper.GetRadius();
 
+////            Vector3 shiftVector = new Vector3(0f, 0, -19.5f);
+//            Vector3 shiftVector = - 0.7f * performer.Avatar.GetComponent<NavMeshObstacle>().size;
+//            shiftVector = new Vector3(shiftVector.x, 0, shiftVector.z);
+//            Debug.Log("shiftVector=" + shiftVector);
+//
+
+            Vector3 shiftVector = new Vector3(0, 0, -radius);
             Vector3 targetPoint = performer.Avatar.transform.position + shiftVector;
+//            Vector3 targetPoint = performer.Avatar.transform.position + shiftVector;
 
             NavMeshHit hit;
             if (NavMesh.SamplePosition(targetPoint, out hit, 5.0f, NavMesh.AllAreas)) {

@@ -68,6 +68,7 @@ public class UnitStateMachineSubscriptions {
 
         armyManager.Dispatcher.StartListening<float>(ArmyMessageTypes.unitCommandSetWorkDuration,
                 (float time) => {
+                    Debug.Log("USMS:: Setting TaskDuration = " + time);
                     helper.TaskDuration = time;
                 },
                 helper.ThisUnit.ID

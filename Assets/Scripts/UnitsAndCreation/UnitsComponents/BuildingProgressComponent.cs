@@ -23,9 +23,11 @@ public class BuildingProgressComponent : RTSMonoBehaviour {
 
 
     void Update() {
-        if (!finished && helper.TaskRemaintinTime <= 0) {
-            finished = true;
-            helper = null;
+        if (!finished && helper != null) {
+            if (helper.TaskRemaintinTime <= 0) {
+                finished = true;
+                helper = null;
+            }
         }
     }
 

@@ -61,6 +61,9 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    private Identification.Army enemyArmy;
+
+
     private PlayerController playerController;
     public PlayerController PlayerController {
         get {
@@ -133,7 +136,32 @@ public class GameManager : MonoBehaviour {
 
         InitializeDependingObjects();
 
+        gameIsStarted = true;
+
+
     }
+
+
+    private void InitializeGame() {
+
+        if (playerArmy == Identification.Army.Humans) {
+            enemyArmy = Identification.Army.Orcs;
+        } else {
+            enemyArmy = Identification.Army.Humans;
+        }
+
+
+        InitializeArmyDispatchers();
+
+        InitializeArmyManagers();
+
+        InitializeActionsLibrary();
+
+        gameObject.AddComponent<TimeManager> ();
+        TimeManager.GetInstance.Init (_sun);
+    }
+
+
 
     private void InitializeDependingObjects() {
 
@@ -189,19 +217,6 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
-
-    private void InitializeGame() {
-
-        InitializeArmyDispatchers();
-
-        InitializeArmyManagers();
-
-        InitializeActionsLibrary();
-
-		gameObject.AddComponent<TimeManager> ();
-		TimeManager.GetInstance.Init (_sun);
-    }
-
 
     private void InitializeArmyDispatchers() {
         armyDispatchers = new Dictionary<Identification.Army, ArmyDispatcher>();
@@ -425,6 +440,56 @@ public class GameManager : MonoBehaviour {
 //
 //        Debug.Log("-> HudManager is initialized");
     }
+
+    // PAUSE /////////////////////////////////////////////////////////////
+
+    public void SetGlobalPause(bool condition) {
+        if (condition) {
+            Time.timeScale = 0f;
+        } else {
+            Time.timeScale = 1f;
+        }
+    }
+
+    public bool IsPaused() {
+        return Time.timeScale == 0;
+    }
+
+    ///  End Game Checking //////////////////////////////////////////////////////////////////////
+
+    private bool gameIsStarted = false;
+
+
+    void Update() {
+        CheckEndGame();
+    }
+
+
+
+    public void CheckEndGame() {
+
+//        foreach (Identification.Army armyType in Enum.GetValues(typeof(Identification.Army))) {
+//            armyManagers[armyType]...
+//        }
+
+
+        if (gameIsStarted) {
+            if (armyManagers[playerArmy].AreEverybodyDead()) {
+                Debug.Log("!!!!!!!!!!!!!!!!!!!!!! Computer won !!!!!!!!!!!!!!!!!!!");
+                gameIsStarted = false;
+                SetGlobalPause(true);
+            } else if (armyManagers[enemyArmy].AreEverybodyDead()){
+                Debug.Log("!!!!!!!!!!!!!!!!!!!!!! Player won !!!!!!!!!!!!!!!!!!!");
+                gameIsStarted = false;
+                SetGlobalPause(true);
+            }
+        }
+
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 } // End of class //
 

@@ -37,6 +37,14 @@ public class InputReader : MonoBehaviour{
         MouseSelectionCheck();
 
 
+        if (Input.GetKeyDown(KeyCode.P)){
+            if (GameManager.Instance.IsPaused()) {
+                GameManager.Instance.SetGlobalPause(false);
+            } else {
+                GameManager.Instance.SetGlobalPause(true);
+            }
+        }
+
     }
 
 

@@ -97,6 +97,8 @@ public class WorkerBuildAction : AbstractRTSAction {
                         Debug.Log("performer is null");
                     }
 
+                    Debug.Log("Worker's Build Action:: Time to complete building = " + data.CurrentRtsAction.GetActionDataItem().TimeToComplete);
+
                     data.ThisArmyManager.Dispatcher.TriggerCommand<float>(
                             ArmyMessageTypes.unitCommandSetWorkDuration,
                             data.CurrentRtsAction.GetActionDataItem().TimeToComplete,
