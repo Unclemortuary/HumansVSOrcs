@@ -8,40 +8,20 @@ namespace Project.Weather
 {
     public class Weather_Base : MonoBehaviour
     {
-        [SerializeField]
         protected bool _isUseDifferentFadeTimes;
 
         [SerializeField]
-        protected float _fadeTime = 5.0f;
+        protected float _fadeTime = 3.0f;
 
-        [SerializeField]
-        protected float _sunriseFadeTime = 5.0f;
+        protected float _sunriseFadeTime = 3.0f;
+        protected float _dayFadeTime = 3.0f;
+        protected float _sunsetFadeTime = 3.0f;
+        protected float _nightFadeTime = 3.0f;
 
-        [SerializeField]
-        protected float _dayFadeTime = 5.0f;
-
-        [SerializeField]
-        protected float _sunsetFadeTime = 5.0f;
-
-        [SerializeField]
-        protected float _nightFadeTime = 5.0f;
-
-        [SerializeField]
         protected bool _isUseInit;
 
         protected float _initTimerStart = 0.0f;
-
-        [SerializeField]
-        protected float _initTimerEnd = 5.0f;
-
-
-        /********** TEMPRATURE Settings **********/
-
-        [SerializeField]
-        protected float _minTemperature = 0.0f;
-
-        [SerializeField]
-        protected float _maxTemperature = 30.0f;
+        protected float _initTimerEnd = 3.0f;
 
         /********** SUN (Light) Settings **********/
 
@@ -71,14 +51,6 @@ namespace Project.Weather
         [SerializeField]
         protected Color _nightLightColor = Color.grey;
 
-        /********** MOON (Light) Settings **********/
-
-        [SerializeField]
-        protected float _nightMoonLightIntensity = 0.5f;
-
-        [SerializeField]
-        protected Color _nightMoonLightColor = Color.grey;
-
         /********** SKYBOX Settings **********/
 
         // Skybox
@@ -93,11 +65,6 @@ namespace Project.Weather
 
         [SerializeField]
         protected Color _nightSkyColor = Color.grey;
-
-        /********** CLOUD Settings **********/
-
-        [SerializeField]
-        protected Color _cloudColor = Color.white;
 
         /********** FOG Settings **********/
 
@@ -115,200 +82,136 @@ namespace Project.Weather
 
         /********** GENERAL **********/
 
-        public bool IsUseDifferentFadeTimes
-        {
+        public bool IsUseDifferentFadeTimes {
             get { return _isUseDifferentFadeTimes; }
             set { _isUseDifferentFadeTimes = value; }
         }
 
-        public float FadeTime
-        {
+        public float FadeTime {
             get { return _fadeTime; }
             set { _fadeTime = value; }
         }
 
-        public float SunriseFadeTime
-        {
+        public float SunriseFadeTime {
             get { return _sunriseFadeTime; }
             set { _sunriseFadeTime = value; }
         }
 
-        public float DayFadeTime
-        {
+        public float DayFadeTime {
             get { return _dayFadeTime; }
             set { _dayFadeTime = value; }
         }
 
-        public float SunsetFadeTime
-        {
+        public float SunsetFadeTime {
             get { return _sunsetFadeTime; }
             set { _sunsetFadeTime = value; }
         }
 
-        public float NightFadeTime
-        {
+        public float NightFadeTime {
             get { return _nightFadeTime; }
             set { _nightFadeTime = value; }
         }
 
-        public bool IsUseInit
-        {
+        public bool IsUseInit {
             get { return _isUseInit; }
             set { _isUseInit = value; }
         }
 
-        public float InitTimerEnd
-        {
+        public float InitTimerEnd {
             get { return _initTimerEnd; }
             set { _initTimerEnd = value; }
         }
 
-        /********** TEMPRATURE **********/
-
-        public float MinTemperature
-        {
-            get { return _minTemperature; }
-            set { _minTemperature = value; }
-        }
-
-        public float MaxTemperature
-        {
-            get { return _maxTemperature; }
-            set { _maxTemperature = value; }
-        }
-
         /********** SUN (Light) **********/
 
-        public float SunriseLightIntensity
-        {
+        public float SunriseLightIntensity {
             get { return _sunriseLightIntensity; }
             set { _sunriseLightIntensity = value; }
         }
 
-        public float DayLightIntensity
-        {
+        public float DayLightIntensity {
             get { return _dayLightIntensity; }
             set { _dayLightIntensity = value; }
         }
 
-        public float SunsetLightIntensity
-        {
+        public float SunsetLightIntensity {
             get { return _sunsetLightIntensity; }
             set { _sunsetLightIntensity = value; }
         }
 
-        public float NightLightIntensity
-        {
+        public float NightLightIntensity {
             get { return _nightLightIntensity; }
             set { _nightLightIntensity = value; }
         }
 
-        public Color SunriseLightColor
-        {
+        public Color SunriseLightColor {
             get { return _sunriseLightColor; }
             set { _sunriseLightColor = value; }
         }
 
-        public Color DayLightColor
-        {
+        public Color DayLightColor {
             get { return _dayLightColor; }
             set { _dayLightColor = value; }
         }
 
-        public Color SunsetLightColor
-        {
+        public Color SunsetLightColor {
             get { return _sunsetLightColor; }
             set { _sunsetLightColor = value; }
         }
 
-        public Color NightLightColor
-        {
+        public Color NightLightColor {
             get { return _nightLightColor; }
             set { _nightLightColor = value; }
         }
 
-        /********** MOON (Light) **********/
-
-        public float NightMoonLightIntensity
-        {
-            get { return _nightMoonLightIntensity; }
-            set { _nightMoonLightIntensity = value; }
-        }
-
-        public Color NightMoonLightColor
-        {
-            get { return _nightMoonLightColor; }
-            set { _nightMoonLightColor = value; }
-        }
-
         /********** SKYBOX **********/
 
-        public Color SunriseSkyColor
-        {
+        public Color SunriseSkyColor {
             get { return _sunriseSkyColor; }
             set { _sunriseSkyColor = value; }
         }
 
-        public Color DaySkyColor
-        {
+        public Color DaySkyColor {
             get { return _daySkyColor; }
             set { _daySkyColor = value; }
         }
 
-        public Color SunsetSkyColor
-        {
+        public Color SunsetSkyColor {
             get { return _sunsetSkyColor; }
             set { _sunsetSkyColor = value; }
         }
 
-        public Color NightSkyColor
-        {
+        public Color NightSkyColor {
             get { return _nightSkyColor; }
             set { _nightSkyColor = value; }
         }
 
 
-        /********** CLOUD **********/
-
-        public Color CloudColor
-        {
-            get { return _cloudColor; }
-            set { _cloudColor = value; }
-        }
-
         /********** FOG **********/
 
-        public float FogAmount
-        {
+        public float FogAmount {
             get { return _fogAmount; }
             set { _fogAmount = value; }
         }
 
-        public float FogMorning
-        {
+        public float FogMorning {
             get { return _fogMorningAmount; }
             set { _fogMorningAmount = value; }
         }
 
-        public bool IsUseMorningFog
-        {
+        public bool IsUseMorningFog {
             get { return _isUseMorningFog; }
             set { _isUseMorningFog = value; }
         }
 
-        public Color FogColor
-        {
+        public Color FogColor {
             get { return _fogColor; }
             set { _fogColor = value; }
         }
 
         /********** ----- FUNCTIONS ----- **********/
 
-        public virtual void Init()
-        {
-            float currentTemprature = Random.Range(_minTemperature, _maxTemperature);
-            WeatherManager.GetInstance.CurrTemperature = currentTemprature;
-        }
+        public virtual void Init() {}
 
         internal void UpdateWeather() {
             if (!_isUseDifferentFadeTimes) {
@@ -324,22 +227,22 @@ namespace Project.Weather
             switch (TimeManager.TimeManager.GetInstance.CurrTimeOfDay) {
                 case TimeOfDay.SUNRISE:
                     WeatherManager.GetInstance.UpdateAllWeather(
-                        _sunriseLightIntensity, _sunriseLightColor, 0.0f, _nightMoonLightColor,
-                        _sunriseSkyColor, _cloudColor, _fogMorningAmount, _fogColor, _fadeTime
+                        _sunriseLightIntensity, _sunriseLightColor,
+                        _sunriseSkyColor, _fogMorningAmount, _fogColor, _fadeTime
                     );
                     break;
 
                 case TimeOfDay.DAY:
                     WeatherManager.GetInstance.UpdateAllWeather(
-                        _dayLightIntensity, _dayLightColor, 0.0f, _nightMoonLightColor,
-                        _daySkyColor, _cloudColor, _fogAmount, _fogColor, _fadeTime
+                        _dayLightIntensity, _dayLightColor,
+                        _daySkyColor, _fogAmount, _fogColor, _fadeTime
                     );
                     break;
 
                 case TimeOfDay.NIGHT:
                     WeatherManager.GetInstance.UpdateAllWeather(
-                        _nightLightIntensity, _nightLightColor, _nightMoonLightIntensity,
-                        _nightMoonLightColor, _nightSkyColor, _cloudColor, _fogAmount, _fogColor, _fadeTime
+                        _nightLightIntensity, _nightLightColor,
+                        _nightSkyColor, _fogAmount, _fogColor, _fadeTime
                     );
                     break;
             }
@@ -349,29 +252,29 @@ namespace Project.Weather
             switch (TimeManager.TimeManager.GetInstance.CurrTimeOfDay) {
                 case TimeOfDay.SUNRISE:
                     WeatherManager.GetInstance.UpdateAllWeather(
-                        _sunriseLightIntensity, _sunriseLightColor, 0.0f, _nightMoonLightColor,
-                        _sunriseSkyColor, _cloudColor, _fogMorningAmount, _fogColor, _sunriseFadeTime
+                        _sunriseLightIntensity, _sunriseLightColor, 
+                        _sunriseSkyColor, _fogMorningAmount, _fogColor, _sunriseFadeTime
                     );
                     break;
 
                 case TimeOfDay.DAY:
                     WeatherManager.GetInstance.UpdateAllWeather(
-                        _dayLightIntensity, _dayLightColor, 0.0f, _nightMoonLightColor,
-                        _daySkyColor, _cloudColor, _fogAmount, _fogColor, _dayFadeTime
+                        _dayLightIntensity, _dayLightColor, 
+                        _daySkyColor, _fogAmount, _fogColor, _dayFadeTime
                     );
                     break;
 
                 case TimeOfDay.SUNSET:
                     WeatherManager.GetInstance.UpdateAllWeather(
-                        _sunsetLightIntensity, _sunsetLightColor, 0.0f, _nightMoonLightColor,
-                        _sunsetSkyColor, _cloudColor, _fogAmount, _fogColor, _sunsetFadeTime
+                        _sunsetLightIntensity, _sunsetLightColor,
+                        _sunsetSkyColor, _fogAmount, _fogColor, _sunsetFadeTime
                     );
                     break;
 
                 case TimeOfDay.NIGHT:
                     WeatherManager.GetInstance.UpdateAllWeather(
-                        _nightLightIntensity, _nightLightColor, _nightMoonLightIntensity, _nightMoonLightColor,
-                        _nightSkyColor, _cloudColor, _fogAmount, _fogColor, _nightFadeTime
+                        _nightLightIntensity, _nightLightColor,
+                        _nightSkyColor, _fogAmount, _fogColor, _nightFadeTime
                     );
                     break;
             }
