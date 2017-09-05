@@ -28,10 +28,10 @@ namespace Project.TimeManager
         private const float ONEHOURLENGTH = 1.0f / 24.0f;
 
 
-        private int _iStartSunrise = 8;
-        private int _iStartDay = 10;
-        private int _iStartSunset = 20;
-        private int _iStartNight = 22;
+        private int _iStartSunrise = 10;
+        private int _iStartDay = 12;
+        private int _iStartSunset = 18;
+        private int _iStartNight = 20;
 
         public float _fullDay = 900f; // duration of the day, in seconds
 

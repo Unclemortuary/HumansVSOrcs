@@ -15,6 +15,9 @@ public class OrcWorkerAnimation : UnitAnimation  {
 	{
 		var stateMachine = GetComponent<UnitStateMachine> ();
 		var anim = GetComponent<Animator> ();
+		if (stateMachine == null)
+			return;
+		
 		if (stateMachine.CurrentState == UnitStateMachine.State.BUILDING) {
 			anim.SetBool ("BuildState", true);
 		} else {

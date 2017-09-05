@@ -30,16 +30,11 @@ namespace Project.Weather
         {
             get { return _currWeather; }
         }
+
+        [SerializeField]
+        private WeatherType _currDebugWeather;
         private WeatherType _lastWeather;
         private int _newWeather;
-
-        private float _currTemperature;
-        public float CurrTemperature
-        {
-            get { return _currTemperature; }
-            set { _currTemperature = value; }
-        }
-
 
         private float _startChanging;
         private float _endChanging;
@@ -145,10 +140,8 @@ namespace Project.Weather
             }
         }
 
-        private void EnterNewWeather(int newWeather)
-        {
-            switch (newWeather)
-            {
+        private void EnterNewWeather(int newWeather) {
+            switch (newWeather) {
                 case (int)WeatherType.SUN:
                     ChangeWeatherToSun();
                     break;
@@ -163,29 +156,28 @@ namespace Project.Weather
             }
         }
 
-        void ChangeWeatherToSun()
-        {
+        void ChangeWeatherToSun(){
             _currWeather = WeatherType.SUN;
+            _currDebugWeather = WeatherType.SUN;
             this.GetComponent<Weather_Sun>().enabled = true;
             this.GetComponent<Weather_Sun>().IsUseInit = true;
         }
 
-        void ChangeWeatherToRain()
-        {
+        void ChangeWeatherToRain() {
             _currWeather = WeatherType.RAIN;
+            _currDebugWeather = WeatherType.RAIN;
             this.GetComponent<Weather_Rain>().enabled = true;
             this.GetComponent<Weather_Rain>().IsUseInit = true;
         }
 
-        void ChangeWeatherToSnow()
-        {
+        void ChangeWeatherToSnow() {
             _currWeather = WeatherType.SNOW;
+            _currDebugWeather = WeatherType.SNOW;
             this.GetComponent<Weather_Snow>().enabled = true;
             this.GetComponent<Weather_Snow>().IsUseInit = true;
         }
 
-        public void SetWeather(WeatherType newWeather)
-        {
+        public void SetWeather(WeatherType newWeather) {
             _timeSinceLastWeather = 0;
             _canChange = false;
             _timeToNewWeather = 10;
@@ -194,30 +186,30 @@ namespace Project.Weather
             ExitCurrentWeather(_newWeather);
         }
 
-        void Update()
-        {
-            _timeSinceLastWeather += Time.deltaTime;
-            if (_isUseRandomWeather)
+        void Update() {
+            if (_currDebugWeather != _currWeather)
             {
-                if (_timeSinceLastWeather >= _timeToNewWeather)
-                {
+                _newWeather = (int)_currDebugWeather;
+                ExitCurrentWeather(_newWeather);
+                _timeSinceLastWeather = 0;
+            }
+            _timeSinceLastWeather += Time.deltaTime;
+            if (_isUseRandomWeather) {
+                if (_timeSinceLastWeather >= _timeToNewWeather) {
                     _timeSinceLastWeather = 0;
                     _canChange = true;
-                    if (_isUseRandomTimeWeather)
-                    {
+                    if (_isUseRandomTimeWeather) {
                         _timeToNewWeather = Random.Range(_minTimeBeforeChanging
                             , _maxTimeBeforeChanging);
                     }
                 }
             }
 
-            if (_canChange)
-            {
+            if (_canChange) {
                 PickRandomWeather();
             }
 
-            if (_isChanging == true)
-            {
+            if (_isChanging == true) {
                 ExitCurrentWeather(_newWeather);
             }
         }
@@ -226,10 +218,7 @@ namespace Project.Weather
         public void UpdateAllWeather(
             float sunIntensity
             , Color sunLightColor
-            , float moonIntensity
-            , Color moonLightColor
             , Color sky
-            , Color cloudColor
             , float fogDensity
             , Color fogColor
             , float fadeTime)
@@ -256,6 +245,8 @@ namespace Project.Weather
             // Fog settings
             RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, fogDensity, Time.deltaTime / fadeTime);
             RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor, fogColor, Time.deltaTime / fadeTime);
+
+            DynamicGI.UpdateEnvironment();
         }
     }
 }
