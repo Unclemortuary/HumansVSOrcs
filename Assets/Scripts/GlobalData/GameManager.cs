@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-
 using Project.TimeManager;
+using UnityEditor;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
@@ -481,6 +481,84 @@ public class GameManager : MonoBehaviour {
 //
 //        Debug.Log("-> HudManager is initialized");
     }
+
+    /// GLOBAL SAVE GAMEUNITS POSITIONS ///////////////////////////////////////////////
+    ///
+
+    private class SpawnPointsList : List<StartingGamePositions.GameUnitSpawnPoint> {}
+
+    private class ResourcePairsList : List<StartingGamePositions.ArmyResourcesPair> {}
+
+    private class CameraPositionsList : List<StartingGamePositions.CameraPosition> {}
+
+    public void SaveCurrentGamePositions() {
+
+
+        StartingGamePositions positions =  ScriptableObject.CreateInstance<StartingGamePositions>();
+
+        SpawnPointsList unitsPoints = new SpawnPointsList();
+        SpawnPointsList buildingsPoints = new SpawnPointsList();
+        ResourcePairsList resourcePairsList = new ResourcePairsList();
+        CameraPositionsList cameraPositions = new CameraPositionsList();
+
+        foreach (Identification.Army armyType in Enum.GetValues(typeof(Identification.Army))) {
+            ArmyManager manager = Instance.ArmyManagers[armyType];
+            if (manager != null) {
+
+                AbstractGameUnitsList warriorsList = manager.Warriors;
+                AddRespawnPointsToPointsList(unitsPoints, warriorsList, manager);
+
+                AbstractGameUnitsList buildingsList = manager.Buildings;
+                AddRespawnPointsToPointsList(buildingsPoints, buildingsList, manager);
+
+                StartingGamePositions.ArmyResourcesPair pair =
+                    new StartingGamePositions.ArmyResourcesPair(armyType, manager.AvailableResources.CreateCopy());
+                resourcePairsList.Add(pair);
+
+//                StartingGamePositions.CameraPosition camPos = scriptableStartingPositions.CameraHolderPositions;
+//                cameraPositions.Add(new StartingGamePositions.CameraPosition(camPos.Army, camPos.Position));
+
+            } // If we have such manager //
+
+        } // foreach armyType //
+
+        positions.SetBuildingsPositions(buildingsPoints);
+        positions.SetUnitsPositions(unitsPoints);
+        positions.StartingResources = resourcePairsList;
+        positions.CameraHolderPositions = scriptableStartingPositions.CameraHolderPositions;
+/////////////////////////////////////////////////////////////////////////
+
+
+
+/////////////////////////////////////////////////////////////////////////
+        DateTime now = DateTime.Now;
+        string nowString = "" + now.Year + "_" + now.Month + "_" + now.Day + "__" + now.Hour + "_" + now.Minute;
+        Debug.Log(nowString);
+
+
+        AssetDatabase.CreateAsset(positions, "Assets/ScriptableObjectsData/Saves/" + nowString + ".asset");
+        AssetDatabase.SaveAssets();
+
+    }
+
+
+    private void AddRespawnPointsToPointsList(SpawnPointsList pointsList, AbstractGameUnitsList unitsList, ArmyManager manager) {
+
+        foreach(AbstractGameUnit unit in unitsList) {
+
+            Vector3 unitPosition = unit.Avatar.transform.position;
+
+            pointsList.Add(new StartingGamePositions.GameUnitSpawnPoint(
+                    manager.GetTypeByAbstractGameUnit(unit),
+                    manager.ThisArmy,
+                    new Vector3(unitPosition.x, unitPosition.y, unitPosition.z)
+            ));
+        } // Foreach unit in AbstractGameUnitList //
+
+    }
+
+
+
 
     // PAUSE /////////////////////////////////////////////////////////////
 

@@ -510,7 +510,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
 
             ////////////////////////////////////
-            Identification.UnitType type = armyManager.GetBuildingTypeByAbstractGameUnit(helper.TargetUnit);
+            Identification.UnitType type = armyManager.GetTypeByAbstractGameUnit(helper.TargetUnit);
             if (type == Identification.UnitType.GeneralHouse) {
                 armyManager.AvailableResources.ChangeResourceAmount(
                         GameResources.ResourceType.GENERAL_HOUSES, 1);

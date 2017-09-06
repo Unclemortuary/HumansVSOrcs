@@ -45,6 +45,10 @@ public class InputReader : MonoBehaviour{
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.S)) {
+            GameManager.Instance.SaveCurrentGamePositions();
+        }
+
     }
 
 

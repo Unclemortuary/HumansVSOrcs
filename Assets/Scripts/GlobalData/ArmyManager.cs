@@ -59,18 +59,18 @@ public class ArmyManager {
 
     private Dictionary<int, AbstractGameUnit> warriors;
     private Dictionary<int, AbstractGameUnit> buildings;
-    public List<AbstractGameUnit> Warriors {
+    public AbstractGameUnitsList Warriors {
         get {
             return Dict2Values(warriors);
         }
     }
-    public List<AbstractGameUnit> Buildings {
+    public AbstractGameUnitsList Buildings {
         get {
             return Dict2Values(buildings);
         }
     }
-    private List<AbstractGameUnit> Dict2Values(Dictionary<int, AbstractGameUnit> dict) {
-        List<AbstractGameUnit> lst = new List<AbstractGameUnit>();
+    private AbstractGameUnitsList Dict2Values(Dictionary<int, AbstractGameUnit> dict) {
+        AbstractGameUnitsList lst = new AbstractGameUnitsList();
 
         foreach (int i in dict.Keys) {
             lst.Add(dict[i]);
@@ -194,7 +194,7 @@ public class ArmyManager {
 
         UnitStateMachine unitStateMachine = newUnit.Avatar.AddComponent<UnitStateMachine>();
         NavMeshAgent agent = newUnit.Avatar.AddComponent<NavMeshAgent>();
-        agent.autoBraking = true;
+//        agent.autoBraking = true;
 
 
         unitStateMachine.SetUnitStateMachineHelper( new UnitStateMachineHelper(newUnit, agent, this) );
@@ -342,9 +342,9 @@ public class ArmyManager {
 
             Debug.Log("ArmyManager:: Destroying building");
 
-            if (GetBuildingTypeByAbstractGameUnit(unit) == Identification.UnitType.GeneralHouse) {
+            if (GetTypeByAbstractGameUnit(unit) == Identification.UnitType.GeneralHouse) {
                 AvailableResources.ChangeResourceAmount(GameResources.ResourceType.GENERAL_HOUSES, -1);
-            } else if (GetBuildingTypeByAbstractGameUnit(unit) == Identification.UnitType.SimpleHouse) {
+            } else if (GetTypeByAbstractGameUnit(unit) == Identification.UnitType.SimpleHouse) {
                 AvailableResources.ChangeResourceAmount(GameResources.ResourceType.LIVING_HOUSES, -1);
             }
 
@@ -360,6 +360,7 @@ public class ArmyManager {
         }
     }
 
+    // static ??
     private void InstantiateDeadBody(AbstractGameUnit unit) {
         GameObject deadPrefab = unit.Characteristics.DeadAvatarPrefab;
 
@@ -368,7 +369,7 @@ public class ArmyManager {
 
 
 
-    public Identification.UnitType GetBuildingTypeByAbstractGameUnit(AbstractGameUnit unit) {
+    public Identification.UnitType GetTypeByAbstractGameUnit(AbstractGameUnit unit) {
         return id2typeDictionary[unit.ID];
     }
 

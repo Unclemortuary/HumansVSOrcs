@@ -30,6 +30,12 @@ public class StartingGamePositions : ScriptableObject{
                 return position;
             }
         }
+
+        public GameUnitSpawnPoint(Identification.UnitType unitType, Identification.Army armyType, Vector3 position) {
+            this.unitType = unitType;
+            this.armyType = armyType;
+            this.position = position;
+        }
     } // class GameUnitSpawnPoint //
 
 
@@ -51,6 +57,14 @@ public class StartingGamePositions : ScriptableObject{
         return buildings;
     }
 
+    public void SetUnitsPositions(List<GameUnitSpawnPoint> list) {
+        units = list;
+    }
+
+    public void SetBuildingsPositions(List<GameUnitSpawnPoint> list) {
+        buildings = list;
+    }
+
 
     [System.Serializable]
     public class ArmyResourcesPair {
@@ -68,6 +82,11 @@ public class StartingGamePositions : ScriptableObject{
                 return resourcesAmount;
             }
         }
+
+        public ArmyResourcesPair(Identification.Army armyType, GameResources resources) {
+            this.armyType = armyType;
+            this.resourcesAmount = resources;
+        }
     } // class ArmyResourcePair //
 
     [SerializeField]
@@ -75,6 +94,9 @@ public class StartingGamePositions : ScriptableObject{
     public List<ArmyResourcesPair> StartingResources {
         get {
             return startingResources;
+        }
+        set {
+            startingResources = value;
         }
     }
 
@@ -95,6 +117,11 @@ public class StartingGamePositions : ScriptableObject{
                 return position;
             }
         }
+
+        public CameraPosition(Identification.Army armyType, Vector3 position) {
+            this.army = armyType;
+            this.position = position;
+        }
     } // class CameraPosition //
 
 
@@ -103,6 +130,9 @@ public class StartingGamePositions : ScriptableObject{
     public List<CameraPosition> CameraHolderPositions {
         get {
             return cameraHolderPositioins;
+        }
+        set {
+            cameraHolderPositioins = value;
         }
     }
 
