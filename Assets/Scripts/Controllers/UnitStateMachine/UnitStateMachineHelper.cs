@@ -46,7 +46,7 @@ public class UnitStateMachineHelper : IEnemyHelper, ITaskerHelper {
         }
     }
     [SerializeField]
-    private float stoppingDistance  = 2;
+    private float stoppingDistance  = 1f;
     public float StoppingDistance {
         get {
             return stoppingDistance;

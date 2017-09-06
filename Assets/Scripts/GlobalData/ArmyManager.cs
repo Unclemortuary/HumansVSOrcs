@@ -194,6 +194,8 @@ public class ArmyManager {
 
         UnitStateMachine unitStateMachine = newUnit.Avatar.AddComponent<UnitStateMachine>();
         NavMeshAgent agent = newUnit.Avatar.AddComponent<NavMeshAgent>();
+        agent.autoBraking = true;
+
 
         unitStateMachine.SetUnitStateMachineHelper( new UnitStateMachineHelper(newUnit, agent, this) );
 
