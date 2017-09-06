@@ -68,6 +68,8 @@ public class ModelImage : MonoBehaviour {
 			position = spotPoint.position;
 			rotation = Vector3.zero;
 		}
+
+		position = position - new Vector3 (0f, unit.Avatar.transform.lossyScale.y, unit.Avatar.transform.lossyScale.y);
 			
 		currentUnit = Instantiate (unit.Characteristics.AvatarPrefab, position, Quaternion.Euler(rotation), spotPoint);
 	}
