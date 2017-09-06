@@ -20,8 +20,8 @@ namespace Project.Weather
 
         private bool _isUseRandomWeather = true;
         private bool _isUseRandomTimeWeather = true;
-        private int _minTimeBeforeChanging = 10;
-        private int _maxTimeBeforeChanging = 15;
+        private int _minTimeBeforeChanging = 1000;
+        private int _maxTimeBeforeChanging = 1500;
         private int _changeAfterTime = 13;
 
         [SerializeField]
@@ -32,7 +32,7 @@ namespace Project.Weather
         }
 
         [SerializeField]
-        private WeatherType _currDebugWeather;
+        public WeatherType _currDebugWeather;
         private WeatherType _lastWeather;
         private int _newWeather;
 
@@ -156,21 +156,21 @@ namespace Project.Weather
             }
         }
 
-        void ChangeWeatherToSun(){
+        public void ChangeWeatherToSun(){
             _currWeather = WeatherType.SUN;
             _currDebugWeather = WeatherType.SUN;
             this.GetComponent<Weather_Sun>().enabled = true;
             this.GetComponent<Weather_Sun>().IsUseInit = true;
         }
 
-        void ChangeWeatherToRain() {
+        public void ChangeWeatherToRain() {
             _currWeather = WeatherType.RAIN;
             _currDebugWeather = WeatherType.RAIN;
             this.GetComponent<Weather_Rain>().enabled = true;
             this.GetComponent<Weather_Rain>().IsUseInit = true;
         }
 
-        void ChangeWeatherToSnow() {
+        public void ChangeWeatherToSnow() {
             _currWeather = WeatherType.SNOW;
             _currDebugWeather = WeatherType.SNOW;
             this.GetComponent<Weather_Snow>().enabled = true;
