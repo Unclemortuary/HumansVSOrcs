@@ -27,6 +27,13 @@ public class ObjectInfoPanelManager : MonoBehaviour {
 	{
 		gameObject.SetActive (true);
 		Updated (units [0]);
+		//Debug.Log ("PanelUpdate Called");
+	}
+
+	public void PanelUpdate(AbstractGameUnit unit)
+	{
+		gameObject.SetActive (true);
+		Updated (unit);
 		Debug.Log ("PanelUpdate Called");
 	}
 
