@@ -411,7 +411,10 @@ public class GameManager : MonoBehaviour {
     // Controllers ///////////////////////////////////////////////////////////
 
     NeutralsController neutralsController;
-    NeutralsController enemyController;
+    AIController enemyController;
+
+    [SerializeField]
+    private AIScript scriptForAI;
 
     private void InitializeControllers() {
 
@@ -424,12 +427,13 @@ public class GameManager : MonoBehaviour {
         // AI controllers //
 
         if(playerArmy == Identification.Army.Orcs) {
-            enemyController = new NeutralsController(armyManagers[Identification.Army.Humans]);
+            enemyController = new AIController(armyManagers[Identification.Army.Humans], scriptForAI);
         } else {
-            enemyController = new NeutralsController(armyManagers[Identification.Army.Orcs]);
+            enemyController = new AIController(armyManagers[Identification.Army.Orcs], scriptForAI);
         }
 
-
+        AIUpdaterComponent component = gameObject.AddComponent<AIUpdaterComponent>();
+        component.SetAIController(enemyController);
 
     } // InitializeControllers() //
 
@@ -530,7 +534,6 @@ public class GameManager : MonoBehaviour {
 
 
 
-/////////////////////////////////////////////////////////////////////////
         DateTime now = DateTime.Now;
         string nowString = "" + now.Year + "_" + now.Month + "_" + now.Day + "__" + now.Hour + "_" + now.Minute;
         Debug.Log(nowString);
@@ -577,6 +580,11 @@ public class GameManager : MonoBehaviour {
     ///  End Game Checking //////////////////////////////////////////////////////////////////////
 
     private bool gameIsStarted = false;
+    public bool GameIsStarted {
+        get {
+            return gameIsStarted;
+        }
+    }
 
 
     void Update() {

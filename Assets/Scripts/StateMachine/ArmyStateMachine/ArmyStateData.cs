@@ -18,8 +18,9 @@ public class ArmyStateData {
 
     public AbstractGameUnitsList SelectedUnits { get; set; }
 
-    public List<RTSActionType> AvailableActions { get; set; }
+//    public List<RTSActionType> AvailableActions { get; set; }
 
+//    private bool wai
     public bool WaitingForTarget { get; set; }
 
     public Vector3 TargetPoint { get; set; }
@@ -36,20 +37,20 @@ public class ArmyStateData {
         this.ThisArmyManager = armyManager;
 
         SelectedUnits = new AbstractGameUnitsList();
-        AvailableActions = new List<RTSActionType>();
+//        AvailableActions = new List<RTSActionType>();
 
         ClearAll();
     }
 
     public void ClearAll() {
         SelectedUnits.Clear();
-        AvailableActions.Clear();
+//        AvailableActions.Clear();
 
         ClearTargetAndCurrentAction();
     }
 
     public void ClearTargetAndCurrentAction() {
-        WaitingForTarget = true;
+        WaitingForTarget = false;
         TargetPoint = noWherePoint;
         TargetUnit = null;
         CurrentRtsAction = null;

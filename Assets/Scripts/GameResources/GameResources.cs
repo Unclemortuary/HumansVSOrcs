@@ -31,6 +31,13 @@ public class GameResources {
     public static GameResources ZERO  = new GameResources();
 
 
+    public GameResources(float gold, float wood, float food, float stone) {
+        this.gold = gold;
+        this.wood = wood;
+        this.food = food;
+        this.stone = stone;
+    }
+
     public GameResources() {
         ZeroValues();
     }
@@ -149,5 +156,11 @@ public class GameResources {
     }
 
 
+    public void AddResources(GameResources profit) {
+        this.gold += profit.gold;
+        this.wood += profit.wood;
+        this.stone += profit.stone;
+        this.food += profit.wood;
+    }
 
 }
