@@ -156,26 +156,39 @@ namespace Project.Weather
             }
         }
 
-        public void ChangeWeatherToSun(){
+        void ChangeWeatherToSun(){
             _currWeather = WeatherType.SUN;
             _currDebugWeather = WeatherType.SUN;
             this.GetComponent<Weather_Sun>().enabled = true;
             this.GetComponent<Weather_Sun>().IsUseInit = true;
         }
 
-        public void ChangeWeatherToRain() {
+        void ChangeWeatherToRain() {
             _currWeather = WeatherType.RAIN;
             _currDebugWeather = WeatherType.RAIN;
             this.GetComponent<Weather_Rain>().enabled = true;
             this.GetComponent<Weather_Rain>().IsUseInit = true;
         }
 
-        public void ChangeWeatherToSnow() {
-            _currWeather = WeatherType.SNOW;
-            _currDebugWeather = WeatherType.SNOW;
-            this.GetComponent<Weather_Snow>().enabled = true;
-            this.GetComponent<Weather_Snow>().IsUseInit = true;
+		void ChangeWeatherToSnow() {
+			_currWeather = WeatherType.SNOW;
+			_currDebugWeather = WeatherType.SNOW;
+			this.GetComponent<Weather_Snow>().enabled = true;
+			this.GetComponent<Weather_Snow>().IsUseInit = true;
+		}
+		//for buttons
+        public void ChangeToSnow() {
+            _currDebugWeather = WeatherType.SNOW;  
         }
+
+		public void ChangeToSun(){
+			_currDebugWeather = WeatherType.SUN;
+		}
+
+		public void ChangeToRain() {
+			_currDebugWeather = WeatherType.RAIN;
+		}
+			
 
         public void SetWeather(WeatherType newWeather) {
             _timeSinceLastWeather = 0;

@@ -25,6 +25,8 @@ namespace Project.TimeManager
             get { return _currTimeOfDay; }
         }
 
+        public TimeOfDay _currDebugTimeOfDay;
+
         private const float ONEHOURLENGTH = 1.0f / 24.0f;
 
 
@@ -69,6 +71,7 @@ namespace Project.TimeManager
         void Start() {
             _currTime = 0.5f;
             _currTimeOfDay = TimeOfDay.DAY;
+            _currDebugTimeOfDay = TimeOfDay.DAY;
             _fStartSunrise = ConvertTimeToFloat(_iStartSunrise);
             _fStartDay = ConvertTimeToFloat(_iStartDay);
             _fStartSunset = ConvertTimeToFloat(_iStartSunset);
@@ -80,6 +83,25 @@ namespace Project.TimeManager
         }
 
         void Update() {
+            if (_currDebugTimeOfDay != _currTimeOfDay)
+            {
+                switch (_currDebugTimeOfDay) {
+                    case TimeOfDay.SUNRISE:
+                        _currTime = _fStartSunrise;
+                        break;
+                    case TimeOfDay.DAY:
+                        _currTime = _fStartDay;
+                        break;
+                    case TimeOfDay.SUNSET:
+                        _currTime = _fStartSunset;
+                        break;
+                    case TimeOfDay.NIGHT:
+                        _currTime = _fStartNight;
+                        break;
+                }
+
+            }
+
             _currTime += Time.deltaTime / _fullDay;
             if (_currTime >= 1) {
                 _currTime = 0;
@@ -110,6 +132,7 @@ namespace Project.TimeManager
 
         private void SetCurrentTimeOfDay(TimeOfDay currTimeOfDay) {
             _currTimeOfDay = currTimeOfDay;
+            _currDebugTimeOfDay = currTimeOfDay;
         }
     }
 }
