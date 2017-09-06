@@ -13,6 +13,9 @@ public class CommandSlot : MonoBehaviour, IClickable, IPointerClickHandler {
     [SerializeField]
     private PointerEventData.InputButton workableButton = PointerEventData.InputButton.Left;
 
+	[SerializeField]
+	private Image activeBorder;
+
     private Image commandImage;
 
     private RTSActionType command;
@@ -28,6 +31,8 @@ public class CommandSlot : MonoBehaviour, IClickable, IPointerClickHandler {
     {
 //commandImage = GetComponentInChildren<Image> ();
         commandImage = transform.GetChild(0).GetComponent<Image>();
+		activeBorder = transform.GetChild(1).GetComponent<Image>();
+		activeBorder.enabled = false;
         UnsetCommand ();
 		myResources = new GameResources ();
     }
@@ -54,12 +59,12 @@ public class CommandSlot : MonoBehaviour, IClickable, IPointerClickHandler {
 
     public void SelectAction()
     {
-//Makes some visual staff here
+		//activeBorder.enabled = true;	
     }
 
     public void DeselectAction()
     {
-//Makes some visual staff here
+		//activeBorder.enabled = false;
     }
 
 #region IClickable implementation
