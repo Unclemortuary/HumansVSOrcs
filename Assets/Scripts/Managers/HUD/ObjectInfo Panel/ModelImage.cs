@@ -60,7 +60,7 @@ public class ModelImage : MonoBehaviour {
 
 		if (unit.Avatar.GetComponent<BuildingComponent> ())
 		{
-			position = spotPoint.position + new Vector3 (0f, -5f, -20f);
+			position = spotPoint.position + new Vector3 (0f, -10f, -20f);
 			rotation = new Vector3 (0f, -40f, 0f);
 		}
 		else
