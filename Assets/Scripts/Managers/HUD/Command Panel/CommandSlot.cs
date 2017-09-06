@@ -18,7 +18,7 @@ public class CommandSlot : MonoBehaviour, IClickable, IPointerClickHandler {
 
     private Image commandImage;
 
-    private RTSActionType command;
+	private RTSActionType command = RTSActionType.NULL;
 
     private bool isActionActive = false;
 
