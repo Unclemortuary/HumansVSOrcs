@@ -26,7 +26,7 @@ public class HPSliderHandler : MonoBehaviour {
 
 		slider = GetComponent<Slider> ();
 		slider.interactable = false;
-		//slider.wholeNumbers = true;
+		slider.wholeNumbers = true;
 		slider.onValueChanged.AddListener(delegate {HPValueChanged(); });
 
 		ourManager.Updated += UpdateSlider;
