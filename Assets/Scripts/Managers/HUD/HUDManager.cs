@@ -12,6 +12,8 @@ public class HUDManager : MonoBehaviour {
     private AbstractGameUnitsList selectedUnitsList;
     private Identification.Army playerArmy;
 
+	private int multiSelectIndex = 0;
+
 	void Start()
 	{
 		commandPanelManager = GetComponentInChildren<CommandPanelManager> ();
@@ -33,10 +35,21 @@ public class HUDManager : MonoBehaviour {
 
 	void Update()
 	{
-		if (selectedUnitsList.Count != 0)
+		if (CheckDeadUnits ()) 
 		{
-			if (selectedUnitsList [0].IsDead ())
+			if (selectedUnitsList.Count == 1)
 				ClearSelection ();
+		}
+		if (selectedUnitsList.Count > 1) 
+		{
+			if(Input.GetKeyUp("tab"))
+			{
+				multiSelectIndex++;
+				if (multiSelectIndex == selectedUnitsList.Count)
+					multiSelectIndex = 0;
+				Debug.Log ("MULTISELECT index is " + multiSelectIndex);
+				objectInfoPanelManager.PanelUpdate (selectedUnitsList[multiSelectIndex]);
+			}
 		}
 	}
 
@@ -87,7 +100,16 @@ public class HUDManager : MonoBehaviour {
 		RefreshActionsList();
 	}
 
-    private void RefreshActionsList() {
+    private void RefreshActionsList()
+	{
+		for (int i = 0; i < selectedUnitsList.Count; i++)
+		{
+			if (selectedUnitsList [i].IsDead ())
+			{
+				selectedUnitsList.Remove (selectedUnitsList [i]);
+			}
+		}
+
         if (this.selectedUnitsList.Count != 0)
         {
 			List<RTSActionType> actionTypes;
@@ -113,6 +135,7 @@ public class HUDManager : MonoBehaviour {
 	{
 		commandPanelManager.ClearPanel (false);
 		objectInfoPanelManager.PanelDeselect ();
+		multiSelectIndex = 0;
 	}
 
 	private List<ActionData.ActionDataItem> ConvertActionsToData(List<RTSActionType> actions)
@@ -136,6 +159,14 @@ public class HUDManager : MonoBehaviour {
                 );
 
 		Debug.Log ("Current command is " + action.ToString ());
+	}
+
+	private bool CheckDeadUnits()
+	{
+		for (int i = 0; i < selectedUnitsList.Count; i++)
+			if (selectedUnitsList [i].IsDead ())
+				return true;
+		return false;
 	}
 
 

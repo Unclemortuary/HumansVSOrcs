@@ -61,7 +61,7 @@ public class HPSliderHandler : MonoBehaviour {
 	public void HPValueChanged()
 	{
         if(selectedUnit != null) {
-            HPText.text = selectedUnit.CurrentHP.ToString () + " / " + selectedUnit.Characteristics.MaxHP.ToString ();
+			HPText.text = slider.value.ToString () + " / " + selectedUnit.Characteristics.MaxHP.ToString ();
             fillImage.color = Color.Lerp (minHPColor, maxHPColor, slider.normalizedValue);
             if (slider.value < 1f)
                 SliderColorToEmpty (true);
