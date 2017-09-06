@@ -209,12 +209,12 @@ public class ClonnableGameUnit : AbstractGameUnit {
 
     public override bool IsDead() {
         if (Avatar == NoAvatar || CurrentHP <= 0) {
-            Debug.Log("##################################### Unit is dead ###########################");
+//            Debug.Log("##################################### Unit is dead ###########################");
             return true;
         }
         if (Avatar == null) {
 //        if (Avatar == null || !Avatar.activeSelf) {
-            Debug.Log("##################################### Unit is dead ###########################");
+//            Debug.Log("##################################### Unit is dead ###########################");
             return true;
         }
 

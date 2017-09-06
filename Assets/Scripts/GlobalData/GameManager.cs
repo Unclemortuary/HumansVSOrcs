@@ -517,12 +517,18 @@ public class GameManager : MonoBehaviour {
         if (gameIsStarted) {
             if (armyManagers[playerArmy].AreEverybodyDead()) {
                 Debug.Log("!!!!!!!!!!!!!!!!!!!!!! Computer won !!!!!!!!!!!!!!!!!!!");
+
+                gameObject.GetComponent<MenuEndGame>().PlayerWon(false);
+
                 gameIsStarted = false;
-                SetGlobalPause(true);
+//                SetGlobalPause(true);
             } else if (armyManagers[enemyArmy].AreEverybodyDead()){
                 Debug.Log("!!!!!!!!!!!!!!!!!!!!!! Player won !!!!!!!!!!!!!!!!!!!");
+
+                gameObject.GetComponent<MenuEndGame>().PlayerWon(true);
+
                 gameIsStarted = false;
-                SetGlobalPause(true);
+//                SetGlobalPause(true);
             }
         }
 

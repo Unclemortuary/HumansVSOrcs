@@ -9,6 +9,18 @@ public class MenuEndGame : MonoBehaviour {
 	public GameObject endCanvas;
 	public Text endText;
 
+
+    public void PlayerWon(bool yes) {
+        string text = "";
+        if (yes) {
+			text = "Victory";
+        } else {
+            text = "Lose";
+        }
+        TextString(text);
+        EndMenuActive();
+    }
+
 	public void EndMenuActive()
 	{
 		endCanvas.SetActive (true);
