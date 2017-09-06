@@ -18,6 +18,7 @@ public class ModelImage : MonoBehaviour {
 	private Color originColor;
 	private Color humansColor;
 	private Color orcsColor;
+	private Color neutralsColor;
 
 	[SerializeField]
 	private GameObject currentUnit;
@@ -28,6 +29,7 @@ public class ModelImage : MonoBehaviour {
 		//originColor = fireParticles.startColor.color;
 		humansColor = new Color (0.1f, 0.15f, 0.3f, 0.95f);
 		orcsColor = new Color (0.3f, 0.15f, 0.15f, 0.95f);
+		neutralsColor = new Color (0.2f, 0.2f, 0.2f, 0.95f);
 
 		spotPoint = transform;
 
@@ -46,9 +48,13 @@ public class ModelImage : MonoBehaviour {
 			backround.color = humansColor;
 		}
 			//fireParticles.startColor = new ParticleSystem.MinMaxGradient (humansColor);
-		else
+		if(unit.Avatar.GetComponent<UnitStateMachine> ().EnemyHelper.MyArmy == Identification.Army.Orcs)
 		{
 			backround.color = orcsColor;
+		}
+		if(unit.Avatar.GetComponent<UnitStateMachine> ().EnemyHelper.MyArmy == Identification.Army.Neutrals)
+		{
+			backround.color = neutralsColor;
 		}
 			//fireParticles.startColor = new ParticleSystem.MinMaxGradient (originColor);
 

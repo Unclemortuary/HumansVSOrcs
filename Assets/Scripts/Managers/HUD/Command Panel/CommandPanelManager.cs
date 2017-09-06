@@ -60,18 +60,23 @@ public class CommandPanelManager : MonoBehaviour {
             commands [i].DeselectAction ();
 
 //Then Select/Deselect clicked action
-//        if (currentAction.Equals (actionType))
-//        {
-//            commands [slotIndex].DeselectAction ();
-//            currentAction = RTSActionType.NULL;
-//            ActionChanged (currentAction);
-//        }
-//        else
+		/*
+        if (currentAction.Equals (actionType))
+        {
+            commands [slotIndex].DeselectAction ();
+            currentAction = RTSActionType.NULL;
+            ActionChanged (currentAction);
+        }
+        else
         {
             commands [slotIndex].SelectAction ();
             currentAction = actionType;
             ActionChanged (currentAction);
         }
+        */
+		commands [slotIndex].SelectAction ();
+		currentAction = actionType;
+		ActionChanged (currentAction);
 //Debug.Log ("Current action is " + actionType.ToString ());
     }
 
