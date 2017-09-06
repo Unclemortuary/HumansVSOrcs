@@ -52,6 +52,7 @@ public class MenuStartScript : MonoBehaviour {
         CloseMainMenu();
         GameManager.Instance.StartGameWithPlayerArmyThe(Identification.Army.Humans);
 		weather.SetActive (true);
+		RenderSettings.fog = true;
     }
 
 	public void StartGameOrcs()
@@ -59,6 +60,7 @@ public class MenuStartScript : MonoBehaviour {
 		CloseMainMenu();
         GameManager.Instance.StartGameWithPlayerArmyThe(Identification.Army.Orcs);
 		weather.SetActive (true);
+		RenderSettings.fog = true;
     }
 
 	private void CloseMainMenu() {

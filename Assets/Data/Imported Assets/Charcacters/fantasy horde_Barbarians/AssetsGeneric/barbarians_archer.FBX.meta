@@ -137,7 +137,9 @@ ModelImporter:
     4300002: barbarian
     4300004: elf_arch_01
     7400000: idle
-    7400002: ArchTest
+    7400002: Archer1
+    7400004: Archer2
+    7400006: Archer3
     9500000: //RootNode
     11100000: //RootNode
     13700000: barbarian
@@ -194,7 +196,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: ArchTest
+      name: Archer1
       takeName: Take 001
       firstFrame: 0
       lastFrame: 50
@@ -204,7 +206,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -216,7 +218,385 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.57482994
+        functionName: ShotState
+        data: 
+        objectReferenceParameter: {fileID: 1406785757769888, guid: 5767911233366a044a26c051b3855c71,
+          type: 2}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: barbarian
+        weight: 1
+      - path: BarbarianPelvis
+        weight: 1
+      - path: BarbarianPelvis/Barbariancloth_back
+        weight: 1
+      - path: BarbarianPelvis/Barbariancloth_front
+        weight: 1
+      - path: BarbarianPelvis/BarbarianLThigh
+        weight: 1
+      - path: BarbarianPelvis/BarbarianLThigh/BarbarianLCalf
+        weight: 1
+      - path: BarbarianPelvis/BarbarianLThigh/BarbarianLCalf/BarbarianLFoot
+        weight: 1
+      - path: BarbarianPelvis/BarbarianLThigh/BarbarianLCalf/BarbarianLFoot/BarbarianLDigit11
+        weight: 1
+      - path: BarbarianPelvis/BarbarianRThigh
+        weight: 1
+      - path: BarbarianPelvis/BarbarianRThigh/BarbarianRCalf
+        weight: 1
+      - path: BarbarianPelvis/BarbarianRThigh/BarbarianRCalf/BarbarianRFoot
+        weight: 1
+      - path: BarbarianPelvis/BarbarianRThigh/BarbarianRCalf/BarbarianRFoot/BarbarianRDigit11
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/bone_elf arch_main
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_botton00
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_botton00/bone_elf arch_botton01
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_botton00/bone_elf arch_botton01/bone_goblin
+          arch_botton_tip
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_top00
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_top00/bone_elf arch_top01
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_top00/bone_elf arch_top01/bone_goblin
+          arch_top_tip
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_dummie botton
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_dummie botton/IK_goblin arch_botton
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_dummie top
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_dummie top/IK_goblin arch_top
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit11
+          1
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit11
+          1/BarbarianLDigit12
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit11
+          1/BarbarianLDigit12/BarbarianLDigit13
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit21
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit21/BarbarianLDigit22
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit21/BarbarianLDigit22/BarbarianLDigit23
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit31
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit31/BarbarianLDigit32
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit31/BarbarianLDigit32/BarbarianLDigit33
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianNeck
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianNeck/BarbarianHead
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianNeck/BarbarianHead/bon_gob_war_face
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianNeck/BarbarianHead/bon_gob_war_jaw
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/Barbarian_weaponR
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit11
+          1
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit11
+          1/BarbarianRDigit12
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit11
+          1/BarbarianRDigit12/BarbarianRDigit13
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit21
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit21/BarbarianRDigit22
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit21/BarbarianRDigit22/BarbarianRDigit23
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit31
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit31/BarbarianRDigit32
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit31/BarbarianRDigit32/BarbarianRDigit33
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/elf_quiver
+        weight: 1
+      - path: elf_arch_01
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Archer2
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.5703565
+        functionName: ShotState
+        data: 
+        objectReferenceParameter: {fileID: 1730491707553962, guid: 1eb0a20f78024834f84f0d019f841823,
+          type: 2}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: barbarian
+        weight: 1
+      - path: BarbarianPelvis
+        weight: 1
+      - path: BarbarianPelvis/Barbariancloth_back
+        weight: 1
+      - path: BarbarianPelvis/Barbariancloth_front
+        weight: 1
+      - path: BarbarianPelvis/BarbarianLThigh
+        weight: 1
+      - path: BarbarianPelvis/BarbarianLThigh/BarbarianLCalf
+        weight: 1
+      - path: BarbarianPelvis/BarbarianLThigh/BarbarianLCalf/BarbarianLFoot
+        weight: 1
+      - path: BarbarianPelvis/BarbarianLThigh/BarbarianLCalf/BarbarianLFoot/BarbarianLDigit11
+        weight: 1
+      - path: BarbarianPelvis/BarbarianRThigh
+        weight: 1
+      - path: BarbarianPelvis/BarbarianRThigh/BarbarianRCalf
+        weight: 1
+      - path: BarbarianPelvis/BarbarianRThigh/BarbarianRCalf/BarbarianRFoot
+        weight: 1
+      - path: BarbarianPelvis/BarbarianRThigh/BarbarianRCalf/BarbarianRFoot/BarbarianRDigit11
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/bone_elf arch_main
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_botton00
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_botton00/bone_elf arch_botton01
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_botton00/bone_elf arch_botton01/bone_goblin
+          arch_botton_tip
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_top00
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_top00/bone_elf arch_top01
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_arrow/bone_elf arch_top00/bone_elf arch_top01/bone_goblin
+          arch_top_tip
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_dummie botton
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_dummie botton/IK_goblin arch_botton
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_dummie top
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/Barbarian_weaponL/ctrl_goblin
+          arch_main/ctrl_goblin arch_dummie top/IK_goblin arch_top
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit11
+          1
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit11
+          1/BarbarianLDigit12
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit11
+          1/BarbarianLDigit12/BarbarianLDigit13
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit21
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit21/BarbarianLDigit22
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit21/BarbarianLDigit22/BarbarianLDigit23
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit31
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit31/BarbarianLDigit32
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianLCollarbone/BarbarianLUpperarm/BarbarianLForearm/BarbarianLPalm/BarbarianLDigit31/BarbarianLDigit32/BarbarianLDigit33
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianNeck
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianNeck/BarbarianHead
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianNeck/BarbarianHead/bon_gob_war_face
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianNeck/BarbarianHead/bon_gob_war_jaw
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/Barbarian_weaponR
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit11
+          1
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit11
+          1/BarbarianRDigit12
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit11
+          1/BarbarianRDigit12/BarbarianRDigit13
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit21
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit21/BarbarianRDigit22
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit21/BarbarianRDigit22/BarbarianRDigit23
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit31
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit31/BarbarianRDigit32
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/BarbarianRCollarbone/BarbarianRUpperarm/BarbarianRForearm/BarbarianRPalm/BarbarianRDigit31/BarbarianRDigit32/BarbarianRDigit33
+        weight: 1
+      - path: BarbarianPelvis/BarbarianSpine1/BarbarianSpine2/BarbarianSpine3/BarbarianRibcage/elf_quiver
+        weight: 1
+      - path: elf_arch_01
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Archer3
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.5703565
+        functionName: ShotState
+        data: 
+        objectReferenceParameter: {fileID: 1030615763447844, guid: 272616f2bf8279849835bae08c6b38aa,
+          type: 2}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
