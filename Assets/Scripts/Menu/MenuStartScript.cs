@@ -16,6 +16,7 @@ public class MenuStartScript : MonoBehaviour {
 	bool timeState = false;
 	public Animator meshProText;
 	public Animator panel;
+	public GameObject weather;
 
 	void Awake()
 	{
@@ -50,12 +51,14 @@ public class MenuStartScript : MonoBehaviour {
 	{
         CloseMainMenu();
         GameManager.Instance.StartGameWithPlayerArmyThe(Identification.Army.Humans);
+		weather.SetActive (true);
     }
 
 	public void StartGameOrcs()
 	{
 		CloseMainMenu();
         GameManager.Instance.StartGameWithPlayerArmyThe(Identification.Army.Orcs);
+		weather.SetActive (true);
     }
 
 	private void CloseMainMenu() {

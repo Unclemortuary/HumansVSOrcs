@@ -12,6 +12,8 @@ public class CameraMoverV2 : MonoBehaviour {
 
     [SerializeField]
     private float mouseSpeed = 3;
+	[SerializeField]
+	private float mouseSpeedMin = 0.8f;
     [SerializeField]
     private float mouseWheelSpeed = 4;
 
@@ -146,6 +148,9 @@ public class CameraMoverV2 : MonoBehaviour {
                     Mathf.Clamp (thisCamera.transform.localPosition.z, startPosition.z, startPosition.z));
 		}
 		mouseSpeed = Mathf.Abs(3.5f * thisCamera.transform.localPosition.y / startPosition.y);
+		if (mouseSpeed < mouseSpeedMin) {
+			mouseSpeed = mouseSpeedMin;
+		}
 	}
 
 

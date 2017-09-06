@@ -69,10 +69,10 @@ namespace Project.Weather
         /********** FOG Settings **********/
 
         [SerializeField]
-        protected float _fogAmount = 0.05f;
+        protected float _fogAmount = 0.005f;
 
         [SerializeField]
-        protected float _fogMorningAmount = 0.05f;
+        protected float _fogMorningAmount = 0.005f;
 
         [SerializeField]
         protected bool _isUseMorningFog = false;
