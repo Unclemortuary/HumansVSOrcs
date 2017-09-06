@@ -14,7 +14,8 @@ namespace Project.TimeManager
         }
 
         public void MoveSun(float currentTime) {
-            _sun.localRotation = Quaternion.Euler((currentTime * 360f) - 90, 170, 0);
+            //_sun.localRotation = Quaternion.Euler((currentTime * 360f) - 90, 170, 0);
+			//динамические тени очень очень плохо
         }
     }
 }
