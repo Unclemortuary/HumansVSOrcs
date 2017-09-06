@@ -63,35 +63,9 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 				}
 
 			}
-
-			//if(weAreBuildingNow)
-				//CanBuildCheck (hit.point, true);
 		}
 	}
 
-	/*
-	void BuildUp(Vector3 position)
-	{
-		if (canBuild) 
-		{
-			settableBuilding.transform.position = position;
-			foreach (Renderer renderer in renderers) 
-				renderer.material.color = new Color (settableBuilding.OriginColor.r, settableBuilding.OriginColor.g, settableBuilding.OriginColor.b, 0.5f);
-
-			Collider[] colliders = settableBuilding.gameObject.GetComponents<Collider> ();
-			foreach (Collider collider in colliders)
-				collider.enabled = true;
-
-			//***Animations of building and Timer class start must invoke here***
-
-			Destroy (this);
-		}
-		else 
-		{
-			Debug.Log ("Cannot build here!");
-		}
-	}
-	*/
 
 	protected virtual bool CanBuildCheck(Vector3 mousePosition, Collider other)
 	{
@@ -100,6 +74,17 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 
 		int currentI = (int) (mousePosition.x / cellSize);
 		int curretnJ = (int) (mousePosition.z / cellSize);
+
+		return GridMapManager.instance.MapArrayCheck (currentI - iOffset, curretnJ - jOffset, currentI + iOffset, curretnJ + jOffset);
+	}
+
+	public static bool CanBuildCheck(Vector3 position, float width, float height)
+	{
+		int iOffset = (int) ((width / (GridMapManager.instance.CellSize * 2f)) + 1);
+		int jOffset = (int) ((height / (GridMapManager.instance.CellSize * 2f)) + 1);
+
+		int currentI = (int) (position.x / GridMapManager.instance.CellSize);
+		int curretnJ = (int) (position.z / GridMapManager.instance.CellSize);
 
 		return GridMapManager.instance.MapArrayCheck (currentI - iOffset, curretnJ - jOffset, currentI + iOffset, curretnJ + jOffset);
 	}
