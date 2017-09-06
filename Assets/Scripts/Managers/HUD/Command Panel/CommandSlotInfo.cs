@@ -24,54 +24,47 @@ public class CommandSlotInfo : MonoBehaviour {
 	{
 		myResources = GameManager.Instance.ArmyManagers[GameManager.Instance.PlayerArmy].AvailableResources;
 		var slot = GetComponent<CommandSlot> ();
-		//myActionData.ActionsData [slot.Command].PriceToUse [0];
-		for (int i = 0; i < myActionData.ActionsData.Count; i++) 
+		RTSActionType myType = slot.Command;
+		if(myType != RTSActionType.NULL)
 		{
-			
-			if (myActionData.ActionsData [i].Action == slot.Command)// && (myActionData.ActionsData [i].Action.ToString().Contains("reate") 
-				//|| myActionData.ActionsData [i].Action.ToString().Contains("Build")))
-			{		
 				slot.gameObject.transform.GetChild(0).gameObject.GetComponent<Image> ().color = new Color32(255,255,255,255);
-				if (myActionData.ActionsData [i].PriceToUse.GetResourceAmount (GameResources.ResourceType.STONE) > myResources.GetResourceAmount (GameResources.ResourceType.STONE)
-				    || myActionData.ActionsData [i].PriceToUse.GetResourceAmount (GameResources.ResourceType.GOLD) > myResources.GetResourceAmount (GameResources.ResourceType.GOLD)
-				    || myActionData.ActionsData [i].PriceToUse.GetResourceAmount (GameResources.ResourceType.WOOD) > myResources.GetResourceAmount (GameResources.ResourceType.WOOD)
-				    || myActionData.ActionsData [i].PriceToUse.GetResourceAmount (GameResources.ResourceType.FOOD) > myResources.GetResourceAmount (GameResources.ResourceType.FOOD)) 
+				if (GameManager.Instance.ActionsLibrary.GetRTSAction( myType ).GetActionDataItem().PriceToUse.GetResourceAmount((GameResources.ResourceType.STONE)) > myResources.GetResourceAmount (GameResources.ResourceType.STONE)
+					|| GameManager.Instance.ActionsLibrary.GetRTSAction( myType ).GetActionDataItem().PriceToUse.GetResourceAmount((GameResources.ResourceType.GOLD)) > myResources.GetResourceAmount (GameResources.ResourceType.GOLD)
+					|| GameManager.Instance.ActionsLibrary.GetRTSAction( myType ).GetActionDataItem().PriceToUse.GetResourceAmount((GameResources.ResourceType.WOOD))> myResources.GetResourceAmount (GameResources.ResourceType.WOOD)
+					|| GameManager.Instance.ActionsLibrary.GetRTSAction( myType ).GetActionDataItem().PriceToUse.GetResourceAmount((GameResources.ResourceType.FOOD)) > myResources.GetResourceAmount (GameResources.ResourceType.FOOD)) 
 				{
 					slot.gameObject.transform.GetChild (0).gameObject.GetComponent<Image> ().color =  new Color32(25,25,25,255);
-					//Debug.Log ("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+					
 				}
 			 else 
 				{
 					slot.gameObject.transform.GetChild(0).gameObject.GetComponent<Image> ().color = new Color32(255,255,255,255);
 				}
-				break;
 			}
-		}
 	}
 
 	public void SlotInfoEnter()
 	{
 		var slot = GetComponent<CommandSlot> ();
-		//myActionData.ActionsData [slot.Command].PriceToUse [0];
-		for(int i = 0; i < myActionData.ActionsData.Count ;i++)
+		RTSActionType myType = slot.Command;
+		if(myType != RTSActionType.NULL)
 		{
-			if (myActionData.ActionsData [i].Action == slot.Command && (myActionData.ActionsData [i].Action.ToString().Contains("reate") 
-				|| myActionData.ActionsData [i].Action.ToString().Contains("Build")))
+			if ((GameManager.Instance.ActionsLibrary.GetRTSAction( myType ).ToString().Contains("reate") 
+				|| GameManager.Instance.ActionsLibrary.GetRTSAction( myType ).ToString().Contains("Build")))
 			{		
 				RectTransform slotTrans = slotMove.GetComponent<RectTransform> (); 
 				slotTrans.position = new Vector3(Input.mousePosition.x - slotTrans.rect.width/2,Input.mousePosition.y + slotTrans.rect.height/2,slotTrans.position.z );
 
 				slotMove.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = 
-					" " + myActionData.ActionsData [i].PriceToUse.GetResourceAmount((GameResources.ResourceType.STONE));
+			" " + GameManager.Instance.ActionsLibrary.GetRTSAction( myType ).GetActionDataItem().PriceToUse.GetResourceAmount((GameResources.ResourceType.STONE));
 				slotMove.gameObject.transform.GetChild(3).gameObject.GetComponent<Text>().text = 
-					" " + myActionData.ActionsData [i].PriceToUse.GetResourceAmount((GameResources.ResourceType.WOOD));
+			" " + GameManager.Instance.ActionsLibrary.GetRTSAction( myType ).GetActionDataItem().PriceToUse.GetResourceAmount((GameResources.ResourceType.WOOD));
 			
 				slotMove.gameObject.transform.GetChild(5).gameObject.GetComponent<Text>().text = 
-					" " + myActionData.ActionsData [i].PriceToUse.GetResourceAmount((GameResources.ResourceType.FOOD));
+			" " + GameManager.Instance.ActionsLibrary.GetRTSAction( myType ).GetActionDataItem().PriceToUse.GetResourceAmount((GameResources.ResourceType.FOOD));
 				slotMove.gameObject.transform.GetChild(7).gameObject.GetComponent<Text>().text = 
-					" " + myActionData.ActionsData [i].PriceToUse.GetResourceAmount((GameResources.ResourceType.GOLD));
+			" " + GameManager.Instance.ActionsLibrary.GetRTSAction( myType ).GetActionDataItem().PriceToUse.GetResourceAmount((GameResources.ResourceType.GOLD));
 				slotMove.SetActive (true);
-				break;
 			}
 		}
 	}
