@@ -277,7 +277,7 @@ namespace Project.Weather
 
 
             // Skybox settings
-            RenderSettings.skybox.SetColor("_Tint", Color.Lerp(RenderSettings.skybox.GetColor("_Tint"), sky, Time.deltaTime / fadeTime));
+          //  RenderSettings.skybox.SetColor("_Tint", Color.Lerp(RenderSettings.skybox.GetColor("_Tint"), sky, Time.deltaTime / fadeTime));
 
             // Fog settings
             RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, fogDensity, Time.deltaTime / fadeTime);
