@@ -327,6 +327,14 @@ public class ArmyManager {
     }
 
     public void DestroyGameUnit(int id) {
+
+        // Remove from dictionary //
+        if (id2typeDictionary[id] != null) {
+            id2typeDictionary.Remove(id);
+        }
+
+        ///////
+
         AbstractGameUnit unit = null;
         if (warriors.ContainsKey(id)) {
             unit =  warriors[id];
@@ -373,6 +381,18 @@ public class ArmyManager {
         return id2typeDictionary[unit.ID];
     }
 
+
+    public int NumberOfUnitsOfType(Identification.UnitType type) {
+        int num = 0;
+
+        foreach (int id in id2typeDictionary.Keys) {
+            if (id2typeDictionary[id] == type) {
+                num++;
+            }
+        }
+
+        return num;
+    }
 
     public AbstractGameUnitsList FindWarriorsWithinViewportBounds(Bounds bounds) {
         return FindGameUnitsWithinViewportBounds(warriors.Values, bounds);

@@ -183,6 +183,13 @@ namespace Project.Weather
 
 		public void ChangeToSun(){
 			_currDebugWeather = WeatherType.SUN;
+			//myManager.GetComponent<TimeManager> ()._currTime = 0.5f;
+			TimeManager.TimeManager.GetInstance._currTime = 0.5f;
+		}
+		public void ChangeToNight(){
+			_currDebugWeather = WeatherType.SUN;
+			//myManager.GetComponent<TimeManager> ()._currTime = 0.5f;
+			TimeManager.TimeManager.GetInstance._currTime = 0.9f;
 		}
 
 		public void ChangeToRain() {
@@ -234,7 +241,8 @@ namespace Project.Weather
             , Color sky
             , float fogDensity
             , Color fogColor
-            , float fadeTime)
+            , float fadeTime
+			, Color ambient)
         {
 
             TimeManager.TimeManager.GetInstance.sunLight.intensity =
@@ -258,6 +266,7 @@ namespace Project.Weather
             // Fog settings
             RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, fogDensity, Time.deltaTime / fadeTime);
             RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor, fogColor, Time.deltaTime / fadeTime);
+			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight , ambient, Time.deltaTime / fadeTime);
 
             DynamicGI.UpdateEnvironment();
         }

@@ -5,6 +5,46 @@ using UnityEngine;
 [System.Serializable]
 public class AIScript : ScriptableObject {
 
+    [SerializeField]
+    private int goodNumberOfWorkers = 2;
+    public int GoodNumberOfWorkers {
+        get {
+            return  goodNumberOfWorkers;
+        }
+    }
+
+
+    [SerializeField]
+    private List<Identification.UnitType> buildingsPriorityOrder;
+    public List<Identification.UnitType> BuildingsPriorityOrder {
+        get {
+            return buildingsPriorityOrder;
+        }
+    }
+
+
+    [SerializeField]
+    private List<Vector3> buildPoints;
+    public List<Vector3> BuildPoints {
+        get {
+            return buildPoints;
+        }
+    }
+
+
+    [SerializeField]
+    private List<Vector3> attackPoints;
+    public List<Vector3> AttackPoints {
+        get {
+            return attackPoints;
+        }
+    }
+
+
+
+///////////////////////////////////////////////////////
+
+
     [System.Serializable]
     public enum CommandType {
         SELECT, // UnitTypesList
@@ -52,6 +92,9 @@ public class AIScript : ScriptableObject {
     }
 
 
+    //////////////////////////////////////////////////////////////////
+
+
     [SerializeField]
     private List<CommandPair> commandsList;
     public List<CommandPair> CommandsList {
@@ -61,13 +104,4 @@ public class AIScript : ScriptableObject {
     }
 
 
-    [SerializeField]
-    private List<Identification.UnitType> buildingsPriorityOrder;
-
-
-    [SerializeField]
-    private List<Vector3> attackPoints;
-
-
-
-}
+} // End of class //

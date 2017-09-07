@@ -4,9 +4,11 @@ using UnityEngine;
 public class AIController {
 
 
-    public class BuildingsDictionary : Dictionary<Identification.UnitType, List<AbstractGameUnit>> {}
+//    public class BuildingsDictionary : Dictionary<Identification.UnitType, List<AbstractGameUnit>> {}
 
     private AIScript behaviourScript;
+
+
 
     public void Update() {
         // update information about number of buildings and units //
@@ -21,6 +23,24 @@ public class AIController {
         // if barracks unavailable, skip the step //
 
     }
+
+    private void Build(Identification.UnitType type) {
+        int numberOfWorkers = FindNumberOfWorkers();
+
+        if (numberOfWorkers < behaviourScript.)
+
+    }
+
+    private int FindNumberOfWorkers() {
+        return FindNumberOfUnitsOfType(Identification.UnitType.Worker);
+    }
+
+
+    private int FindNumberOfUnitsOfType (Identification.UnitType type) {
+        return thisArmyManager.NumberOfUnitsOfType(type);
+    }
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 

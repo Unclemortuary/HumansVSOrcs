@@ -80,6 +80,11 @@ namespace Project.Weather
         [SerializeField]
         protected Color _fogColor = Color.white;
 
+		[SerializeField]
+		protected Color _ambientColorDay = Color.white;
+		[SerializeField]
+		protected Color _ambientColorNight= Color.blue;
+
         /********** GENERAL **********/
 
         public bool IsUseDifferentFadeTimes {
@@ -228,21 +233,21 @@ namespace Project.Weather
                 case TimeOfDay.SUNRISE:
                     WeatherManager.GetInstance.UpdateAllWeather(
                         _sunriseLightIntensity, _sunriseLightColor,
-                        _sunriseSkyColor, _fogMorningAmount, _fogColor, _fadeTime
+					_sunriseSkyColor, _fogMorningAmount, _fogColor, _fadeTime,_ambientColorDay
                     );
                     break;
 
                 case TimeOfDay.DAY:
                     WeatherManager.GetInstance.UpdateAllWeather(
                         _dayLightIntensity, _dayLightColor,
-                        _daySkyColor, _fogAmount, _fogColor, _fadeTime
+					_daySkyColor, _fogAmount, _fogColor, _fadeTime,_ambientColorDay
                     );
                     break;
 
                 case TimeOfDay.NIGHT:
                     WeatherManager.GetInstance.UpdateAllWeather(
                         _nightLightIntensity, _nightLightColor,
-                        _nightSkyColor, _fogAmount, _fogColor, _fadeTime
+					_nightSkyColor, _fogAmount, _fogColor, _fadeTime,_ambientColorNight
                     );
                     break;
             }
@@ -253,28 +258,28 @@ namespace Project.Weather
                 case TimeOfDay.SUNRISE:
                     WeatherManager.GetInstance.UpdateAllWeather(
                         _sunriseLightIntensity, _sunriseLightColor, 
-                        _sunriseSkyColor, _fogMorningAmount, _fogColor, _sunriseFadeTime
+					_sunriseSkyColor, _fogMorningAmount, _fogColor, _sunriseFadeTime,_ambientColorDay
                     );
                     break;
 
                 case TimeOfDay.DAY:
                     WeatherManager.GetInstance.UpdateAllWeather(
                         _dayLightIntensity, _dayLightColor, 
-                        _daySkyColor, _fogAmount, _fogColor, _dayFadeTime
+					_daySkyColor, _fogAmount, _fogColor, _dayFadeTime,_ambientColorDay
                     );
                     break;
 
                 case TimeOfDay.SUNSET:
                     WeatherManager.GetInstance.UpdateAllWeather(
                         _sunsetLightIntensity, _sunsetLightColor,
-                        _sunsetSkyColor, _fogAmount, _fogColor, _sunsetFadeTime
+					_sunsetSkyColor, _fogAmount, _fogColor, _sunsetFadeTime,_ambientColorDay
                     );
                     break;
 
                 case TimeOfDay.NIGHT:
                     WeatherManager.GetInstance.UpdateAllWeather(
                         _nightLightIntensity, _nightLightColor,
-                        _nightSkyColor, _fogAmount, _fogColor, _nightFadeTime
+					_nightSkyColor, _fogAmount, _fogColor, _nightFadeTime, _ambientColorNight
                     );
                     break;
             }
