@@ -19,10 +19,12 @@ namespace Project.TimeManager
 		public float _currTime;
         public float CurrTime {
             get { return _currTime; }
+			//set { return _currTime = value;}
         }
         private TimeOfDay _currTimeOfDay;
         public TimeOfDay CurrTimeOfDay{
             get { return _currTimeOfDay; }
+			//set { return _currTimeOfDay = value;}
         }
 
         public TimeOfDay _currDebugTimeOfDay;
