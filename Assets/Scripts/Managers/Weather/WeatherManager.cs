@@ -23,6 +23,7 @@ namespace Project.Weather
         private int _minTimeBeforeChanging = 1000;
         private int _maxTimeBeforeChanging = 1500;
         private int _changeAfterTime = 13;
+		bool fireLightsState = false;
 
         [SerializeField]
         private WeatherType _currWeather;
@@ -179,23 +180,38 @@ namespace Project.Weather
 		//for buttons
         public void ChangeToSnow() {
             _currDebugWeather = WeatherType.SNOW;  
+			fireLightsState = false;
+			//FireLights ();
         }
 
 		public void ChangeToSun(){
 			_currDebugWeather = WeatherType.SUN;
-			//myManager.GetComponent<TimeManager> ()._currTime = 0.5f;
 			TimeManager.TimeManager.GetInstance._currTime = 0.5f;
+			fireLightsState = false;
+			//FireLights ();
 		}
 		public void ChangeToNight(){
 			_currDebugWeather = WeatherType.SUN;
-			//myManager.GetComponent<TimeManager> ()._currTime = 0.5f;
 			TimeManager.TimeManager.GetInstance._currTime = 0.9f;
+			fireLightsState = true;
+			//FireLights ();
 		}
 
 		public void ChangeToRain() {
 			_currDebugWeather = WeatherType.RAIN;
+			fireLightsState = false;
+			//FireLights ();
 		}
-			
+
+		void FireLights()
+		{
+			GameObject[] fires = GameObject.FindGameObjectsWithTag ("NIGHT");
+			for (int i = 0; i < fires.Length; i++) {
+					fires [i].SetActive (fireLightsState);
+				Debug.Log ("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+				Debug.Log (fires [i].name);
+			}
+		}
 
         public void SetWeather(WeatherType newWeather) {
             _timeSinceLastWeather = 0;
