@@ -80,8 +80,8 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 
 	public static bool CanBuildCheck(Vector3 position)
 	{
-		int iOffset = (int) ((8f / (GridMapManager.instance.CellSize * 2f)) + 1);
-		int jOffset = (int) ((8f / (GridMapManager.instance.CellSize * 2f)) + 1);
+		int iOffset = (int) ((10f / (GridMapManager.instance.CellSize * 2f)) + 1);
+		int jOffset = (int) ((10f / (GridMapManager.instance.CellSize * 2f)) + 1);
 
 		int currentI = (int) (position.x / GridMapManager.instance.CellSize);
 		int curretnJ = (int) (position.z / GridMapManager.instance.CellSize);

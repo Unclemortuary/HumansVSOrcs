@@ -27,6 +27,7 @@ public class AIController : AbstractContorller{
         BuildFarm,
 
         SendFiveUnitsToAttack,
+        SendTenUnitsToAttack,
 
         RandomUpgrade,
 
@@ -51,36 +52,43 @@ public class AIController : AbstractContorller{
             Debug.Log("########### >>> AI:: No Commands in Queue");
 
             int numberOfWorkers = FindNumberOfWorkers();
-            if (numberOfWorkers < behaviourScript.GoodNumberOfWorkers) {
+            if (numberOfWorkers < behaviourScript.GoodNumberOfWorkers
+                && ThisArmyManager.AvailableResources.HaveFreeLivingPlaces()) {
+
                 globalCommandsQueue.Enqueue(Commands.CreateWorker);
             }
 
             int numberOfWarriors = thisArmyManager.WarriorsCount;
 
-            if (numberOfWarriors >= 10) {
+            if (numberOfWarriors >= 30) {
+                globalCommandsQueue.Enqueue(Commands.SendTenUnitsToAttack);
+            } else if (numberOfWarriors >= 10) {
                 globalCommandsQueue.Enqueue(Commands.SendFiveUnitsToAttack);
-            } else {
-                globalCommandsQueue.Enqueue(Commands.CreateWarrior);
+            }
+
+            if (ThisArmyManager.AvailableResources.HaveFreeLivingPlaces()){
                 globalCommandsQueue.Enqueue(Commands.CreateWarrior);
             }
 
-//            List<Identification.UnitType> buildingsTypes = behaviourScript.BuildingsPriorityOrder;
-//
-//            foreach (Identification.UnitType type in buildingsTypes) {
-//                int num = FindNumberOfUnitsOfType(type) ;
-//
-//                if (num < 1) {
-//                    Commands buildCommand = GetBuildCommandByType(type);
-//                    globalCommandsQueue.Enqueue(buildCommand);
-//                    break;
-//                }
-//            }
-//
-//
-//
-//            if ( ! thisArmyManager.AvailableResources.HaveFreeLivingPlaces() ) {
-//                globalCommandsQueue.Enqueue(Commands.BuildSimpleHouse);
-//            }
+            if ( ! thisArmyManager.AvailableResources.HaveFreeLivingPlaces() ) {
+                globalCommandsQueue.Enqueue(Commands.BuildSimpleHouse);
+            }
+
+
+
+            List<Identification.UnitType> buildingsTypes = behaviourScript.BuildingsPriorityOrder;
+
+            foreach (Identification.UnitType type in buildingsTypes) {
+                int num = FindNumberOfUnitsOfType(type) ;
+
+                if (num < 1) {
+                    Commands buildCommand = GetBuildCommandByType(type);
+                    globalCommandsQueue.Enqueue(buildCommand);
+                    break;
+                }
+            }
+
+
 
 
             if (FindNumberOfUnitsOfType(Identification.UnitType.Forge) > 0) {
@@ -165,6 +173,9 @@ public class AIController : AbstractContorller{
             case Commands.SendFiveUnitsToAttack:
                 PerformSendUnitsToAttack(5);
                 break;
+            case Commands.SendTenUnitsToAttack:
+                PerformSendUnitsToAttack(10);
+                break;
             case Commands.BuildGeneral:
                 Build(RTSActionType.workersBuildGeneralHouse);
             break;
@@ -206,42 +217,51 @@ public class AIController : AbstractContorller{
             globalCommandsQueue.Enqueue(Commands.CreateWorker);
         } else {
 
+            Debug.Log(">>> AI:: Want to build " + buildActionType.ToString());
 
-//
-//
-//            Vector3 targetPosition = Vector3.forward;
-//
-//            AbstractGameUnit worker = ThisArmyManager.FindAnActiveUnitOfType(Identification.UnitType.Worker);
-//
-//            if (worker != null && worker.IsAvailableFoTasks) {
-//
-//                if (buildActionType == RTSActionType.workersBuildMine) {
-//                    List<Vector3> positions = behaviourScript.MineBuildPoints;
-//
-//                    targetPosition = FindTheClosestPosition(worker.Avatar.transform.position, positions);
-//
-//                } else if (buildActionType == RTSActionType.workersBuildQuarry) {
-//                    List<Vector3> positions = behaviourScript.QuarryBuildPoints;
-//
-//                    targetPosition = FindTheClosestPosition(worker.Avatar.transform.position, positions);
-//
-//                } else {
-//                    List<Vector3> positions = behaviourScript.BuildPoints;
-//
-//                    targetPosition = FindTheClosestFreePosition(worker.Avatar.transform.position, positions);
-//                }
-//
-//
-//                if (worker != null) {
-//                    ThisArmyDispatcher.TriggerCommand(ArmyMessageTypes.deselectUnits);
-//                    ThisArmyDispatcher.TriggerCommand<AbstractGameUnitsList>(ArmyMessageTypes.addUnitsToSelection, Enlist(worker));
-//                    ThisArmyDispatcher.TriggerCommand<RTSActionType>(ArmyMessageTypes.invokeRTSAction, buildActionType);
-//
-//                    ThisArmyDispatcher.TriggerCommand<Vector3>(ArmyMessageTypes.setTargetPoint, targetPosition);
-//                }
-//
-//            } // if found active worker //
-//
+
+
+            Vector3 targetPosition = Vector3.forward;
+
+            AbstractGameUnit worker = ThisArmyManager.FindAnActiveUnitOfType(Identification.UnitType.Worker);
+
+            if (worker != null && worker.IsAvailableFoTasks) {
+
+                Debug.Log(">>> AI:: Worker is found");
+
+
+                if (buildActionType == RTSActionType.workersBuildMine) {
+                    List<Vector3> positions = behaviourScript.MineBuildPoints;
+
+                    targetPosition = FindTheClosestPosition(worker.Avatar.transform.position, positions);
+
+                } else if (buildActionType == RTSActionType.workersBuildQuarry) {
+                    List<Vector3> positions = behaviourScript.QuarryBuildPoints;
+
+                    targetPosition = FindTheClosestPosition(worker.Avatar.transform.position, positions);
+
+                } else {
+
+
+                    List<Vector3> positions = behaviourScript.BuildPoints;
+
+                    targetPosition = FindTheClosestFreePosition(worker.Avatar.transform.position, positions);
+                }
+
+                Debug.Log(">>> AI:: Choosen target position is " + targetPosition);
+
+
+
+                if (worker != null && worker.IsAvailableFoTasks) {
+                    ThisArmyDispatcher.TriggerCommand(ArmyMessageTypes.deselectUnits);
+                    ThisArmyDispatcher.TriggerCommand<AbstractGameUnitsList>(ArmyMessageTypes.addUnitsToSelection, Enlist(worker));
+                    ThisArmyDispatcher.TriggerCommand<RTSActionType>(ArmyMessageTypes.invokeRTSAction, buildActionType);
+
+                    ThisArmyDispatcher.TriggerCommand<Vector3>(ArmyMessageTypes.setTargetPoint, targetPosition);
+                }
+
+            } // if found active worker //
+
 
         } // if have workers //
     } // Build() //
@@ -276,6 +296,7 @@ public class AIController : AbstractContorller{
             if (dist < bestDistance) {
                 bestCandidate = cand;
                 bestDistance = dist;
+                Debug.Log("-= Found better position, where i can build =- ");
             }
         }
 
@@ -294,7 +315,10 @@ public class AIController : AbstractContorller{
             selectedWarriors = new AbstractGameUnitsList();
 
             for (int i = 0; i < number; i++) {
-                selectedWarriors.Add(warriors[random.Next(0,warriors.Count)]);
+                AbstractGameUnit unit = warriors[random.Next(0,warriors.Count)];
+                if (ThisArmyManager.GetTypeByAbstractGameUnit(unit) != Identification.UnitType.Worker) {
+                    selectedWarriors.Add(unit);
+                }
             }
 
         }
