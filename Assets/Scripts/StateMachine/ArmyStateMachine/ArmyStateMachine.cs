@@ -262,10 +262,14 @@ public class ArmyStateMachine : StateMachine<ArmySMStateType, ArmySMTransitionTy
     }
 
     private void TurnAllSelections(bool on) {
-        foreach (AbstractGameUnit unit in data.SelectedUnits) {
-            data.ThisArmyManager.Dispatcher.TriggerCommand<bool>(
-                    ArmyMessageTypes.unitCommandTurnSelection,
-                    on, unit.ID);
+
+        if ((data.ThisArmyManager.ThisArmy == GameManager.Instance.PlayerArmy)
+                ||  GameManager.Instance.AILightsOn) {
+            foreach (AbstractGameUnit unit in data.SelectedUnits) {
+                data.ThisArmyManager.Dispatcher.TriggerCommand<bool>(
+                        ArmyMessageTypes.unitCommandTurnSelection,
+                        on, unit.ID);
+            }
         }
     }
 

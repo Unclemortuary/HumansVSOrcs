@@ -142,7 +142,7 @@ public class WorkerBuildAction : AbstractRTSAction {
 
         foreach(AbstractGameUnit unit in data.SelectedUnits) {
 
-            if(unit.IsActive) {
+            if(unit.IsAvailableFoTasks) {
 //                performerBuilderReactions = unit.Avatar.GetComponent<BuilderReactionsComponent>();
 
 //                if (performerBuilderReactions != null) {

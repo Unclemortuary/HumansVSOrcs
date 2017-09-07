@@ -45,7 +45,7 @@ public class ProgressBarHandler : MonoBehaviour {
 	{
 		if (currentUnit != null)
 		{
-			if (currentUnit.IsActive)
+			if (currentUnit.IsAvailableFoTasks)
 				ActionFinished ();
 			else
 			{

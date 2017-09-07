@@ -410,8 +410,10 @@ public class GameManager : MonoBehaviour {
 
     // Controllers ///////////////////////////////////////////////////////////
 
-    NeutralsController neutralsController;
-    AIController enemyController;
+    public bool AILightsOn  = false;
+
+    AbstractContorller neutralsController;
+    AbstractContorller enemyController;
 
     [SerializeField]
     private AIScript scriptForAI;
@@ -426,14 +428,16 @@ public class GameManager : MonoBehaviour {
 
         // AI controllers //
 
+        AILightsOn = scriptForAI.AiLightsOn;
+
         if(playerArmy == Identification.Army.Orcs) {
-            enemyController = new AIController(armyManagers[Identification.Army.Humans], scriptForAI);
+            enemyController = new AIController(armyManagers[Identification.Army.Humans], scriptForAI, gameObject);
+//            enemyController = new NeutralsController(armyManagers[Identification.Army.Humans]);
         } else {
-            enemyController = new AIController(armyManagers[Identification.Army.Orcs], scriptForAI);
+            enemyController = new AIController(armyManagers[Identification.Army.Orcs], scriptForAI, gameObject);
+//            enemyController = new NeutralsController(armyManagers[Identification.Army.Orcs]);
         }
 
-        AIUpdaterComponent component = gameObject.AddComponent<AIUpdaterComponent>();
-        component.SetAIController(enemyController);
 
     } // InitializeControllers() //
 

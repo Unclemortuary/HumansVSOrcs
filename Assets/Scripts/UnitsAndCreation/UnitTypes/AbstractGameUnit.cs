@@ -7,7 +7,7 @@ public abstract class AbstractGameUnit {
 
     [SerializeField]
     protected bool isActive = true;
-    public bool IsActive {
+    public bool IsAvailableFoTasks {
         get {
             return isActive;
         }

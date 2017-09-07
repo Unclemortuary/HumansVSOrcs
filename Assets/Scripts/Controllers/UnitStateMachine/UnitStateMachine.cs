@@ -140,7 +140,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 // ################################################################################
     public void TransitionToIdleState() {
 
-        if (helper.ThisUnit.IsActive) {
+        if (helper.ThisUnit.IsAvailableFoTasks) {
 
             if (helper.Agent != null) {
                 helper.Agent.ResetPath();
@@ -173,7 +173,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 // ################################################################################
     public void TransitionToWalkingToPointState(Vector3 pos) {
 
-        if (helper.ThisUnit.IsActive && helper.Agent != null) {
+        if (helper.ThisUnit.IsAvailableFoTasks && helper.Agent != null) {
 
             helper.Agent.destination = pos;
 
@@ -194,7 +194,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
 // ################################################################################
     public void TransitionToStandPreparedState() {
-        if(helper.ThisUnit.IsActive) {
+        if(helper.ThisUnit.IsAvailableFoTasks) {
             Debug.Log(">>> goto Stand Prepared State <<< unitID=" + helper.ThisUnit.ID);
             currentState = State.STAND_PREPARED;
         }
@@ -216,7 +216,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 // ################################################################################
     public void TransitionToMoveAndAttackState(Vector3 attackPoint) {
 
-        if (helper.ThisUnit.IsActive && helper.Agent != null) {
+        if (helper.ThisUnit.IsAvailableFoTasks && helper.Agent != null) {
 
             helper.Agent.destination = attackPoint;
 
@@ -256,7 +256,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 
     public void TransitionToFollowAndAttackState(IEnemyHelper enemyHelper) {
 
-        if (helper.ThisUnit.IsActive) {
+        if (helper.ThisUnit.IsAvailableFoTasks) {
 
             helper.TargetEnemyHelper = enemyHelper;
 
@@ -326,7 +326,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 // # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
     private void TransitionToCooldownState() {
-        if (helper.ThisUnit.IsActive) {
+        if (helper.ThisUnit.IsAvailableFoTasks) {
 
             currentState = State.COOLDOWN;
 
@@ -394,7 +394,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 // ################################################################################
     public void TransitionToHoldPositionState() {
 
-        if (helper.ThisUnit.IsActive) {
+        if (helper.ThisUnit.IsAvailableFoTasks) {
 
 
 
@@ -413,7 +413,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 // ################################################################################
     public void TransitionToGoingToBuildState(AbstractGameUnit building) {
 
-        if (helper.ThisUnit.IsActive) {
+        if (helper.ThisUnit.IsAvailableFoTasks) {
 
 
             helper.TargetUnit = building;
@@ -543,16 +543,16 @@ public class UnitStateMachine : RTSMonoBehaviour {
         Debug.Log("##### Set Activity to " + val.ToString());
 
         if (helper.TargetUnit != null) {
-            helper.TargetUnit.IsActive = val;
+            helper.TargetUnit.IsAvailableFoTasks = val;
         }
-        helper.ThisUnit.IsActive = val;
+        helper.ThisUnit.IsAvailableFoTasks = val;
         armyManager.Dispatcher.TriggerCommand(ArmyMessageTypes.refreshSelection);
     }
 
 // ################################################################################
     public void TransitionToCreatingUnitState(AbstractGameUnit newUnit) {
 
-        if (helper.ThisUnit.IsActive) {
+        if (helper.ThisUnit.IsAvailableFoTasks) {
 
             helper.TargetUnit = newUnit;
 
@@ -626,7 +626,7 @@ public class UnitStateMachine : RTSMonoBehaviour {
 // ################################################################################
     public void TransitionToIsDeadState() {
 
-        helper.ThisUnit.IsActive = false;
+        helper.ThisUnit.IsAvailableFoTasks = false;
 
         armyManager.Dispatcher.TriggerCommand<AbstractGameUnit>(ArmyMessageTypes.unitCryIsDead, helper.ThisUnit);
 

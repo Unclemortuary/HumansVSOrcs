@@ -204,7 +204,7 @@ public class ClonnableGameUnit : AbstractGameUnit {
 
 //        this.actionsList = NoActions;
 
-        this.IsActive = false;
+        this.IsAvailableFoTasks = false;
     }
 
     public override bool IsDead() {

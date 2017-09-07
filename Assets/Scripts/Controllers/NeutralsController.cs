@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NeutralsController {
+public class NeutralsController : AbstractContorller {
 
 /////////////////////////////
 

@@ -13,6 +13,22 @@ public class AIScript : ScriptableObject {
         }
     }
 
+    [SerializeField]
+    private float timePerStep = 3f;
+    public float TiimePerStep {
+        get {
+            return timePerStep;
+        }
+    }
+
+    [SerializeField]
+    private bool aiLightsOn;
+    public bool AiLightsOn {
+        get {
+            return aiLightsOn;
+        }
+    }
+
 
     [SerializeField]
     private List<Identification.UnitType> buildingsPriorityOrder;
@@ -28,6 +44,22 @@ public class AIScript : ScriptableObject {
     public List<Vector3> BuildPoints {
         get {
             return buildPoints;
+        }
+    }
+
+    [SerializeField]
+    private List<Vector3> mineBuildPoints;
+    public List<Vector3> MineBuildPoints {
+        get {
+            return mineBuildPoints;
+        }
+    }
+
+    [SerializeField]
+    private List<Vector3> quarryBuildPoints;
+    public List<Vector3> QuarryBuildPoints {
+        get {
+            return quarryBuildPoints;
         }
     }
 

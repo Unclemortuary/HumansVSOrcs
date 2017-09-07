@@ -78,6 +78,17 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 		return GridMapManager.instance.MapArrayCheck (currentI - iOffset, curretnJ - jOffset, currentI + iOffset, curretnJ + jOffset);
 	}
 
+	public static bool CanBuildCheck(Vector3 position)
+	{
+		int iOffset = (int) ((8f / (GridMapManager.instance.CellSize * 2f)) + 1);
+		int jOffset = (int) ((8f / (GridMapManager.instance.CellSize * 2f)) + 1);
+
+		int currentI = (int) (position.x / GridMapManager.instance.CellSize);
+		int curretnJ = (int) (position.z / GridMapManager.instance.CellSize);
+
+		return GridMapManager.instance.MapArrayCheck (currentI - iOffset, curretnJ - jOffset, currentI + iOffset, curretnJ + jOffset);
+	}
+
 	public static bool CanBuildCheck(Vector3 position, float width, float height)
 	{
 		int iOffset = (int) ((width / (GridMapManager.instance.CellSize * 2f)) + 1);
@@ -88,4 +99,6 @@ public class BuildingsConstructionHandler : MonoBehaviour {
 
 		return GridMapManager.instance.MapArrayCheck (currentI - iOffset, curretnJ - jOffset, currentI + iOffset, curretnJ + jOffset);
 	}
+
+
 }

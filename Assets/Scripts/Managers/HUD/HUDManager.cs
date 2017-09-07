@@ -183,7 +183,7 @@ public class HUDManager : MonoBehaviour {
         List<RTSActionType> resultingList = new List<RTSActionType>();
 		foreach (AbstractGameUnit unit in list) {
 
-            if (unit.IsActive) {
+            if (unit.IsAvailableFoTasks) {
                 List<RTSActionType> types = unit.Characteristics.ActionsList;
 
                 if (types != null) {

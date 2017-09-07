@@ -59,16 +59,29 @@ public class ArmyManager {
 
     private Dictionary<int, AbstractGameUnit> warriors;
     private Dictionary<int, AbstractGameUnit> buildings;
+
     public AbstractGameUnitsList Warriors {
         get {
             return Dict2Values(warriors);
         }
     }
+    public int WarriorsCount {
+        get {
+            return warriors.Count;
+        }
+    }
+
     public AbstractGameUnitsList Buildings {
         get {
             return Dict2Values(buildings);
         }
     }
+    public int BuildingsCount {
+        get {
+            return  buildings.Count;
+        }
+    }
+
     private AbstractGameUnitsList Dict2Values(Dictionary<int, AbstractGameUnit> dict) {
         AbstractGameUnitsList lst = new AbstractGameUnitsList();
 
@@ -328,11 +341,6 @@ public class ArmyManager {
 
     public void DestroyGameUnit(int id) {
 
-        // Remove from dictionary //
-        if (id2typeDictionary[id] != null) {
-            id2typeDictionary.Remove(id);
-        }
-
         ///////
 
         AbstractGameUnit unit = null;
@@ -366,7 +374,15 @@ public class ArmyManager {
             unit.Nullify();
             GameManager.Instance.PlayerController.PlayerArmyDispatcher.TriggerCommand(ArmyMessageTypes.refreshSelection);
         }
-    }
+
+        // Remove from dictionary //
+        if (id2typeDictionary[id] != null) {
+            id2typeDictionary.Remove(id);
+        }
+
+
+    } // DestroyGameUnit (id) //
+
 
     // static ??
     private void InstantiateDeadBody(AbstractGameUnit unit) {
@@ -393,6 +409,24 @@ public class ArmyManager {
 
         return num;
     }
+
+    public AbstractGameUnit FindAnActiveUnitOfType(Identification.UnitType type) {
+        AbstractGameUnit unit = null;
+        foreach (int id in id2typeDictionary.Keys) {
+            if (id2typeDictionary[id] == type) {
+                unit = FindGameUnit(id);
+                if (unit.IsAvailableFoTasks) {
+                    break;
+                } else {
+                    unit = null;
+                }
+            }
+        }
+
+        return unit;
+    }
+
+
 
     public AbstractGameUnitsList FindWarriorsWithinViewportBounds(Bounds bounds) {
         return FindGameUnitsWithinViewportBounds(warriors.Values, bounds);
