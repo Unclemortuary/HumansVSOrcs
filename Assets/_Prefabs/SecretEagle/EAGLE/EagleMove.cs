@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.ImageEffects;
 
 public class EagleMove : MonoBehaviour {
 
@@ -27,6 +28,7 @@ public class EagleMove : MonoBehaviour {
 	public GameObject parts;
 	public SkinnedMeshRenderer meshEagle;
 
+	bool eagleView = false;
 	Vector3 startPosition;
 
 	void Start ()
@@ -42,6 +44,16 @@ public class EagleMove : MonoBehaviour {
 			ChangeCameraState ();
 		}
 		EagleMover ();
+		EagleView ();
+	}
+
+	void EagleView()
+	{
+		if(Input.GetKeyUp (KeyCode.V))
+		{
+			eagleView = !eagleView;
+		}
+		eagleCamera.gameObject.GetComponent<ColorCorrectionCurves> ().enabled = eagleView;
 	}
 
 	void ChangeCameraState()
