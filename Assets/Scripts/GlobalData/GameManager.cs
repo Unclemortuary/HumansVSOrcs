@@ -103,6 +103,11 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private HUDManager hudManager;
 
+	public HUDManager HUD {
+		get {
+			return hudManager;
+		}
+	}
 
     [SerializeField]
     private List<TerrainReactionsComponent> terrainReactionsList = new List<TerrainReactionsComponent>();

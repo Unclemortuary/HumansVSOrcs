@@ -11,6 +11,9 @@ public class InputReader : MonoBehaviour{
     [SerializeField]
     private float borderDelta = 10;
 
+	[SerializeField]
+	private bool hudState = true;
+
 
     [SerializeField]
     private CameraMoverV2 cameraMover;
@@ -45,10 +48,21 @@ public class InputReader : MonoBehaviour{
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.S)) {
+		if (Input.GetKeyDown(KeyCode.F6)) {
             GameManager.Instance.SaveCurrentGamePositions();
         }
 
+		if (Input.GetKeyDown(KeyCode.L)) {
+			cameraMover.MouseSpeed = 0;
+		}
+
+		if (Input.GetKeyDown(KeyCode.C)) {
+			hudState = !hudState;
+			GameManager.Instance.HUD.GetComponent<Canvas>().enabled = hudState;
+		}
+		if (Input.GetKeyDown (KeyCode.I)) {
+			GameManager.Instance.gameObject.GetComponent<MenuChecker> ().MenuStateChange ();
+		}
     }
 
 

@@ -50,7 +50,10 @@ public class CameraMoverV2 : MonoBehaviour {
     [SerializeField]
     private float moveAtCamSize;
 
-
+	public float MouseSpeed{
+		get{return mouseSpeed;}
+		set{mouseSpeed = value;}
+	}
 
 
     private float limitedValue(float value, float min, float max) {
